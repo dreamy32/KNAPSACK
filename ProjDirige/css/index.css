@@ -1,5 +1,26 @@
+@font-face {
+  font-family: "Minecraftia";
+  src: url("../fonts/Minecraftia-Regular.eot");
+  src: url("../fonts/Minecraftia-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Minecraftia-Regular.woff2") format("woff2"), url("../fonts/Minecraftia-Regular.woff") format("woff"), url("../fonts/Minecraftia-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   margin: 0;
+  font-family: "Minecraftia";
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-pixelated;
+      image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+span,
+p {
+  text-shadow: 2px 2px black;
 }
 
 .container {
@@ -51,8 +72,9 @@ body {
 
 .item3 {
   background: url(../images/background.png);
+  height: 100%;
   background-size: 100% 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
   direction: rtl;
   -ms-grid-row: 2;
   -ms-grid-column: 1;
@@ -63,24 +85,43 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  margin-left: 3vh;
-  margin-right: 3vh;
-  max-width: 1220px;
+  margin: 5vh 3vh;
 }
 
 .item3 section article {
   background: url(../images/boxTopRow.png);
   background-repeat: no-repeat;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 8vh;
   height: 8vh;
+}
+
+.item3 section article:hover {
+  background: url(../images/hovered_box.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.item3 section article img {
+  width: 5vh;
 }
 
 .item4 {
@@ -102,6 +143,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
@@ -111,5 +154,42 @@ body {
 .fullWidth {
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 50px;
+  background: url(../images/scrollbar.png) no-repeat;
+  background-size: 100% 100.5%;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  background: url(../images/thumb.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.advancedSearch {
+  background: url(../images/button.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-preferred-size: 65vh;
+      flex-basis: 65vh;
+  height: 5vh;
+  font-size: 2vh;
+}
+
+.advancedSearch:hover {
+  background: url(../images/hovered_button.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 /*# sourceMappingURL=index.css.map */

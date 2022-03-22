@@ -5,9 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="//db.onlinewebfonts.com/c/6ab539c6fc2b21ff0b149b3d06d7f97c?family=Minecraft" rel="stylesheet"
+        type="text/css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/grid.css" />
     <link rel="stylesheet" href="css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/mc-tooltips.css">
     <title>Document</title>
 </head>
 
@@ -23,6 +27,9 @@
 
     
 -->
+    <div id="minetip-tooltip">
+        <span class="minetip-title" id="minetip-text">Minecraft Tip</span>
+    </div>
     <div class="container">
         <header class="header">
             <div class="profileInfo fullWidth">
@@ -49,7 +56,10 @@
                 </div>
                 <span style="font-size: small;"><i>31/150 lb</i></span>
             </div>
-            <div class="searchAndCart fullWidth">
+            <div class="advancedSearch">
+                <p>Recherche Avancée</p>
+            </div>
+            <div class="searchAndCart">
                 <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x cart"></i>
                     <i class="fa-light fa-cart-shopping fa-stack-1x"></i>
@@ -59,14 +69,33 @@
         <main class="item item2">
             <p>Informations</p>
         </main>
-        <nav class="item3">
+        <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
-               
-                <article></article>
-                <article></article>
-                <article></article>
-                <article></article>
-                <article></article>
+
+                <article>
+
+                    <img class="minetext" data-mctitle="Apple&nbsp;5lb"
+                        src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png"
+                        alt="">
+                </article>
+                <article>
+                    <img src="https://preview.redd.it/pqn17z5x5t261.png?auto=webp&s=7dbef74fcb909b78c7894d01e8ab739df0ebdd91"
+                        alt="">
+                </article>
+                <article>
+                    <img src="https://static.sena.com/images/default-source/products/Momentum-EVO/sena_carousel_momentum-evo8df5393987684e4c811156d11bff42f9.png?sfvrsn=5c9d778c_0"
+                        alt="">
+                </article>
+                <article>
+                    <img class="minetext" data-mctitle="Fallout Gun"
+                        src="https://th.bing.com/th/id/R.9c29b86f65d29a05d2b26ff4d4898b23?rik=Eo9nUsGrmeHxnQ&riu=http%3a%2f%2fimg2.wikia.nocookie.net%2f__cb20101125041223%2ffallout%2fimages%2farchive%2fa%2fa5%2f20110206033350!Vance%27s_9mm_submachine_gun.png&ehk=L%2bhQpamBxmhwGbX3y%2bmuILWG6w4nDD21wgK3noG1zGo%3d&risl=&pid=ImgRaw&r=0"
+                        alt="">
+                </article>
+                <article>
+                    <img class="minetext" data-mctitle="Sword"
+                        src="https://static.wikia.nocookie.net/fallout/images/9/90/FO76_Cultist_blade.png/revision/latest?cb=20210224225701"
+                        alt="">
+                </article>
                 <article></article>
                 <article></article>
                 <article></article>
@@ -365,7 +394,7 @@
             </section>
         </nav>
     </div>
-    </div>
+    <script src="js/mc-tooltips.js"></script>
 </body>
 
 </html>

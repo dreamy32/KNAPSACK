@@ -1,5 +1,34 @@
+// @import url(//db.onlinewebfonts.com/c/6ab539c6fc2b21ff0b149b3d06d7f97c?family=Minecraft);
+// @font-face {
+//     font-family: "Minecraft";
+//     src: url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.eot");
+//     src: url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.eot?#iefix") format("embedded-opentype"),
+//         url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff2") format("woff2"),
+//         url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff") format("woff"),
+//         url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.ttf") format("truetype"),
+//         url("//db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.svg#Minecraft") format("svg");
+// }
+@font-face {
+    font-family: "Minecraftia";
+    src: url("../fonts/Minecraftia-Regular.eot");
+    src: url("../fonts/Minecraftia-Regular.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Minecraftia-Regular.woff2") format("woff2"),
+        url("../fonts/Minecraftia-Regular.woff") format("woff"),
+        url("../fonts/Minecraftia-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
     margin: 0;
+    font-family: "Minecraftia";
+    image-rendering: pixelated;
+    cursor: crosshair;
+}
+span,
+p {
+    text-shadow: 2px 2px black;
 }
 
 $white: #ffffff;
@@ -44,27 +73,35 @@ $lightblue: #5faaa7;
 
 .item3 {
     background: $listBackground;
+    height: 100%;
     background-size: 100% 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     direction: rtl;
     grid-area: content;
-    section{
+    section {
         display: flex;
+        flex-direction: row-reverse;
         justify-content: center;
         flex-wrap: wrap;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-        margin-left: 3vh;
-        margin-right: 3vh;
-        max-width: 1220px;
-        // width: ;
+        margin: 5vh 3vh;
         // max-width: 1220px;
-        article{
+        article {
             background: $boxImgTop;
             background-repeat: no-repeat;
             background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: $boxDim;
             height: $boxDim;
+            &:hover {
+                background: url(../images/hovered_box.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            img {
+                width: 5vh;
+            }
         }
     }
 }
@@ -91,13 +128,42 @@ $iconBgColor: black;
 .cart {
     color: rgb(29, 57, 80);
 }
-.profileInfo{
+.profileInfo {
     display: flex;
 }
-.searchAndCart{
+.searchAndCart {
     display: flex;
+    flex-basis: 50%;
     flex-direction: row-reverse;
 }
-.fullWidth{
+.fullWidth {
     flex-basis: 100%;
+}
+
+#style-1::-webkit-scrollbar {
+    width: 50px;
+    background: url(../images/scrollbar.png) no-repeat;
+    background-size: 100% 100.5%;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+    background: url(../images/thumb.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.advancedSearch {
+    background: url(../images/button.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 65vh;
+    height: 5vh;
+    font-size: 2vh;
+    &:hover {
+        background: url(../images/hovered_button.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
 }
