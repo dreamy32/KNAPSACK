@@ -25,16 +25,16 @@ BEGIN
 	END IF;    
 END $$
 
-#Afficher objets en vente sans les détails de son type
+#Afficher objets en vente sans les détails de son type [Mettre % entre paramètre pour afficher tout]
 DELIMITER $$
-CREATE PROCEDURE AfficherItemsVente()
+CREATE PROCEDURE AfficherItemsVente(tType char(1))
 BEGIN
-	SELECT nom, quantite, type, prixUnitaire, poids, description from Items where estEnVente = 1;
+	SELECT nom, quantite, type, prixUnitaire, poids, description from Items where estEnVente = 1 and type LIKE tType;
 END $$
 
 #Afficher les details selon le type d'un item
 DELIMITER $$
-CREATE PROCEDURE AfficherItemDetails(IdItemsP int(11))
+CREATE PROCEDURE AfficherItemDetails(IdItemsP int)
 BEGIN
 DECLARE typeItem char(1);
 	IF IdItemsP > 0 THEN
@@ -193,8 +193,6 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Les valeurs sont mauvaises';
 	END IF;    
 END $$
-
-
 /*
 call AfficherItemsVente();
 call AjouterArmure('Item6', 69, 'A', 69, 71, 'description basique', 1, 'antozMatiere', 69);
@@ -213,3 +211,4 @@ select * from Items inner join Munitions on Items.IdItems = Munitions.Items_IdIt
 select * from Items inner join Armes on Items.IdItems = Armes.Items_IdItems;
 SELECT * FROM Medicament;
 select * from Items;*/
+call AfficherItemsVente('%');
