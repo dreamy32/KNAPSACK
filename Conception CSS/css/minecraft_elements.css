@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Minecraftia";
   src: url("../fonts/Minecraftia-Regular.eot");
@@ -17,7 +18,7 @@ body {
       image-rendering: pixelated;
 }
 
-body > * {
+* {
   font-family: "Minecraftia";
   color: white;
   text-shadow: 2px 2px black;
@@ -25,36 +26,40 @@ body > * {
           box-sizing: border-box;
 }
 
-button {
+button, input[type="submit"] {
   background: url(../images/button.png) 0 0/100% 100%;
   padding: 5px 40px;
   font-size: large;
   border: none;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover {
   background: url(../images/hovered_button.png) 0 0/100% 100%;
 }
 
-button[aria-label="Plus"] {
+button[aria-label="Doré"], input[type="submit"][aria-label="Doré"] {
+  background: url(../images/golden_button.png) 0 0/100% 100%;
+}
+
+button[aria-label="Plus"], input[type="submit"][aria-label="Plus"] {
   background: url(../images/plus_icon.png) 0 0/100% 100%;
   padding: 20px;
 }
 
-button[aria-label="Plus"]:hover {
+button[aria-label="Plus"]:hover, input[type="submit"][aria-label="Plus"]:hover {
   background: url(../images/hovered_plus_icon.png) 0 0/100% 100%;
 }
 
-button[aria-label="Minus"] {
+button[aria-label="Minus"], input[type="submit"][aria-label="Minus"] {
   background: url(../images/minus_icon.png) 0 0/100% 100%;
   padding: 20px;
 }
 
-button[aria-label="Minus"]:hover {
+button[aria-label="Minus"]:hover, input[type="submit"][aria-label="Minus"]:hover {
   background: url(../images/hovered_minus_icon.png) 0 0/100% 100%;
 }
 
-input {
+input[type]:not([type="range"]) {
   border: none;
   background: url(../images/input.png) 0 0/100% 100%;
   font-size: 1.7em;
@@ -62,58 +67,58 @@ input {
   outline-width: 0;
 }
 
-input::-webkit-input-placeholder {
+input[type]:not([type="range"])::-webkit-input-placeholder {
   font-style: italic;
   color: #a8a8a8;
   text-shadow: none;
 }
 
-input:-ms-input-placeholder {
+input[type]:not([type="range"]):-ms-input-placeholder {
   font-style: italic;
   color: #a8a8a8;
   text-shadow: none;
 }
 
-input::-ms-input-placeholder {
+input[type]:not([type="range"])::-ms-input-placeholder {
   font-style: italic;
   color: #a8a8a8;
   text-shadow: none;
 }
 
-input::placeholder {
+input[type]:not([type="range"])::placeholder {
   font-style: italic;
   color: #a8a8a8;
   text-shadow: none;
 }
 
-input[aria-label="Alternative"] {
+input[type]:not([type="range"])[aria-label="Alternative"] {
   background: none black;
   border: 4px solid gray;
   padding: 10px;
 }
 
-input[aria-label="Alternative"]:focus {
+input[type]:not([type="range"])[aria-label="Alternative"]:focus {
   border-color: white;
 }
 
-input[type="checkbox"] {
+input[type]:not([type="range"])[type="checkbox"] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background: url(../images/checkbox.png) 0 0/100%;
+  background: url(../images/checkbox.png) 0 0/100% 100%;
   width: 50px;
   height: 50px;
 }
 
-input[type="checkbox"]:checked {
-  background: url(../images/checked_checkbox.png) 0 0/100%;
+input[type]:not([type="range"])[type="checkbox"]:checked {
+  background: url(../images/checked_checkbox.png) 0 0/100% 100%;
 }
 
-input[type="checkbox"]:checked:hover {
-  background: url(../images/hovered_checked_checkbox.png) 0 0/100%;
+input[type]:not([type="range"])[type="checkbox"]:checked:hover {
+  background: url(../images/hovered_checked_checkbox.png) 0 0/100% 100%;
 }
 
-input[type="checkbox"]:hover {
-  background: url(../images/hovered_checkbox.png) 0 0/100%;
+input[type]:not([type="range"])[type="checkbox"]:hover {
+  background: url(../images/hovered_checkbox.png) 0 0/100% 100%;
 }
 /*# sourceMappingURL=minecraft_elements.css.map */

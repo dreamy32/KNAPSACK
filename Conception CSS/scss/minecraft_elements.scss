@@ -16,7 +16,7 @@ body {
     background-size: cover;
     image-rendering: pixelated;
 }
-body > * {
+* {
     font-family: "Minecraftia";
     color: white;
     text-shadow: 2px 2px black;
@@ -24,36 +24,41 @@ body > * {
 }
 
 //Boutons
-button {
-    background: url(../images/button.png) 0 0 / 100% 100%;
+$fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
+button, input[type="submit"] {
+    background: url(../images/button.png) $fullSize;
     padding: 5px 40px;
     font-size: large;
     border: none;
     &:hover {
-        background: url(../images/hovered_button.png) 0 0 / 100% 100%;
+        background: url(../images/hovered_button.png) $fullSize;
     }
     &[aria-label="Doré"] {
-        // Demandé à Amélie le bouton doré l'image
+        background: url(../images/golden_button.png) $fullSize;
+        &:hover{
+            
+        }
     }
     &[aria-label="Plus"] {
-        background: url(../images/plus_icon.png) 0 0 / 100% 100%;
+        background: url(../images/plus_icon.png) $fullSize;
         padding: 20px;
         &:hover {
-            background: url(../images/hovered_plus_icon.png) 0 0 / 100% 100%;
+            background: url(../images/hovered_plus_icon.png) $fullSize;
         }
     }
     &[aria-label="Minus"] {
-        background: url(../images/minus_icon.png) 0 0 / 100% 100%;
+        background: url(../images/minus_icon.png) $fullSize;
         padding: 20px;
         &:hover {
-            background: url(../images/hovered_minus_icon.png) 0 0 / 100% 100%;
+            background: url(../images/hovered_minus_icon.png) $fullSize;
         }
     }
 }
-//Inputs
-input {
+
+//Inputs (Except range)
+input[type]:not([type="range"]) {
     border: none;
-    background: url(../images/input.png) 0 0 / 100% 100%;
+    background: url(../images/input.png) $fullSize;
     font-size: 1.7em;
     padding: 25px;
     outline-width: 0; //Retirer le contour de sélection
@@ -74,18 +79,18 @@ input {
     //Checkbox reference: https://www.html5canvastutorials.com/blog/2012/06/custom-form-radio-checkbox/
     &[type="checkbox"] {
         appearance: none;
-        background: url(../images/checkbox.png) 0 0 / 100%;
+        background: url(../images/checkbox.png) $fullSize;
         width: 50px;
         height: 50px;
         &:checked {
-            background: url(../images/checked_checkbox.png) 0 0 / 100%;
+            background: url(../images/checked_checkbox.png) $fullSize;
         }
         //
         &:checked:hover {
-            background: url(../images/hovered_checked_checkbox.png) 0 0 / 100%;
+            background: url(../images/hovered_checked_checkbox.png) $fullSize;
         }
         &:hover {
-            background: url(../images/hovered_checkbox.png) 0 0 / 100%;
+            background: url(../images/hovered_checkbox.png) $fullSize;
         }
     }
 }
