@@ -5,7 +5,7 @@
 | Amélie Bouchard | Antony Collin-Desrochers | KNAPSACK |
 | David Bérubé    | Samy Tétrault            |          |
 +--------------------------------------------+----s------+
-*/ 
+*/
 
 #Ajouter Armure
 DELIMITER $$
@@ -202,3 +202,68 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Les valeurs sont mauvaises';
 	END IF;    
 END $$
+
+#Afficher Panier
+DELIMITER $$
+CREATE PROCEDURE AfficherPanier
+(IdJoueurP int(11))
+BEGIN
+	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = IdJoueurP)
+    THEN
+			SELECT Items_IdItems, qteAchat FROM Panier WHERE Joueurs_IdJoueur = IdJoueurP;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
+	END IF;    
+END $$
+
+#Afficher Inventaire
+DELIMITER $$
+CREATE PROCEDURE AfficherInventaire
+(IdJoueurP int(11))
+BEGIN
+	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = IdJoueurP)
+    THEN
+			SELECT quantite, date, Items_IdItems FROM Inventaire WHERE Joueurs_IdJoueur = IdJoueurP;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
+	END IF;    
+END $$
+
+#Ajouter un Item à Inventaire
+DELIMITER $$
+CREATE PROCEDURE AjouterItemInventaire
+(quantiteP int(11), Items_IdItemsP int(11), Joueurs_IdJoueurP int(11))
+BEGIN
+	IF quantiteP > 0 AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP)
+    THEN
+		INSERT INTO Inventaire(quantite, date, Items_IdItems, Joueurs_IdJoueur)
+        VALUES (quantiteP,NOW(),Items_IdItemsP,Joueurs_IdJoueurP);
+		COMMIT;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'valeurs mauvaises';
+	END IF;    
+END $$
+
+#Montant total panier
+DELIMITER ;;
+CREATE FUNCTION MontantTotalPanier (IdJoueur int(11)) RETURNS float
+BEGIN
+DECLARE total float;
+	SET total = (SELECT SUM(prixUnitaire * qteAchat) FROM Items INNER JOIN Panier ON Items.IdItems = Panier.Items_IdItems WHERE Joueurs_IdJoueur = IdJoueur); # * nb items
+    RETURN total;
+END ;;
+
+#Afficher toute infos joueur selon alias meme id
+DELIMITER $$
+CREATE PROCEDURE AfficherInfosJoueur
+(aliasP varchar(30))
+BEGIN
+	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE alias = aliasP)
+    THEN
+			SELECT Idjoueur, Solde, dexterite, poidsMaxTransport, alias, nom, prenom, motDePasse, dateCreation, courriel FROM Joueurs WHERE alias = aliasP;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
+	END IF;    
+END $$
+
+
