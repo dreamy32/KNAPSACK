@@ -244,6 +244,7 @@ BEGIN
 	END IF;    
 END $$
 
+/*
 #Montant total panier
 DELIMITER ;;
 CREATE FUNCTION MontantTotalPanier (IdJoueur int(11)) RETURNS float
@@ -252,6 +253,19 @@ DECLARE total float;
 	SET total = (SELECT SUM(prixUnitaire * qteAchat) FROM Items INNER JOIN Panier ON Items.IdItems = Panier.Items_IdItems WHERE Joueurs_IdJoueur = IdJoueur); # * nb items
     RETURN total;
 END ;;
+*/
+
+
+#Montant total panier
+DELIMITER ;;
+CREATE FUNCTION MontantTotalPanier (IdJoueur int(11)) RETURNS float
+BEGIN
+DECLARE total float;
+	SET total = (SELECT coalesce(SUM(prixUnitaire * qteAchat), 0) FROM Items INNER JOIN Panier ON Items.IdItems = Panier.Items_IdItems WHERE Joueurs_IdJoueur = IdJoueur); # * nb items
+    RETURN total;
+END ;;
+
+
 
 #Afficher toute infos joueur selon alias meme id
 DELIMITER $$
