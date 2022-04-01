@@ -1,37 +1,39 @@
 use KNAPSACKDB;
 
+
+# Procédure qui ajoute un item au panier =============================================================================================
 DELIMITER $$
-CREATE PROCEDURE AjouterItemPanier (alias VARCHAR(30), qte int, idItem int)
+CREATE PROCEDURE AjouterItemPanier (pAlias VARCHAR(30), pQte int, pIdItem int)
 BEGIN
-	IF(TRIM(alias) != '' AND qte > 0 AND idItem > 0)
+	IF(TRIM(pAlias) != '' AND pQte > 0 AND pIdItem > 0)
 	THEN
-		SELECT prixUnitaire INTO @prixUnitaire FROM Items WHERE IdItems = idItem;
-        SELECT quantite INTO @qteItem FROM Items WHERE IdItems = idItem;
-        SELECT solde INTO @soldeJoueur FROM Joueurs WHERE alias = alias;
-        SELECT idJoueur INTO @idJoueur FROM Joueurs WHERE alias = alias;
-        SELECT COUNT(Items_IdItems) INTO @nbItem FROM Panier WHERE Items_IdItems = idItem AND Joueurs_IdJoueur = @idJoueur;
+		SELECT prixUnitaire INTO @prixUnitaire FROM Items WHERE IdItems = pIdItem;
+        SELECT quantite INTO @qteItem FROM Items WHERE IdItems = pIdItem;
+        SELECT solde INTO @soldeJoueur FROM Joueurs WHERE alias = pAlias;
+        SELECT idJoueur INTO @idJoueur FROM Joueurs WHERE alias = pAlias;
+        SELECT COUNT(Items_IdItems) INTO @nbItem FROM Panier WHERE Items_IdItems = pIdItem AND Joueurs_IdJoueur = @idJoueur;
 		SET @montantPanier = (SELECT MontantTotalPanier(@idJoueur));
 		
-		IF((@qteItem - qte)< 0) THEN
+		IF((@qteItem - pQte)< 0) THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible d''ajouter cet item car il manque de cet item dans l''inventaire.';
 		END IF;
      
-		IF(@soldeJoueur < @montantPanier + (@prixUnitaire * qte)) THEN
+		IF(@soldeJoueur < @montantPanier + (@prixUnitaire * pQte)) THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible d''ajouter cet item car le solde du joueur est insuffisant pour couvrir le montant total du panier.';
 		END IF;
          
 		IF(@nbItem = 0) THEN
-            INSERT into Panier (Joueurs_IdJoueur, Items_IdItems, qteAchat) values(@idJoueur, idItem, qte);
+            INSERT into Panier (Joueurs_IdJoueur, Items_IdItems, qteAchat) values(@idJoueur, pIdItem, pQte);
 		ELSE			
-			UPDATE Panier SET qteAchat = qteAchat + qte WHERE Items_IdItems = idItem AND Joueurs_IdJoueur = @idJoueur;
+			UPDATE Panier SET qteAchat = qteAchat + pQte WHERE Items_IdItems = pIdItem AND Joueurs_IdJoueur = @idJoueur;
 		END IF;
 		
-		UPDATE Items SET quantite = (quantite - qte) WHERE IdItems = idItem;
+		UPDATE Items SET quantite = (quantite - pQte) WHERE IdItems = pIdItem;
 		COMMIT;
     END IF;
 END $$
-
-/* TESTS
+/* TESTS */
+/*
 #call AjouterJoueur (alias varchar(30), mdp varchar(50), nom varchar(60), prenom varchar(40), courriel varchar(100), solde DECIMAL, dexterite FLOAT, poidsMax FLOAT
 call AjouterJoueur ("madzcandy", "candy", "PINK", "Candy",  "amelie.dance23@gmail.com", 100, 50, 30);
 
@@ -57,10 +59,12 @@ SELECT MontantTotalPanier(13);
 
 UPDATE Items SET quantite = 100 WHERE IdItems = 37;
 */
+# ====================================================================================================================================
 
 
 
-/* VERIFIER */
+
+# Procédure qui modifie la quantite d'items dans le panier ============================================================================
 DELIMITER $$
 CREATE PROCEDURE modifierItemPanier (pAlias VARCHAR(30), pQte int, pNumItem int)
 BEGIN 
@@ -82,10 +86,9 @@ BEGIN
 			UPDATE Items SET quantite = quantite + @qteModifiee  WHERE idItems = pNumItem;
 		COMMIT;
 	ELSE
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L''item numero n''a pas pu �tre modifi� car les parametres sont invalides.';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L''item numero n''a pas pu être modifié car les parametres sont invalides.';
 	END IF;
 END$$
-
 /* Test */
 /*
 Call modifierItemPanier("madzcandy", 1, 37);
@@ -95,10 +98,95 @@ Call modifierItemPanier("madzcandy", 120, 37);
 Call modifierItemPanier("madzcandy", 2, 537);
 call AjouterItemPanier("", -5, 37); #tester trim 
 */
+# ====================================================================================================================================
 
 
 
 
+# Procédure qui supprime un item dans le panier =======================================================================================
+DELIMITER $$
+CREATE PROCEDURE supprimerItemPanier (pAlias VARCHAR(30), pNumItem int)
+BEGIN
+	IF(TRIM(pAlias) != '' AND pNumItem > 0) THEN
+		START TRANSACTION;
+			set @idJoueur = 0;
+			SELECT idJoueur INTO @idJoueur FROM Joueurs WHERE alias = pAlias;
+			SELECT qteAchat INTO @qteAchat FROM Panier WHERE Items_IdItems = pNumItem AND Joueurs_IdJoueur = @idJoueur;
+			SELECT COUNT(Items_IdItems) INTO @nbItem FROM Panier WHERE Items_IdItems = pNumItem AND Joueurs_IdJoueur = @idJoueur;
+			
+            IF(@idJoueur = 0)THEN
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de supprimer cet item car ce joueur n''existe pas.';
+            END IF;
+            
+			IF(@nbItem = 0) THEN
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de supprimer cet item car il n''existe pas dans le panier.';
+			END IF;
+
+			SELECT @idJoueur;
+
+			DELETE FROM Panier WHERE Items_IdItems = pNumItem AND Joueurs_IdJoueur = @idJoueur;
+			UPDATE Items SET quantite = quantite + @qteAchat  WHERE IdItems = pNumItem;
+		COMMIT;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L''item n''a pas pu être supprimé car les parametres sont invalides.';
+	END IF;
+END$$
+/* Test */
+/*
+call AjouterItemPanier("madzcandy", 1, 36);
+#mauvais id:
+call supprimerItemPanier("madzcandy", 30);
+#mauvais alias:
+call supprimerItemPanier("zz", 36);
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui supprime le panier d'un joueur =======================================================================================
+DELIMITER $$
+CREATE PROCEDURE SupprimerPanier (pAlias VARCHAR(30))
+BEGIN	
+	DECLARE finished INTEGER DEFAULT 0;
+	DECLARE pNumItem INTEGER DEFAULT 0;
+    DECLARE pQteAchat INTEGER DEFAULT 0;
+	DEClARE cur_panier CURSOR FOR SELECT Items_IdItems FROM Panier WHERE Joueurs_IdJoueur = (SELECT idJoueur FROM Joueurs WHERE alias = pAlias);
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+
+	IF(TRIM(pAlias) != '') THEN
+		SELECT idJoueur INTO @idJoueur FROM Joueurs WHERE alias = pAlias;
+		OPEN cur_panier;
+
+		getPanier: LOOP #boucle qui traite chacun des items du panier
+			FETCH cur_panier INTO pNumItem;
+			IF finished = 1 THEN 
+				LEAVE getPanier;
+			END IF;			
+			SELECT qteAchat INTO pQteAchat FROM Panier WHERE Joueurs_IdJoueur = @idJoueur AND Items_IdItems = pNumItem;
+			UPDATE Items SET quantite = quantite + pQteAchat  WHERE IdItems = pNumItem;
+		END LOOP getPanier;
+		
+		DELETE FROM Panier where @idJoueur = Joueurs_IdJoueur;
+		COMMIT;
+		CLOSE cur_panier;
+	END IF;
+END;
+END$$
+/*TESTS*/
+/*
+call AjouterItemPanier("madzcandy", 10, 36);
+call AjouterItemPanier("madzcandy", 10, 37);
+#SET SQL_SAFE_UPDATES = 1;
+UPDATE Joueurs SET Solde=1000 WHERE alias='madzcandy';
+call SupprimerPanier ('madzcandy');
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne le solde d'un joueur =========================================================================================
 DELIMITER $$
 CREATE FUNCTION SoldeCaps (paramAlias VARCHAR(30))
 RETURNS DECIMAL
@@ -108,10 +196,131 @@ BEGIN
     WHERE alias = paramAlias;
     RETURN @solde;
 END $$	
-
 /* TESTS
 SELECT (SoldeCaps('madzcandy'));
 */
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne le stock restant après un achat ==============================================================================
+DELIMITER $$
+CREATE FUNCTION StockApresAchat (pIdItems INT)
+RETURNS INT
+BEGIN
+	SELECT quantite INTO @quantite
+    FROM Items  
+    WHERE pIdItems = IdItems;
+    RETURN @quantite;
+END $$	
+/* TESTS*/
+/*
+SELECT (StockApresAchat(36));
+SELECT (StockApresAchat(37));
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne le poids du sac d'un joueur ==================================================================================
+DELIMITER $$
+CREATE FUNCTION PoidsSac (pAlias VARCHAR(30))
+RETURNS FLOAT
+BEGIN
+	SET @totalPoids = 0;
+	SELECT SUM(Items.poids * Inventaire.quantite) INTO @totalPoids
+    FROM Joueurs
+    INNER JOIN Inventaire ON Joueurs.IdJoueur = Inventaire.Joueurs_IdJoueur
+	INNER JOIN Items ON Inventaire.Items_IdItems = Items.IdItems
+	WHERE alias = pAlias
+    GROUP BY poids;
+    RETURN @totalPoids;
+END $$	
+/* TESTS*/
+/*
+call AjouterItemPanier("madzcandy", 10, 36);
+call AjouterItemInventaire(1, 36, 13);
+SELECT (PoidsSac('madzcandy'));
+SELECT (PoidsSac('Samy'));
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne la dextérité perdue d'un joueur ==============================================================================
+DELIMITER $$
+CREATE FUNCTION DexteritePerdue (pAlias VARCHAR(30))
+RETURNS FLOAT
+BEGIN
+	SET @dexterite = 0;
+	SELECT PoidsSac(pAlias) INTO @poidsSac;
+    
+    SELECT poidsMaxTransport INTO @poidsMax FROM Joueurs WHERE alias = pAlias;
+    SELECT dexterite INTO @dexterite FROM Joueurs WHERE alias = pAlias;
+    
+    if(@dexterite = 0) then
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur. Le joueur n''existe pas.';
+    end if;
+    
+    SET @dexteritePerdue = @dexterite * (1 - (@poidsSac - @poidsMax) / @poidsMax);
+    RETURN @dexteritePerdue;
+END$$
+/* TESTS*/
+/*
+SELECT (DexteritePerdue('madzcandy'));
+SELECT (DexteritePerdue('y'));
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne le nombre d'évaluations reçues pour un item du shop ==========================================================
+DELIMITER $$
+CREATE FUNCTION NombreEvaluations (pIdItems INT)
+RETURNS FLOAT
+BEGIN
+	SELECT COUNT(idEvaluations) INTO @nbEvaluations
+    FROM Evaluations
+	WHERE Items_IdItems = pIdItems;
+    RETURN @nbEvaluations;
+END$$
+/*TESTS*/
+/*
+call AjouterÉvaluation(36, 13, "salut toi", 4);
+call AjouterÉvaluation(36, 13, "tres bon", 5);
+SELECT NombreEvaluations(36);
+*/
+# ====================================================================================================================================
+
+
+
+
+# Procédure qui retourne la moyenne des évaluations reçues pour un item du shop ======================================================
+DELIMITER $$
+CREATE FUNCTION MoyenneEvaluations (pIdItems INT)
+RETURNS FLOAT
+BEGIN
+	SET @nbEtoiles = 0;
+	SELECT coalesce(AVG(nbEtoiles),0) INTO @nbEtoiles
+    FROM Evaluations
+	WHERE Items_IdItems = pIdItems;
+    RETURN @nbEtoiles;
+END$$
+/*TESTS*/
+/*
+SELECT MoyenneEvaluations(36);
+SELECT MoyenneEvaluations(9);
+*/
+# ====================================================================================================================================
+
+
+
+
+
 
 
 
@@ -121,109 +330,18 @@ SELECT (SoldeCaps('madzcandy'));
 
 
 #=================================== FONCTIONS PAS TESTES
-
+/*
 DELIMITER $$
-CREATE FUNCTION StockApresAchat (IdItem INT)
-RETURNS INT
-BEGIN
-	SELECT quantite INTO @quantite
-    FROM Items  
-    WHERE IdItems = @IdItems;
-    RETURN @quantite;
-END $$	
-
-
-DELIMITER $$
-CREATE FUNCTION PoidsSac (alias VARCHAR(30))
-RETURNS FLOAT
-BEGIN
-	SELECT SUM(Items.poids * Items.quantite) INTO @totalPoids
-    FROM Joueurs
-    INNER JOIN Inventaire ON Joueurs.IdJoueur = Inventaire.Joueurs_IdJoueur
-	INNER JOIN Items ON Inventaire.Items_IdItems = Items.IdItems
-	WHERE alias = @alias
-    GROUP BY poids;
-    RETURN @totalPoids;
-END $$	
-
-
-/* VERIFIER */
-DELIMITER $$
-CREATE FUNCTION DexteritePerdue (alias VARCHAR(30))
-RETURNS FLOAT
-BEGIN
-	SELECT dbo.PoidsSac(@alias) INTO @poidsSac;
-    
-    SELECT @poidsMax = poidsMaxTransport, @dexterite = dexterite 
-    FROM Joueurs 
-    WHERE alias = @alias;
-    
-    SET @dexteritePerdue = @dexterite * (1 - (@poidsSac - @poidsMax) / @poidsMax);
-    RETURN @dexteritePerdue;
-END$$
-
-
-
-DELIMITER $$
-CREATE FUNCTION NombreEvaluations (IdItems INT)
-RETURNS FLOAT
-BEGIN
-	SELECT COUNT(idEvaluations) INTO @nbEvaluations
-    FROM Evaluations
-	WHERE Items_IdItems = @IdItems
-    GROUP BY idEvaluations;
-    RETURN @nbEvaluations;
-END$$
-
-
-DELIMITER $$
-CREATE FUNCTION MoyenneEvaluations (IdItems INT)
-RETURNS FLOAT
-BEGIN
-	SELECT AVG(nbEtoiles) INTO @nbEtoiles
-    FROM Evaluations
-	WHERE Items_IdItems = @IdItems
-    GROUP BY nbEtoiles;
-    RETURN @nbEtoiles;
-END$$
-
-
-
-
-
-
-/* VERIFIER */
-DELIMITER $$
-CREATE PROCEDURE supprimerItemPanier (alias VARCHAR(30), numItem int)
-BEGIN
-	IF(TRIM(@alias) != '' AND @numItem > 0) THEN
-		/*BEGIN TRANSACTION */
-			SELECT @idJoueur = idJoueur FROM Joueurs WHERE alias = @alias;
-			SELECT @qteAchat = qteAchat FROM Paniers WHERE numItem = @numItem AND idJoueur = @idJoueur;
-			SELECT @nbItem = COUNT(numItem) FROM Paniers WHERE numItem = @numItem AND idJoueur = @idJoueur;
-			if(@nbItem = 0) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de supprimer cet item car il n''existe pas dans le panier.';
-
-			DELETE FROM Paniers WHERE numItem = @numItem AND idJoueur = @idJoueur;
-			UPDATE Items SET qteInventaire = qteInventaire + @qteAchat  WHERE numItem = @numItem;
-		COMMIT;
-	ELSE
-		SELECT 'L''item numero ' + CAST(@numItem AS CHAR(10)) + ' n''a pas pu �tre supprim� car les parametres sont invalides.';
-END
-END$$
-
-
-
-/* Verifier return table 
-DELIMITER $$
-CREATE FUNCTION afficherPanier(alias VARCHAR(30)) 
+CREATE FUNCTION afficherPanier(pAlias VARCHAR(30)) 
 RETURNS TABLE
 RETURN(
 	SELECT Items.nom, typeItem =
 			CASE typeItem
-			WHEN 'M' THEN 'Medicament' 
-			WHEN 'A' THEN 'Armures' 
-			WHEN 'P' THEN 'Armure' 
+			WHEN 'D' THEN 'Medicament' 
+			WHEN 'A' THEN 'Armure' 
+			WHEN 'W' THEN 'Arme' 
+            WHEN 'N' THEN 'Nourriture' 
+            WHEN 'M' THEN 'Munition' 
 			END, qteAchat, prix
 	FROM Items
 	INNER JOIN Paniers ON Items.numItem = Paniers.numItem
@@ -232,41 +350,3 @@ RETURN(
 );
 END$$
 */
-
-
-
-DELIMITER $$
-CREATE PROCEDURE SupprimerPanier (alias VARCHAR(30))
-BEGIN
-	IF(TRIM(@alias) != '') THEN
-			SELECT @idJoueur = idJoueur FROM Joueurs WHERE alias = @alias;
-			DECLARE cur_panier CURSOR FOR SELECT numItem, qteAchat FROM Paniers WHERE @idJoueur = idJoueur 
-
-				OPEN cur_panier;
-				FETCH NEXT FROM cur_panier INTO @numItem, @qteAchat;
-				WHILE @@FETCH_STATUS = 0 
-						UPDATE Items SET qteInventaire = qteInventaire + @qteAchat  WHERE numItem = @numItem;
-						FETCH NEXT FROM cur_panier INTO @numItem, @qteAchat;		
-				CLOSE cur_panier;
-				DEALLOCATE cur_panier;
-
-			DELETE FROM Paniers where @idJoueur = idJoueur;
-		COMMIT;
-	ELSE
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L''alias du joueur est invalide.';
-END;
-BEGIN 
-	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Une erreur est survenue lors de la supression du panier.';
-	ROLLBACK;
-		CLOSE cur_panier;
-		DEALLOCATE cur_panier;
-END;
-END$$
-
-
-
-
-
-
-
-
