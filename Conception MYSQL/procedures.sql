@@ -244,7 +244,6 @@ BEGIN
 	END IF;    
 END $$
 
-/*
 #Montant total panier
 DELIMITER ;;
 CREATE FUNCTION MontantTotalPanier (IdJoueur int(11)) RETURNS float
@@ -253,19 +252,6 @@ DECLARE total float;
 	SET total = (SELECT SUM(prixUnitaire * qteAchat) FROM Items INNER JOIN Panier ON Items.IdItems = Panier.Items_IdItems WHERE Joueurs_IdJoueur = IdJoueur); # * nb items
     RETURN total;
 END ;;
-*/
-
-
-#Montant total panier
-DELIMITER ;;
-CREATE FUNCTION MontantTotalPanier (IdJoueur int(11)) RETURNS float
-BEGIN
-DECLARE total float;
-	SET total = (SELECT coalesce(SUM(prixUnitaire * qteAchat), 0) FROM Items INNER JOIN Panier ON Items.IdItems = Panier.Items_IdItems WHERE Joueurs_IdJoueur = IdJoueur); # * nb items
-    RETURN total;
-END ;;
-
-
 
 #Afficher toute infos joueur selon alias meme id
 DELIMITER $$
@@ -274,10 +260,70 @@ CREATE PROCEDURE AfficherInfosJoueur
 BEGIN
 	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE alias = aliasP)
     THEN
-			SELECT Idjoueur, Solde, dexterite, poidsMaxTransport, alias, nom, prenom, motDePasse, dateCreation, courriel FROM Joueurs WHERE alias = aliasP;
+			SELECT * FROM Joueurs WHERE alias = aliasP;
         ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
 	END IF;    
 END $$
+
+#Trigger qui s'assure qu'on achete pas une quantite plus grande que le stock
+delimiter |
+create trigger QuantityControlTrigger
+before insert on Inventaire
+for each row
+begin
+            IF new.quantite > (SELECT quantite FROM Items WHERE IdItems = new.Items_IdItems)
+            THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La quantité que vous tentez dacheter est plus eleve que le stock';
+            END IF;
+end |
+
+#Trigger qui s'assure qu'on ne mette pas dans le panier une quantite plus grande que le stock #modifier pour le poids et dex
+delimiter |
+create trigger QuantityControlCartTrigger
+before insert on Panier
+for each row
+begin
+            IF new.qteAchat > (SELECT quantite FROM Items WHERE IdItems = new.Items_IdItems)
+            THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La quantité que vous tentez de mettre dans le panier est plus eleve que le stock';
+            END IF;
+end |
+
+#Trigger qui update le stock quand un item est acheter  #modifier pour le poids et dex
+delimiter |
+create trigger UpdateStockTrigger
+after insert on Inventaire
+for each row
+begin
+            UPDATE Items
+            SET quantite = quantite - new.quantite
+            WHERE IdItems = new.Items_IdItems;
+end |
+
+
+
+CALL AjouterItemInventaire(0, 36, 13);
+CALL AfficherInventaire(13);
+CALL AfficherInfosJoueur('madzcandy');
+INSERT INTO Panier (Joueurs_IdJoueur, qteAchat , Items_IdItems) VALUES (13, 90, 37);
+SELECT * FROM Panier;
+
+select * from Items;
+select * from Munitions;
+select * from Joueurs;
+
+TRUNCATE TABLE Evaluations;
+TRUNCATE TABLE Panier;
+TRUNCATE TABLE Inventaire;
+
+DELETE FROM Munitions WHERE Items_IdItems > 0;
+TRUNCATE TABLE Armes;
+TRUNCATE TABLE Armures;
+TRUNCATE TABLE Nourriture;
+TRUNCATE TABLE Medicament;
+TRUNCATE TABLE Munitions;
+DELETE FROM Items WHERE IdItems > 0;
+DELETE FROM Joueurs WHERE IdJoueur > 0;
 
 
