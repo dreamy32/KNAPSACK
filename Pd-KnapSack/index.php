@@ -12,9 +12,9 @@
     if(!empty($_SESSION['alias']))
         $estConnecter = TRUE;
 
-    if(!empty($_GET["nbItem"]))
+    if(!empty($_GET["nbItem"])){
         AjouterItemPanier($_GET["idItem"],$_GET["nbItem"]);
-        echo "<script>alert(test)</script>";
+        echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";}
 ?>
 <body>
     <div id="minetip-tooltip">
