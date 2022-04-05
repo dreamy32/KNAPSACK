@@ -77,7 +77,7 @@
                         include('DB_Procedure.php');
                         $listeObjets = AfficherItemsVente();
                         foreach($listeObjets as $objet){
-                            echo "<article class="test" onclick="afficherMenuItem($objet)"> <img class="minetext" data-mctitle="$objet[0]&nbsp;$objet[1]" src="items__images/$objet[0]$objet[2]"alt="Image de $objet[0]"></article>";
+                            echo '<article class="test" onclick="afficherMenuItem($objet)"> <img class="minetext" data-mctitle="$objet[1]&nbsp;$objet[0]" src="items__images/$objet[1]$objet[0]"alt="Image de $objet[1]"></article>';
                         }
                         /*
                         $objet[0] : id
