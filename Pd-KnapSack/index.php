@@ -3,7 +3,7 @@
     require('header.php');
     session_start();
     include('DB_Procedure.php');
-    if(!empty($_GET['deconnecter'])){
+    if($_GET['deconnecter'] == 'true'){
         session_destroy();
         session_unset();
         setcookie("PHPSESSID",null,-1);
