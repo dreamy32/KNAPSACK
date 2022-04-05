@@ -111,12 +111,12 @@
             return $e->getMessage();
         }
     }
-    /*
-    echo $test;
-    echo "<br>";
-    echo $test[0];
-    echo "<br>";
-    echo $test[0][0] . $test[0][1] . $test[0][2] . $test[0][3] . $test[0][4];
-    echo "<br>";
-    echo $test[1][0] . $test[1][1] . $test[1][2] . $test[1][3] . $test[1][4];*/
+    function ChercherInfoItemSelonId($idItem){
+        $Items = AfficherItemsVente('%');
+        foreach($Items as $objet){
+            if($objet[0] == $idItem){
+                return $objet;
+            }
+        }
+    }
 ?>

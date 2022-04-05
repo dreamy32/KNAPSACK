@@ -34,7 +34,7 @@
                             $profile = AfficherInfosJoueur($_SESSION['alias']);
                             $solde = $profile[1];
                             $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
-                            $poidsMax = $profile[4];
+                            $poidsMax = $profile[3];
                         /* Affiche le boutton profile, solde, et se deconnecter */
                             if ($estConnecter) {
                                 echo '<a href="profile.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Profile</p></div></a>';
@@ -46,12 +46,7 @@
                         ?>
                     </div>
                 </div>
-                <!-- <div style="text-align: center;">
-                    <span>
-                        <?= $_SESSION['alias'] ?>
-                    </span>
-                </div> -->
-                <!-- <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span> -->
+                <!--<span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>-->
             </div>
             <div class="recherche" onclick="afficherRecherche()">
                 <button>Recherche Avancée</button>
@@ -65,8 +60,8 @@
             </div>
         </header>
         <main class="item item2">
-            <p>Informations</p>
-            <h3>Number</h3>
+            <p>INFORMATIONS</p>
+            <p id="infoId" value="">Number</p>
             <input type="number" readonly aria-label="Alternative" value="6" style="width: 80px;">
             <h3>Checkbox</h3>
             <input type="checkbox" name="" id="">
@@ -79,7 +74,7 @@
                 <?php
                     $listeObjets = AfficherItemsVente('%');
                         foreach($listeObjets as $objet){
-                            echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
+                            echo "<article class='test' id='$objet[0]' onclick='ChangerInformation($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                             echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                             if($estConnecter){
                             echo "<form method='get'>";
@@ -93,6 +88,12 @@
                             else
                                 echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
                             echo "</div></article>";
+                            setcookie('nom$objet[0]', json_encode($objet[1]), time()+3600);
+                            setcookie('qte$objet[0]', json_encode($objet[2]), time()+3600);
+                            setcookie('type$objet[0]', json_encode($objet[3]), time()+3600);
+                            setcookie('prix$objet[0]', json_encode($objet[4]), time()+3600);
+                            setcookie('poids$objet[0]', json_encode($objet[5]), time()+3600);
+                            setcookie('description$objet[0]', json_encode($objet[6]), time()+3600);
                         }
                         /*
                         $objet[0] : id
@@ -120,8 +121,15 @@
         var nbInput = parseInt(inputNbItemChoisie.value);
         inputNbItemChoisie.value = nbInput + 1;
     }
-    function test(idItem){
-        var nbItem = document.getElementById("nbItemChoisie" + idItem).value;
+    function ChangerInformation(idItem){
+        afficherMenuItem(idItem);
+        let cookiesInfo = document.cookie.split(';');
+        cookiesInfo.foreach((cookie)=>{
+            if(cookie.include("nom") && cookie.include(idItem)){
+                var infoNomItem = document.getElementById("infoId");
+                infoNomItem.innerHTML = cookie.split('=')[1];
+            }
+        })
     }
 </script>
 <?php require('footer.php') ?>
