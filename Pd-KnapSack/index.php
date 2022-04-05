@@ -50,7 +50,10 @@
                 </div> -->
                 <!-- <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span> -->
             </div>
-            <button>Recherche Avancée</button>
+            <div class="recherche" onclick="afficherRecherche()">
+                <button>Recherche Avancée</button>
+                <div class="contenuRecherche" id="RecherchePopUp"><h1>ALLOOOOOO</h1></div>
+            </div>
             <div class="searchAndCart">
                 <a href="panier.php" style="text-decoration: none;">
                     <button type="submit" aria-label="Panier" style="margin: 13px;"></button>

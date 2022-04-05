@@ -81,5 +81,33 @@
             -webkit-animation: fadeIn 0.5s;
             animation: fadeIn 0.5s
         }
+        /*Menu Recherche */
+        .recherche {
+            cursor: pointer;
+            margin: 13px;
+            display: flex;
+            }
+        .recherche .contenuRecherche{
+            visibility: hidden;
+            width: 200px;
+            height: 175px;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            margin-left: 10px;
+            font-size: medium;
+            background-image: url(images/oakBackground.jpg);
+            }
+        .recherche .show {
+            visibility: visible;
+        }
+        .recherche .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 0.5s;
+            animation: fadeIn 0.5s
+        }
     </style>
 </head>

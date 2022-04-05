@@ -2,6 +2,10 @@ function afficherMenu() {
     var menu = document.getElementById("MenuPopUp");
     menu.classList.toggle("show");
   }
+  function afficherRecherche() {
+    var recherche = document.getElementById("RecherchePopUp");
+    recherche.classList.toggle("show");
+  }
 
 var estOuvert = false 
 var idDivCourrant = 0;

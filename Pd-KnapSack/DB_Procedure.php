@@ -70,18 +70,16 @@
             return $e->getMessage();
         }
     }
-    function AfficherItemsVente(){
+    function AfficherItemsVente($type = '%'){
         Connexion();
         global $pdo;
         try{
             $stmt = $pdo->prepare("CALL AfficherItemsVente(:type)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $char = '%';
-            $stmt->bindParam(':type', $char, PDO::PARAM_STR);
+            $stmt->bindParam(':type', $type, PDO::PARAM_STR);
             $stmt->execute();
             $info = [];
             while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
                 $rangee = [];
-                
                 array_push($rangee,$donnee[0]);
                 array_push($rangee,$donnee[1]);
                 array_push($rangee,$donnee[2]);
@@ -98,9 +96,6 @@
             return $e->getMessage();
         }
     }
-
-    $test = AfficherItemsVente();
-    echo $test[0][0] . $test[0][1];
     /*
     echo $test;
     echo "<br>";
