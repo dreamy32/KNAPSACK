@@ -9,7 +9,9 @@ function afficherMenu() {
 
 var estOuvert = false 
 var idDivCourrant = 0;
-function afficherMenuItem(idItem) {
+function afficherMenuItem(item) {
+  var idItem = item[0];
+  /* Call fonction pour afficher info */
   if(!estOuvert){
     var itemCliquer = document.getElementById(idItem);
     var div = document.createElement('div');

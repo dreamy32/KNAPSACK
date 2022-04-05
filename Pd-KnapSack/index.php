@@ -74,16 +74,21 @@
             </section>
             <section>
                 <?php
-                /* En attente de l'implementation des stored procedure 
                         include('DB_Procedure.php');
-                        $listeObjets = chercherToutObjetVente();
+                        $listeObjets = AfficherItemsVente();
                         foreach($listeObjets as $objet){
-                            echo "<article class="test" onclick="afficherMenuItem($objet[2])"> <img class="minetext" data-mctitle="$objet[0]&nbsp;$objet[1]" src="images_Objet/$objet[0]$objet[2]"alt="Image de $objet[0]"></article>";
+                            echo "<article class="test" onclick="afficherMenuItem($objet)"> <img class="minetext" data-mctitle="$objet[0]&nbsp;$objet[1]" src="items__images/$objet[0]$objet[2]"alt="Image de $objet[0]"></article>";
                         }
-                        $objet[0] : nom de l'objet
-                        $objet[1] : Poids de l'objet
-                        $objet[2] : ID de l'objet
-                    */
+                        /*
+                        $objet[0] : id
+                        $objet[1] : nom
+                        $objet[2] : qte
+                        $objet[3] : type
+                        $objet[4] : prix
+                        $objet[5] : poids
+                        $objet[6] : description
+                        $objet[7] : est en vente*/
+                
                 ?>
                 <article class="test" onclick="afficherMenuItem(1)" id="1">
                     <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
