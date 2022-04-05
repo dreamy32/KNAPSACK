@@ -74,9 +74,16 @@
             </section>
             <section>
                 <?php
+                    
                     $listeObjets = AfficherItemsVente('%');
                         foreach($listeObjets as $objet){
-                            echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'></article>";
+                            echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
+                            echo "<div class='testItem' id='itempPopUp$objet[0]'>";
+                            echo "<button aria-label='Plus' onclick='ModifierNbItemChoisie('augmenter',$objet[0])'></button>";
+                            echo "<input type='number' value='0' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px'>";
+                            echo "<button aria-label='Minus' onclick='ModifierNbItemChoisie('reduire',$objet[0])'></button>";
+                            echo "<button aria-label='normal' onclick=''>Ajouter au panier</button>";
+                            echo "</div></article>";
                         }
                         /*
                         $objet[0] : id
@@ -93,4 +100,4 @@
                 ?>
             </section>
         </nav>
-        <?php require('footer.php') ?>
+<?php require('footer.php') ?>

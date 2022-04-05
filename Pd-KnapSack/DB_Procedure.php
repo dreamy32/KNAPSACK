@@ -96,6 +96,21 @@
             return $e->getMessage();
         }
     }
+    function AjouterItemPanier($nbItem,$idItem){
+        Connexion();
+        global $pdo;
+        try{
+            $sqlProcedure = "CALL AjouterItemPanier(:pAlias,:pQte,:pIdItem)";
+            $stmt = $pdo->prepare($sqlProcedure);
+            $stmt->bindParam(':pAlias', $_SESSION['alias'], PDO::PARAM_STR);
+            $stmt->bindParam(':pQte', $nbItem, PDO::PARAM_INT);
+            $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     /*
     echo $test;
     echo "<br>";

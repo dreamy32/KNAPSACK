@@ -10,6 +10,11 @@ function afficherMenu() {
 var estOuvert = false 
 var idDivCourrant = 0;
 function afficherMenuItem(idItem) {
+  var item = document.getElementById(("itempPopUp" + idItem));
+  item.classList.toggle("show");
+}
+/*
+function afficherMenuItem(idItem) {
   if(!estOuvert){
     var itemCliquer = document.getElementById(idItem);
     var div = document.createElement('div');
@@ -34,7 +39,7 @@ function afficherMenuItem(idItem) {
     var bouttonAcheter = document.createElement("button");
     bouttonAcheter.setAttribute("aria-label","Normal");
     bouttonAcheter.textContent = "Ajouter au panier";
-  
+    bouttonAcheter.id = "bouttonAjouterItemPanier";
     div.appendChild(bouttonPlus);
     div.appendChild(inputNombre);
     div.appendChild(bouttonMoin);
@@ -55,8 +60,9 @@ function afficherMenuItem(idItem) {
     idDivCourrant = idItem;
   }
 }
-function ModifierNbItemChoisie(option){
-  var inputNbItemChoisie = document.getElementById("nbItemChoisie");
+*/
+function ModifierNbItemChoisie(option,idItem){
+  var inputNbItemChoisie = document.getElementById(("nbItemChoisie" + idItem));
   if(option == "reduire" && parseInt(inputNbItemChoisie.value)>1){
     inputNbItemChoisie.value = inputNbItemChoisie.value-1;
   }
