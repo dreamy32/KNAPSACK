@@ -327,6 +327,37 @@ SELECT MoyenneEvaluations(9);
 
 
 
+# Insertion BD  ======================================================
+#(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), effet varchar(45), dureeEffet float)
+call AjouterMedicament("Potion d'invisibilité", 40, "D", 5, 20, "Cette potion vous permet d'être invisible pendant 60 secondes.", 1, "invisible", 60.0);
+call AjouterMedicament("Potion Poison", 40, "D", 5, 20, "Cette potion vous permet d'être empoisonné pendant 60 secondes.", 1, "poison", 60.0);
+call AjouterMedicament("Potion Regeneration", 20, "D", 5, 20,"Cette potion vous permet de regagner vos vie graduellement.", 1, "regeneration", 10.0);
+call AjouterMedicament("Potion Force", 50, "D", 5, 20, "Cette potion vous permet d'être fort pendant 60 secondes.", 1, "Force", 60.0);
+call AjouterMedicament("Potion Lent", 5, "D", 5, 20, "Cette potion vous permet d'être lent pendant 60 secondes.", 1, "lent", 60.0);
+
+
+#nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), pointDeVie int(11)
+call AjouterNourriture("pomme", 24, "D", 1, 0.5, "Une pomme rouge.", 1, 3);
+call AjouterNourriture("pain", 100, "D", 1, 0.5, "Une pain de blé.", 1, 2);
+call AjouterNourriture("melon", 20, "D", 1, 0.5, "Un melon juteux.", 1, 3);
+call AjouterNourriture("oeuf", 15, "D", 1, 0.5, "Un oeuf de poule.", 1, 3);
+call AjouterNourriture("porc cru", 12, "D", 1, 0.5, "Du porc cru.", 1, 4);
+
+#delete from Nourriture where items_iditems = 57;
+#call SupprimerItem(57)
+
+
+
+
+#nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), matiere varchar(30), taille int(11)
+call AjouterArmure("Casque en fer", 23, "A", 15, 23, "Un casque de fer.", 1, "fer", 23);
+call AjouterArmure("Bottes en or", 3, "A", 15, 28, "Des bottes en or.", 1, "or", 23);
+call AjouterArmure("Bottes en diamant", 2, "A", 15, 23, "Des bottes en diamant.", 1, "diamant", 23);
+call AjouterArmure("Casque en diamant", 23, "A", 15, 16, "Un casque en diamant.", 1, "diamant", 23);
+call AjouterArmure("Casque en or", 23, "A", 15, 20, "Un casque en or", 1, "or", 23);
+
+
+
 
 
 #=================================== FONCTIONS PAS TESTES
