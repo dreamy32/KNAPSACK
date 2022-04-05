@@ -58,6 +58,7 @@
         /* test pop up item */
         .test {
             cursor: pointer;
+            display: flex;
             }
         .test .testItem{
             visibility: hidden;
@@ -69,7 +70,7 @@
             padding: 8px 0;
             position: absolute;
             z-index: 1;
-            top:33%;
+            top: 40%;
             font-size: medium;
             background-image: url(images/oakBackground.jpg);
             }

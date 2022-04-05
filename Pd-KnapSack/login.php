@@ -28,9 +28,6 @@
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
     }
-    else if(array_key_exists('bouttonTemp', $_POST)) {
-        header('Location: profile.php');
-    }
 ?>
 <body style="text-align: center;">
     <h1>Connexion</h1>
@@ -44,6 +41,5 @@
         <button aria-label="Normal" type="submit" name="bouttonConnecter">Se connecter</button>
         <h5>Pas de compte? Aucun problème! Inscrivez vous ici:</h5>
         <button aria-label="Normal" type="submit" name="bouttoninscription">S'inscrire</button>
-        <button aria-label="Normal" type="submit" name="bouttonTemp">Login(Temporaire)</button>
     </form>
  <?php require('footer.php')?>

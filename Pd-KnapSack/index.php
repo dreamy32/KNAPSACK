@@ -87,15 +87,9 @@
                         $objet[5] : poids
                         $objet[6] : description
                         $objet[7] : est en vente*/
-                
-                ?>
-                <article class="test" onclick="afficherMenuItem(1)" id="1">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <?php 
-                    for ($i = 1; $i < 100; $i++) {
-                        echo "<article></article>";
-                    }
+                        for ($i = 1; $i < 100; $i++) {
+                            echo "<article></article>";
+                        }
                 ?>
             </section>
         </nav>
