@@ -74,10 +74,9 @@
             </section>
             <section>
                 <?php
-                        include('DB_Procedure.php');
-                        $listeObjets = AfficherItemsVente();
+                    $listeObjets = AfficherItemsVente('%');
                         foreach($listeObjets as $objet){
-                            echo '<article class="test" onclick="afficherMenuItem($objet)"> <img class="minetext" data-mctitle="$objet[1]&nbsp;$objet[0]" src="items__images/$objet[1]$objet[0]"alt="Image de $objet[1]"></article>';
+                            echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'></article>";
                         }
                         /*
                         $objet[0] : id
@@ -93,24 +92,11 @@
                 <article class="test" onclick="afficherMenuItem(1)" id="1">
                     <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
                 </article>
-                <article class="test" onclick="afficherMenuItem(2)" id="2">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <article class="test" onclick="afficherMenuItem(3)" id="3">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <article class="test" onclick="afficherMenuItem(4)" id="4">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <article class="test" onclick="afficherMenuItem(5)" id="5">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <article class="test" onclick="afficherMenuItem(6)" id="6">
-                    <img class="minetext" data-mctitle="Apple&nbsp;5lb" src="https://www.pikpng.com/pngl/b/560-5600564_minecraft-green-apple-texture-clipart.png" alt="Image de apple">
-                </article>
-                <?php for ($cpt; $cpt < 200; $cpt++) {
-                    echo '<article></article>';
-                } ?>
+                <?php 
+                    for ($i = 1; $i < 100; $i++) {
+                        echo "<article></article>";
+                    }
+                ?>
             </section>
         </nav>
         <?php require('footer.php') ?>
