@@ -81,6 +81,7 @@
                         foreach($listeObjets as $objet){
                             echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                             echo "<div class='testItem' id='itempPopUp$objet[0]'>";
+                            if($estConnecter){
                             echo "<form method='get'>";
                             echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0])'></button>";
                             echo "<input type='number' value='1' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px' name='nbItem'>";
@@ -88,6 +89,9 @@
                             echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
                             echo "<input type='hidden' name='idItem' value='$objet[0]'>";
                             echo "</form>";
+                            }
+                            else
+                                echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
                             echo "</div></article>";
                         }
                         /*
