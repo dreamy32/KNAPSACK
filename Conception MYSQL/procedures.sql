@@ -32,6 +32,8 @@ BEGIN
 	SELECT nom, quantite, type, prixUnitaire, poids, description from Items where estEnVente = 1;
 END $$
 
+call AfficherItemsVente();
+
 #Afficher les details selon le type d'un item
 DELIMITER $$
 CREATE PROCEDURE AfficherItemDetails(IdItemsP int(11))
@@ -214,7 +216,7 @@ BEGIN
         ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
 	END IF;    
-END $$
+END $$2
 
 #Afficher Inventaire
 DELIMITER $$
