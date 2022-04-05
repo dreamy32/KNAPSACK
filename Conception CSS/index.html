@@ -6,14 +6,78 @@
     <title>CSS Conception</title>
     <link rel="stylesheet" href="css/minecraft_elements.css">
     <link rel="stylesheet" href="css/range.css">
+    <link rel="stylesheet" href="css/toast.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/sound.js"></script>
+    <script>
+        Snackbar = () => {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
+    <style>
+        .search-container {
+            margin-top: 3.2%;
+            display: grid;
+            grid-template-areas:
+                "order-types item-types"
+                "star-rating item-types";
+            height: 81%;
+            grid-template-columns: 1.2fr 1fr;
+            grid-template-rows: 1.8fr 2fr;
+        }
+
+        .search-container div {
+            height: fit-content;
+            width: fit-content;
+            margin-left: 20%;
+        }
+
+        #search-types {
+            grid-area: order-types;
+        }
+
+        #star-rating {
+            grid-area: star-rating;
+
+        }
+
+        #item-types {
+            grid-area: item-types;
+            display: flex;
+            align-self: center;
+            justify-content: center;
+        }
+
+        .item-frame {
+            background: url(images/item_frame.png) 0 0 / 100% 100%;
+            width: 100px !important;
+            height: 100px !important;
+            margin-left: unset !important;
+            margin-bottom: 50px;
+        }
+    </style>
 </head>
 
 <body style="text-align: center;">
     <h1>Conception CSS</h1>
     <h2>Boutons</h2>
     <h3>Normal</h3>
+    <!-- Snackbar d'Erreur -->
+    <!-- <span id="snackbar"> 
+        <img src="images/red_exclamation.png" alt=""> &nbsp;
+        Des erreurs sont survenus
+    </span> -->
+    <span id="snackbar">
+        <img src="images/book_and_quill.png" alt=""> &nbsp;
+        Vous vous êtes inscrit !
+    </span>
+    <script>Snackbar()</script>
     <!-- Penser que un bouton peut être un input type submit -->
     <button aria-label="Normal">Afficher</button>
     <h3>Doré</h3>
@@ -22,6 +86,12 @@
     <button aria-label="Plus"></button>
     <h3>Minus</h3>
     <button aria-label="Minus"></button>
+    <h3>Profil</h3>
+    <button style="padding: 50px;" aria-label="Profil"></button>
+    <h3>Panier</h3>
+    <button style="padding: 50px;" aria-label="Panier"></button>
+    <h3>Chest</h3>
+    <button style="padding: 50px;" aria-label="Chest"></button>
     <br />
     <br />
     <hr>
@@ -41,11 +111,13 @@
     <h3>Range</h3>
     <!-- <input type="range" name="" id=""> -->
     <input class="rating rating--nojs" max="5" step="1" type="range" value="3">
-    <br />
-    <br />
     <hr>
-    <br />
-    <br />
+
+    <h2>Frame</h2>
+    
+
+    </div>
+    </div>
 </body>
 
 </html>

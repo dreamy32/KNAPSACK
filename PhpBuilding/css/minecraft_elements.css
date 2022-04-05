@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "Minecraftia";
   src: url("../fonts/Minecraftia-Regular.eot");
@@ -26,77 +25,33 @@ body {
           box-sizing: border-box;
 }
 
-button,
-input[type="submit"] {
+button {
   background: url(../images/button.png) 0 0/100% 100%;
   padding: 5px 40px;
   font-size: large;
   border: none;
 }
 
-button:hover,
-input[type="submit"]:hover {
+button:hover {
   background: url(../images/hovered_button.png) 0 0/100% 100%;
 }
 
-button[aria-label="Doré"],
-input[type="submit"][aria-label="Doré"] {
-  background: url(../images/golden_button.png) 0 0/100% 100%;
-}
-
-button[aria-label="Plus"],
-input[type="submit"][aria-label="Plus"] {
+button[aria-label="Plus"] {
   background: url(../images/plus_icon.png) 0 0/100% 100%;
-  padding: 25px;
+  padding: 20px;
 }
 
-button[aria-label="Plus"]:hover,
-input[type="submit"][aria-label="Plus"]:hover {
+button[aria-label="Plus"]:hover {
   background: url(../images/hovered_plus_icon.png) 0 0/100% 100%;
 }
 
-button[aria-label="Minus"],
-input[type="submit"][aria-label="Minus"] {
+button[aria-label="Minus"] {
   background: url(../images/minus_icon.png) 0 0/100% 100%;
-  padding: 25px;
+  padding: 20px;
 }
 
-button[aria-label="Minus"]:hover,
-input[type="submit"][aria-label="Minus"]:hover {
+button[aria-label="Minus"]:hover {
   background: url(../images/hovered_minus_icon.png) 0 0/100% 100%;
-}
-
-button[aria-label="Profil"],
-input[type="submit"][aria-label="Profil"] {
-  background: url(../images/profil_icon.png) 0 0/100% 100%;
-  padding: 25px;
-}
-
-button[aria-label="Profil"]:hover,
-input[type="submit"][aria-label="Profil"]:hover {
-  background: url(../images/hovered_profil_icon.png) 0 0/100% 100%;
-}
-
-button[aria-label="Panier"],
-input[type="submit"][aria-label="Panier"] {
-  background: url(../images/cart_icon.png) 0 0/100% 100%;
-  padding: 25px;
-}
-
-button[aria-label="Panier"]:hover,
-input[type="submit"][aria-label="Panier"]:hover {
-  background: url(../images/hovered_cart_icon.png) 0 0/100% 100%;
-}
-
-button[aria-label="Chest"],
-input[type="submit"][aria-label="Chest"] {
-  background: url(../images/chest_icon.png) 0 0/100% 100%;
-  padding: 25px;
-}
-
-button[aria-label="Chest"]:hover,
-input[type="submit"][aria-label="Chest"]:hover {
-  background: url(../images/hovered_chest_icon.png) 0 0/100% 100%;
 }
 
 input[type]:not([type="range"]) {
@@ -104,7 +59,7 @@ input[type]:not([type="range"]) {
   background: url(../images/input.png) 0 0/100% 100%;
   font-size: 1.7em;
   padding: 25px;
-  outline-style: none;
+  outline-width: 0;
 }
 
 input[type]:not([type="range"])::-webkit-input-placeholder {
@@ -146,8 +101,8 @@ input[type]:not([type="range"])[type="checkbox"] {
      -moz-appearance: none;
           appearance: none;
   background: url(../images/checkbox.png) 0 0/100% 100%;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 }
 
 input[type]:not([type="range"])[type="checkbox"]:checked {
@@ -160,49 +115,5 @@ input[type]:not([type="range"])[type="checkbox"]:checked:hover {
 
 input[type]:not([type="range"])[type="checkbox"]:hover {
   background: url(../images/hovered_checkbox.png) 0 0/100% 100%;
-}
-
-input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"] {
-  background: url(../images/item_frame.png) 0 0/100% 100%;
-  width: 100px;
-  height: 100px;
-}
-
-input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"]:checked {
-  background: url(../images/glow_item_frame.png) 0 0/100% 100%;
-}
-
-div[aria-label="Window"] {
-  background: url(../images/Oak_Wood_Planks.png) 0 0/40%;
-  border-radius: 22px;
-}
-
-div[id="window-container"] {
-  background: url(../images/window.png) 0 0/100% 100%;
-  margin-top: 2%;
-  height: 100%;
-  overflow: hidden;
-}
-
-#window-title {
-  text-align: start;
-  -webkit-margin-start: 3%;
-          margin-inline-start: 3%;
-  padding-top: 10px;
-  -webkit-margin-after: 0;
-          margin-block-end: 0;
-  text-shadow: none;
-  color: #2d2d2d;
-}
-
-label {
-  display: table;
-}
-
-label span {
-  margin-left: 15px;
-  color: black;
-  text-shadow: none;
-  font-size: 2em;
 }
 /*# sourceMappingURL=minecraft_elements.css.map */
