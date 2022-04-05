@@ -172,6 +172,10 @@ input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"]:checke
   background: url(../images/glow_item_frame.png) 0 0/100% 100%;
 }
 
+input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"][id="reset"]:hover {
+  background: url(../images/glow_item_frame.png) 0 0/100% 100%;
+}
+
 div[aria-label="Window"] {
   background: url(../images/Oak_Wood_Planks.png) 0 0/40%;
   border-radius: 22px;
