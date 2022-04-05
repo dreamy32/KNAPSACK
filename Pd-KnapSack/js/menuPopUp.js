@@ -8,66 +8,17 @@ function afficherMenu() {
   }
 
 var estOuvert = false 
-var idDivCourrant = 0;
+var dernierIdDiv = 0;
 function afficherMenuItem(idItem) {
-  var item = document.getElementById(("itempPopUp" + idItem));
-  item.classList.toggle("show");
-}
-/*
-function afficherMenuItem(idItem) {
-  if(!estOuvert){
-    var itemCliquer = document.getElementById(idItem);
-    var div = document.createElement('div');
-    div.classList.add('testItem');
-    div.setAttribute("id", "itemPopUp");
-    // Bouton - et +
-    var bouttonPlus = document.createElement('button');
-    bouttonPlus.setAttribute("aria-label","Plus");
-    bouttonPlus.setAttribute('onclick', "ModifierNbItemChoisie('augmenter')");
-    var bouttonMoin = document.createElement('button');
-    bouttonMoin.setAttribute("aria-label","Minus");
-    bouttonMoin.setAttribute('onclick', "ModifierNbItemChoisie('reduire')");
-    // Input pour le nb d'item
-    var inputNombre = document.createElement("input");
-    inputNombre.type = "number";
-    inputNombre.setAttribute("aria-label","Alternative");
-    inputNombre.style = "width: 80px";
-    inputNombre.readOnly = "true";
-    inputNombre.id = "nbItemChoisie";
-    inputNombre.value = 1;
-    // Boutton Acheter
-    var bouttonAcheter = document.createElement("button");
-    bouttonAcheter.setAttribute("aria-label","Normal");
-    bouttonAcheter.textContent = "Ajouter au panier";
-    bouttonAcheter.id = "bouttonAjouterItemPanier";
-    div.appendChild(bouttonPlus);
-    div.appendChild(inputNombre);
-    div.appendChild(bouttonMoin);
-    div.appendChild(bouttonAcheter);
-    itemCliquer.appendChild(div);
-    lastId = idItem;
-    estOuvert = true;
-    var itemPop = document.getElementById("itemPopUp");
-    itemPop.classList.toggle("show");
-    idDivCourrant = idItem;
-  }
-  else if(idDivCourrant!=idItem){
-    var itemPop = document.getElementById("itemPopUp");
-    itemPop.classList.toggle("show");
-    var divASupp = document.getElementById("itemPopUp");
-    divASupp.parentNode.removeChild(divASupp);
+  if(dernierIdDiv != idItem && estOuvert){
+    var itemACache = document.getElementById(("itempPopUp" + dernierIdDiv));
+    itemACache.classList.toggle("show");
     estOuvert = false;
-    idDivCourrant = idItem;
   }
-}
-*/
-function ModifierNbItemChoisie(option,idItem){
-  var inputNbItemChoisie = document.getElementById(("nbItemChoisie" + idItem));
-  if(option == "reduire" && parseInt(inputNbItemChoisie.value)>1){
-    inputNbItemChoisie.value = inputNbItemChoisie.value-1;
-  }
-  else if(option == "augmenter"){
-    var nbInput = parseInt(inputNbItemChoisie.value);
-    inputNbItemChoisie.value = nbInput + 1;
+  else if(!estOuvert){
+    var item = document.getElementById(("itempPopUp" + idItem));
+    item.classList.toggle("show");
+    dernierIdDiv = idItem;
+    estOuvert = true;
   }
 }

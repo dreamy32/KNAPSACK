@@ -96,7 +96,7 @@
             return $e->getMessage();
         }
     }
-    function AjouterItemPanier($nbItem,$idItem){
+    function AjouterItemPanier($idItem,$nbItem){
         Connexion();
         global $pdo;
         try{

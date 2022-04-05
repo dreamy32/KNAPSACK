@@ -2,7 +2,8 @@
     $title = "KnapSack";
     require('header.php');
     session_start();
-    if(TRUE){
+    include('DB_Procedure.php');
+    if(!empty($_GET['deconnecter'])){
         session_destroy();
         session_unset();
         setcookie("PHPSESSID",null,-1);
@@ -10,8 +11,11 @@
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
         $estConnecter = TRUE;
-?>
 
+    if(!empty($_GET["nbItem"]))
+        AjouterItemPanier($_GET["idItem"],$_GET["nbItem"]);
+        echo "<script>alert(test)</script>";
+?>
 <body>
     <div id="minetip-tooltip">
         <span class="minetip-title" id="minetip-text">Minecraft Tip</span>
@@ -27,7 +31,6 @@
 
                     <div class="contenuMenu" id="MenuPopUp">
                         <?php
-                            include('DB_Procedure.php');
                             $profile = AfficherInfosJoueur($_SESSION['alias']);
                             $solde = $profile[1];
                             $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
@@ -74,15 +77,17 @@
             </section>
             <section>
                 <?php
-                    
                     $listeObjets = AfficherItemsVente('%');
                         foreach($listeObjets as $objet){
                             echo "<article class='test' id='$objet[0]' onclick='afficherMenuItem($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                             echo "<div class='testItem' id='itempPopUp$objet[0]'>";
-                            echo "<button aria-label='Plus' onclick='ModifierNbItemChoisie('augmenter',$objet[0])'></button>";
-                            echo "<input type='number' value='0' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px'>";
-                            echo "<button aria-label='Minus' onclick='ModifierNbItemChoisie('reduire',$objet[0])'></button>";
-                            echo "<button aria-label='normal' onclick=''>Ajouter au panier</button>";
+                            echo "<form method='get'>";
+                            echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0])'></button>";
+                            echo "<input type='number' value='1' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px' name='nbItem'>";
+                            echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
+                            echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
+                            echo "<input type='hidden' name='idItem' value='$objet[0]'>";
+                            echo "</form>";
                             echo "</div></article>";
                         }
                         /*
@@ -100,4 +105,19 @@
                 ?>
             </section>
         </nav>
+<script defer> 
+    function ReduireNbItemChoisie(idItem){
+        var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
+        if(inputNbItemChoisie.value > 1)
+            inputNbItemChoisie.value = inputNbItemChoisie.value-1;
+    }
+    function AugmenterNbItemChoisie(idItem){
+        var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
+        var nbInput = parseInt(inputNbItemChoisie.value);
+        inputNbItemChoisie.value = nbInput + 1;
+    }
+    function test(idItem){
+        var nbItem = document.getElementById("nbItemChoisie" + idItem).value;
+    }
+</script>
 <?php require('footer.php') ?>
