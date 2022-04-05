@@ -79,19 +79,18 @@
             $stmt->bindParam(':type', $char, PDO::PARAM_STR);
             $stmt->execute();
             $info = [];
-            $cpt = 0;
             while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
-                echo $donnee[1];
-                array_push($info[$cpt],[$donnee[0],$donnee[1]]);
-                /*array_push($info[$cpt],$donnee[0],$donnee[1]);/* Id*/
-                /*array_push($info[$cpt],$donnee[1]);/* nom*/
-                /*array_push($info[$cpt],$donnee[2]);/* Qte*/
-                $cpt = $cpt+1;
-                /*array_push($info,$donnee[3]);/* type*/
-                /*array_push($info,$donnee[4]);/* prix*/
-                /*array_push($info,$donnee[5]);/* poids*/
-                /*array_push($info,$donnee[6]);/* descrisption*/
-                /*array_push($info,$donnee[7]);/* estenVente*/
+                $rangee = [];
+                
+                array_push($rangee,$donnee[0]);
+                array_push($rangee,$donnee[1]);
+                array_push($rangee,$donnee[2]);
+                array_push($rangee,$donnee[3]);
+                array_push($rangee,$donnee[4]);
+                array_push($rangee,$donnee[5]);
+                array_push($rangee,$donnee[6]);
+                array_push($rangee,$donnee[7]);
+                array_push($info,$rangee);
             }
             $stmt->closeCursor();
             return $info;
@@ -99,7 +98,9 @@
             return $e->getMessage();
         }
     }
+
     $test = AfficherItemsVente();
+    echo $test[0][0] . $test[0][1];
     /*
     echo $test;
     echo "<br>";
