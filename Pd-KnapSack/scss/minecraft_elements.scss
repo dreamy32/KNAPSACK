@@ -1,0 +1,141 @@
+//Importation de la police Minecraftia
+@font-face {
+    font-family: "Minecraftia";
+    src: url("../fonts/Minecraftia-Regular.eot");
+    src: url("../fonts/Minecraftia-Regular.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Minecraftia-Regular.woff2") format("woff2"),
+        url("../fonts/Minecraftia-Regular.woff") format("woff"),
+        url("../fonts/Minecraftia-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+//Propriétés de base pour body et tous les éléments de la page (*)
+body {
+    background: url(https://www.desktopbackground.org/download/o/2015/11/05/1037745_minecraft-dirt-wallpapers-by-thedevartist-on-deviantart_1190x672_h.jpg);
+    background-size: cover;
+    image-rendering: pixelated;
+}
+* {
+    font-family: "Minecraftia";
+    color: white;
+    text-shadow: 2px 2px black;
+    box-sizing: border-box;
+}
+
+//Boutons
+$fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
+$actionBtnPadding: 25px;
+button,
+input[type="submit"] {
+    background: url(../images/button.png) $fullSize;
+    padding: 5px 40px;
+    font-size: large;
+    border: none;
+    &:hover {
+        background: url(../images/hovered_button.png) $fullSize;
+    }
+    &[aria-label="Doré"] {
+        background: url(../images/golden_button.png) $fullSize;
+        &:hover {
+            //see later i think its done
+        }
+    }
+    &[aria-label="Plus"] {
+        background: url(../images/plus_icon.png) $fullSize;
+        padding: $actionBtnPadding;
+        &:hover {
+            background: url(../images/hovered_plus_icon.png) $fullSize;
+        }
+    }
+    &[aria-label="Minus"] {
+        background: url(../images/minus_icon.png) $fullSize;
+        padding: $actionBtnPadding;
+        &:hover {
+            background: url(../images/hovered_minus_icon.png) $fullSize;
+        }
+    }
+    &[aria-label="Profil"] {
+        background: url(../images/profil_icon.png) $fullSize;
+        padding: $actionBtnPadding;
+        &:hover {
+            background: url(../images/hovered_profil_icon.png) $fullSize;
+        }
+    }
+    &[aria-label="Panier"] {
+        background: url(../images/cart_icon.png) $fullSize;
+        padding: $actionBtnPadding;
+        &:hover {
+            background: url(../images/hovered_cart_icon.png) $fullSize;
+        }
+    }
+    &[aria-label="Chest"] {
+        background: url(../images/chest_icon.png) $fullSize;
+        padding: $actionBtnPadding;
+        &:hover {
+            background: url(../images/hovered_chest_icon.png) $fullSize;
+        }
+    }
+}
+
+//Inputs (Except range)
+input[type]:not([type="range"]) {
+    border: none;
+    background: url(../images/input.png) $fullSize;
+    font-size: 1.7em;
+    padding: 25px;
+    outline-style: none; //Retirer le contour de sélection
+    &::placeholder {
+        font-style: italic;
+        color: #a8a8a8;
+        text-shadow: none;
+    }
+    &[aria-label="Alternative"] {
+        background: none black;
+        border: 4px solid gray;
+        padding: 10px;
+        &:focus {
+            border-color: white;
+        }
+    }
+    //Types
+    //Checkbox reference: https://www.html5canvastutorials.com/blog/2012/06/custom-form-radio-checkbox/
+    &[type="checkbox"] {
+        appearance: none;
+        background: url(../images/checkbox.png) $fullSize;
+        width: 50px;
+        height: 50px;
+        &:checked {
+            background: url(../images/checked_checkbox.png) $fullSize;
+        }
+        //
+        &:checked:hover {
+            background: url(../images/hovered_checked_checkbox.png) $fullSize;
+        }
+        &:hover {
+            background: url(../images/hovered_checkbox.png) $fullSize;
+        }
+    }
+}
+
+// Div Window
+
+div {
+    &[aria-label="Window"] {
+        background: url(../images/Oak_Wood_Planks.png) 0 0 / 21%;
+        border-radius: 22px;
+        h1,h2,h3,h4,h5,h6 {
+            margin-left: 35px;
+            margin-top: 13px;
+            float: left;
+            color: #212121;
+            text-shadow: none;
+        }
+        &::after{
+            display: block;
+            height: 100%;
+            content: "";
+            background: url(../images/window.png) $fullSize;
+        }
+    }
+}
