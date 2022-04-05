@@ -25,9 +25,7 @@ body {
 
 //Boutons
 $fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
-$actionBtnPadding: 25px;
-button,
-input[type="submit"] {
+button {
     background: url(../images/button.png) $fullSize;
     padding: 5px 40px;
     font-size: large;
@@ -36,55 +34,30 @@ input[type="submit"] {
         background: url(../images/hovered_button.png) $fullSize;
     }
     &[aria-label="Doré"] {
-        background: url(../images/golden_button.png) $fullSize;
-        &:hover {
-            //see later i think its done
-        }
+        // Demandé à Amélie le bouton doré l'image
     }
     &[aria-label="Plus"] {
         background: url(../images/plus_icon.png) $fullSize;
-        padding: $actionBtnPadding;
+        padding: 20px;
         &:hover {
             background: url(../images/hovered_plus_icon.png) $fullSize;
         }
     }
     &[aria-label="Minus"] {
         background: url(../images/minus_icon.png) $fullSize;
-        padding: $actionBtnPadding;
+        padding: 20px;
         &:hover {
             background: url(../images/hovered_minus_icon.png) $fullSize;
         }
     }
-    &[aria-label="Profil"] {
-        background: url(../images/profil_icon.png) $fullSize;
-        padding: $actionBtnPadding;
-        &:hover {
-            background: url(../images/hovered_profil_icon.png) $fullSize;
-        }
-    }
-    &[aria-label="Panier"] {
-        background: url(../images/cart_icon.png) $fullSize;
-        padding: $actionBtnPadding;
-        &:hover {
-            background: url(../images/hovered_cart_icon.png) $fullSize;
-        }
-    }
-    &[aria-label="Chest"] {
-        background: url(../images/chest_icon.png) $fullSize;
-        padding: $actionBtnPadding;
-        &:hover {
-            background: url(../images/hovered_chest_icon.png) $fullSize;
-        }
-    }
 }
-
 //Inputs (Except range)
 input[type]:not([type="range"]) {
     border: none;
     background: url(../images/input.png) $fullSize;
     font-size: 1.7em;
     padding: 25px;
-    outline-style: none; //Retirer le contour de sélection
+    outline-width: 0; //Retirer le contour de sélection
     &::placeholder {
         font-style: italic;
         color: #a8a8a8;
@@ -103,8 +76,8 @@ input[type]:not([type="range"]) {
     &[type="checkbox"] {
         appearance: none;
         background: url(../images/checkbox.png) $fullSize;
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         &:checked {
             background: url(../images/checked_checkbox.png) $fullSize;
         }
@@ -115,70 +88,5 @@ input[type]:not([type="range"]) {
         &:hover {
             background: url(../images/hovered_checkbox.png) $fullSize;
         }
-        &[aria-label="Item-Frame"] {
-            background: url(../images/item_frame.png) $fullSize;
-            width: 100px;
-            height: 100px;
-            &:checked{
-                background: url(../images/glow_item_frame.png) $fullSize;
-            }
-        }
-    }
-}
-
-// Div Window
-
-// div {
-//     &[aria-label="Window"] {
-
-//         background: url(../images/Oak_Wood_Planks.png) 0 0 / 21%;
-//         border-radius: 22px;
-//         h1,h2,h3,h4,h5,h6 {
-//             margin-left: 35px;
-//             margin-top: 13px;
-//             float: left;
-//             color: #212121;
-//             text-shadow: none;
-//         }
-//         &::after{
-
-//             display: block;
-//             height: 100%;
-//             content: "";
-//             background: url(../images/window.png) $fullSize;
-//         }
-//     }
-// }
-div {
-    &[aria-label="Window"] {
-        background: url(../images/Oak_Wood_Planks.png) 0 0 / 40%;
-        border-radius: 22px;
-    }
-    &[id="window-container"] {
-        background: url(../images/window.png) $fullSize;
-        margin-top: 2%;
-        height: 100%;
-        overflow: hidden;
-        // * {
-        //     margin: 0 50px;
-        // }
-    }
-}
-#window-title {
-    text-align: start;
-    margin-inline-start: 3%;
-    padding-top: 10px;
-    margin-block-end: 0;
-    text-shadow: none;
-    color: #2d2d2d;
-}
-
-label {
-    display: table;
-    span {
-        margin-left: 15px;
-        color: black;
-        text-shadow: none;
-        font-size: 2em;
     }
 }

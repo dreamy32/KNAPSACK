@@ -1,0 +1,1 @@
+<?php /* A coder a partir du schema de panier.php */?>
