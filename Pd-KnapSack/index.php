@@ -61,10 +61,8 @@
         </header>
         <main class="item item2">
             <p>INFORMATIONS</p>
-            <p id="infoId" value="">Number</p>
+            <p id="infoNom" value="">Nom</p>
             <input type="number" readonly aria-label="Alternative" value="6" style="width: 80px;">
-            <h3>Checkbox</h3>
-            <input type="checkbox" name="" id="">
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
@@ -74,7 +72,12 @@
                 <?php
                     $listeObjets = AfficherItemsVente('%');
                         foreach($listeObjets as $objet){
-                            echo "<article class='test' id='$objet[0]' onclick='ChangerInformation($objet[0])'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
+                            $nomItem = str_replace("'","-",$objet[1]);
+                            $descriptionItem = str_replace("'","-",$objet[6]);
+                            $objet[1] = $nomItem; 
+                            $objet[6] = $descriptionItem;
+                            $temp = json_encode($objet);
+                            echo "<article class='test' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                             echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                             if($estConnecter){
                             echo "<form method='get'>";
@@ -88,12 +91,6 @@
                             else
                                 echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
                             echo "</div></article>";
-                            setcookie('nom$objet[0]', json_encode($objet[1]), time()+3600);
-                            setcookie('qte$objet[0]', json_encode($objet[2]), time()+3600);
-                            setcookie('type$objet[0]', json_encode($objet[3]), time()+3600);
-                            setcookie('prix$objet[0]', json_encode($objet[4]), time()+3600);
-                            setcookie('poids$objet[0]', json_encode($objet[5]), time()+3600);
-                            setcookie('description$objet[0]', json_encode($objet[6]), time()+3600);
                         }
                         /*
                         $objet[0] : id
@@ -122,14 +119,8 @@
         inputNbItemChoisie.value = nbInput + 1;
     }
     function ChangerInformation(idItem){
-        afficherMenuItem(idItem);
-        let cookiesInfo = document.cookie.split(';');
-        cookiesInfo.foreach((cookie)=>{
-            if(cookie.include("nom") && cookie.include(idItem)){
-                var infoNomItem = document.getElementById("infoId");
-                infoNomItem.innerHTML = cookie.split('=')[1];
-            }
-        })
+        console.log(idItem);
+        afficherMenuItem(idItem[0]);
     }
 </script>
 <?php require('footer.php') ?>

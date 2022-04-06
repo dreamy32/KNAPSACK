@@ -20,6 +20,5 @@ function afficherMenuItem(idItem) {
     item.classList.toggle("show");
     dernierIdDiv = idItem;
     estOuvert = true;
-    ChangerInformation(idItem);
   }
 }

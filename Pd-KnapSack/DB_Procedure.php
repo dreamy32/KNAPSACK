@@ -54,12 +54,12 @@
             $info = [];
             while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
                 array_push($info,$donnee[0]);/* Id*/
-                array_push($info,$donnee[1]);
+                array_push($info,str_replace("'",'-',$donnee[1]));
                 array_push($info,$donnee[2]);
                 array_push($info,$donnee[3]);
                 array_push($info,$donnee[4]);
                 array_push($info,$donnee[5]);
-                array_push($info,$donnee[6]);
+                array_push($info,str_replace("\'",'-',$donnee[6]));
                 array_push($info,$donnee[7]);
                 array_push($info,$donnee[8]);
                 array_push($info,$donnee[9]);
@@ -73,6 +73,7 @@
     function AfficherItemsVente($type = '%'){
         Connexion();
         global $pdo;
+        mysqli_set_charset($pdo, "utf8mb4");
         try{
             $stmt = $pdo->prepare("CALL AfficherItemsVente(:type)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
             $stmt->bindParam(':type', $type, PDO::PARAM_STR);
