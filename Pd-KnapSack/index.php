@@ -62,7 +62,11 @@
         <main class="item item2">
             <p>INFORMATIONS</p>
             <p id="infoNom" value="">Nom</p>
-            <input type="number" readonly aria-label="Alternative" value="6" style="width: 80px;">
+            <img src="" id="infoImageItem" style="width: 100px;height:100px;" class='minetext'>
+            <p id="infoPrixItem" value=""></p>
+            <input type="number" id="infoNbItem" readonly aria-label="Alternative" value="" style="width: 80px;">
+            <p id="infoPoidsItem" value=""></p>
+            <p id="infoDescriptionItem" value=""></p>
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
@@ -119,7 +123,18 @@
         inputNbItemChoisie.value = nbInput + 1;
     }
     function ChangerInformation(idItem){
-        console.log(idItem);
+        var infoNomItem = document.getElementById("infoNom");
+        infoNomItem.innerHTML = idItem[1].toUpperCase();
+        var infoNbItem = document.getElementById("infoNbItem");
+        infoNbItem.value = idItem[2];
+        var infoImageItem = document.getElementById("infoImageItem");
+        infoImageItem.src = "items_images/" +  idItem[0] + ".png";
+        var infoPrixItem = document.getElementById("infoPrixItem");
+        infoPrixItem.innerHTML = "Prix: " + idItem[4] + "$";
+        var infoPoidsItem = document.getElementById("infoPoidsItem");
+        infoPoidsItem.innerHTML = "Poids: " + idItem[5] + "lb";
+        var infoDescriptionItem = document.getElementById("infoDescriptionItem");
+        infoDescriptionItem.innerHTML = idItem[6];
         afficherMenuItem(idItem[0]);
     }
 </script>
