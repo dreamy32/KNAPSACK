@@ -1,6 +1,13 @@
 use KNAPSACKDB;
 
 
+call AfficherPanier(13);
+call AjouterItemPanier("madzcandy", 2, 38);
+call AjouterItemPanier("madzcandy", 1, 41);
+call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
+
+
+
 # Procédure qui ajoute un item au panier =============================================================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterItemPanier (pAlias VARCHAR(30), pQte int, pIdItem int)

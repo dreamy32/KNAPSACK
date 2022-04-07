@@ -112,6 +112,70 @@
             return $e->getMessage();
         }
     }
+
+    function ModifierItemPanier($qte, $numItem){
+        Connexion();
+        global $pdo;
+        try{
+            $sqlProcedure = "CALL ModifierItemPanier(:pAlias,:pQte,:pNumItem)";
+            $stmt = $pdo->prepare($sqlProcedure);
+            $alias = $_SESSION['alias'];
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
+            $stmt->bindParam(':pNumItem', $numItem, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+    
+    function SupprimerItemPanier($numItem){
+        Connexion();
+        global $pdo;
+        try{
+            $sqlProcedure = "CALL SupprimerItemPanier(:pAlias, :pNumItem)";
+            $stmt = $pdo->prepare($sqlProcedure);
+            $alias = $_SESSION['alias'];
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->bindParam(':pNumItem', $numItem, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+    
+    function AfficherPanier($alias){
+        Connexion();
+        global $pdo;
+        try{
+            $stmt = $pdo->prepare("CALL AfficherPanier(:alias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
+            $stmt->execute();
+            $info = [];
+
+            while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                $rangee = [];
+                array_push($rangee,$donnee[0]);
+                array_push($rangee,$donnee[1]);
+                array_push($rangee,$donnee[2]);
+                array_push($info,$rangee);
+            }
+
+            $stmt->closeCursor();
+            return $info;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+
+
     function ChercherInfoItemSelonId($idItem){
         $Items = AfficherItemsVente('%');
         foreach($Items as $objet){

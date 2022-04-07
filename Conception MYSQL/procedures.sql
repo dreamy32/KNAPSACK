@@ -207,16 +207,20 @@ END $$
 
 #Afficher Panier
 DELIMITER $$
-CREATE PROCEDURE AfficherPanier
-(IdJoueurP int(11))
+CREATE PROCEDURE AfficherPanier (pAlias VARCHAR(30))
 BEGIN
-	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = IdJoueurP)
+	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE alias = pAlias)
     THEN
-			SELECT Items_IdItems, qteAchat FROM Panier WHERE Joueurs_IdJoueur = IdJoueurP;
+			SELECT Items_IdItems, qteAchat, Items.nom
+            FROM Panier 
+            INNER JOIN Items ON Panier.Items_IdItems = Items.IdItems	
+            INNER JOIN Joueurs ON Panier.Joueurs_IdJoueur = Joueurs.IdJoueur
+            WHERE alias = pAlias;
         ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
 	END IF;    
-END $$2
+END $$
+#call AfficherPanier('madzcandy');
 
 #Afficher Inventaire
 DELIMITER $$
