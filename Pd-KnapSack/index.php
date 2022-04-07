@@ -30,7 +30,7 @@
                         <button type="submit" aria-label="Chest"></button>
                     </a>
 
-                    <div class="contenuMenu" id="MenuPopUp">
+                    <div class="contenuMenu" id="MenuPopUp" style="border: solid 3px black;">
                         <?php
                             $profile = AfficherInfosJoueur($_SESSION['alias']);
                             $solde = $profile[1];
@@ -132,7 +132,7 @@
                             $objet[6] = $descriptionItem;
                             $temp = json_encode($objet);
                             echo "<article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
-                            echo "<div class='testItem' id='itempPopUp$objet[0]'>";
+                            echo "<div class='testItem' id='itempPopUp$objet[0]' style='border: solid 3px black;'>";
                             if($estConnecter){
                             echo "<form method='get'>";
                             echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0])'></button>";
