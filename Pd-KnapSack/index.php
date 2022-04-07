@@ -80,18 +80,18 @@
                 </div>
                 <div id="item-types">
                     <div>
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="armes">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="armes">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="armures">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="armures">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="reset">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="reset">
                     </div>
                     <div>
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="nourriture">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="nourriture">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="munitions">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="munitions">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="" id="medicaments">
+                        <input aria-label="Item-Frame" type="checkbox" name="type" id="medicaments">
                     </div>
                 </div>
             </form>
