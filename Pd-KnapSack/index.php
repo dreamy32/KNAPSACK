@@ -50,7 +50,41 @@
             </div>
             <div class="recherche" onclick="afficherRecherche()">
                 <button>Recherche Avancée</button>
-                <div class="contenuRecherche" id="RecherchePopUp"><h1>ALLOOOOOO</h1></div>
+                <div style="background-image: none;" class="contenuRecherche" id="RecherchePopUp">
+                     <div aria-label="Window" style="margin: auto; width: 1000px; height: 650px;">
+        <div id="window-container">
+            <h1 id="window-title">Recherche</h1>
+            <div class="search-container">
+                <div id="order-types">
+                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Poids</span></label>
+
+                    <!-- <input type="checkbox" name="search-box" id="search-box1">
+                    <label for="search-box1">Poids</label> -->
+                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Prix</span></label>
+
+                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Type</span></label>
+                </div>
+                <div id="star-rating">
+                    <input class="rating rating--nojs" max="5" step="1" type="range" value="3">
+                    <br><br>
+                    <button type="submit" style="font-size: 1.8em;">Croissant</button>
+                </div>
+                <div id="item-types">
+                    <div>
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="armes">
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="armures">
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="reset">
+                    </div>
+                    <div>
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="nourriture">
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="munitions">
+                        <input aria-label="Item-Frame" type="checkbox" name="" id="medicaments">
+                    </div>
+                </div>
+            </div>
+        </div>           
+                     </div>
+                </div>
             </div>
             <div class="searchAndCart">
                 <a href="panier.php" style="text-decoration: none;">
