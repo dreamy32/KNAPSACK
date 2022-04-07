@@ -26,9 +26,9 @@ const ItemFrameClick = () => {
     $("body").append(audioElement);
   }
   //
-  $("input[aria-label='Item-Frame']").not("#reset").click(() =>
-    audioFiles[Math.floor(Math.random() * nbAudioFiles)].play()
-  );
+  $("input[aria-label='Item-Frame']")
+    .not("#reset")
+    .click(() => audioFiles[Math.floor(Math.random() * nbAudioFiles)].play());
 };
 
 const ResetClick = () => {
@@ -41,6 +41,22 @@ const ResetClick = () => {
     audioElement.setAttribute("src", `./audio/item_frame/break${i + 1}.ogg`);
     $("body").append(audioElement);
   }
-  $("#reset").click(() => audioFiles[Math.floor(Math.random() * nbAudioFiles)].play())
-}
+  $("#reset").click(() =>
+    audioFiles[Math.floor(Math.random() * nbAudioFiles)].play()
+  );
+};
 
+const ShopItemClick = () => {
+  const nbAudioFiles = 3;
+  const audioFiles = [];
+
+  for (let i = 0; i < nbAudioFiles; i++) {
+    let audioElement = document.createElement("audio");
+    audioFiles.push(audioElement);
+    audioElement.setAttribute("src", `./audio/villager/haggle${i + 1}.ogg`);
+    $("body").append(audioElement);
+  }
+  $(".shop-item").click(() =>
+    audioFiles[Math.floor(Math.random() * nbAudioFiles)].play()
+  );
+}
