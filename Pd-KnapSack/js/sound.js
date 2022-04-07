@@ -2,6 +2,7 @@ $().ready(() => {
   DefaultClick();
   ItemFrameClick();
   ResetClick();
+  ShopItemClick();
 });
 
 const DefaultClick = () => {
