@@ -30,6 +30,17 @@
     }
 
 
+    if(!empty($_GET["payer"]))
+    {
+        $action = $_GET["payer"];
+        $idJoueur = $_GET["idJoueur"];
+        $qteNum = 0;
+        if ($action == 'TRUE') {
+            MontantTotalPanier($idJoueur);
+        }        
+    }
+
+
     $tab = AfficherPanier($_SESSION['alias']);  
 ?>
 
@@ -69,6 +80,8 @@
             article img {
                 width: 6vh;
             }
+
+            
         </style>
     </head>
 
@@ -111,6 +124,15 @@
                             <?php
                         }       
                         ?>
+
+                        <br>
+                        <br>
+                        <br>
+                        
+                        <div>
+                            <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
+                            <input type= hidden name="payer" value="">
+                        </div>
                         
 
 

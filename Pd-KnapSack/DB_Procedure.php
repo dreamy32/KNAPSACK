@@ -173,6 +173,25 @@
         }
     }
 
+    function MontantTotalPanier($idJoueur)
+    {
+        Connexion();
+        global $pdo;
+        try{
+            $stmt = $pdo->prepare("CALL MontantTotalPanier(:IdJoueur)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_STR);
+            $stmt->execute();
+            $info = [];
+            while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                array_push($info,$donnee[0]);
+            }
+            $stmt->closeCursor();
+            return $info;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
 
 
 
