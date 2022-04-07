@@ -74,7 +74,6 @@
                     
                     <?php
                     foreach($tab as $objet){
-                        $idInput = "nbItemChoisie" . $objet[0];
                         ?>
                         <form action="panier.php" method="get">
                         <div class="item-holder">
@@ -86,11 +85,11 @@
                             </div>
                             <span><?=$objet[2] ?></span>
                             <div class="input-number">
-                            <button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie(<?=$objet[0]?>)'></button>
+                                <button type=submit aria-label="Minus" onclick="this.form.typeaction.value='SUBSTRACT'"></button>
                                 <input type=hidden name="numItem" value="<?=$objet[0]?>">
                                 <input type=hidden name="typeaction" value="">
-                                <input readonly aria-label="Alternative" type="number" name="qte" id='<?= $idInput ?>' style="width: 85px; height: 100px; font-size: xx-large;" value="<?=$objet[1] ?>">
-                                <button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie(<?=$objet[0]?>)'></button>
+                                <input readonly aria-label="Alternative" type="number" name="qte" id="qte" style="width: 85px; height: 100px; font-size: xx-large;" value="<?=$objet[1] ?>">
+                                <button type=submit aria-label="Plus" onclick="this.form.typeaction.value='ADD'"></button>
                             </div>
                         </div>
                         </form>
@@ -105,17 +104,5 @@
                 <div id="item-info"></div>
             </div>
         </div>
-<script>
-        function ReduireNbItemChoisie(idItem){
-        var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
-        if(inputNbItemChoisie.value > 1)
-            inputNbItemChoisie.value = inputNbItemChoisie.value-1;
-    }
-    function AugmenterNbItemChoisie(idItem){
-        var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
-        var nbInput = parseInt(inputNbItemChoisie.value);
-        inputNbItemChoisie.value = nbInput + 1;
-    }
-</script>
 
 <?php require('footer.php')?>
