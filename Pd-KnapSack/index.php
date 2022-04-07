@@ -16,6 +16,7 @@
         AjouterItemPanier($_GET["idItem"],$_GET["nbItem"]);
         echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";}
 ?>
+
 <body>
     <div id="minetip-tooltip">
         <span class="minetip-title" id="minetip-text">Minecraft Tip</span>
@@ -48,44 +49,59 @@
                 </div>
                 <!--<span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>-->
             </div>
+
+            <!-- RECHERCHE AVANCÉE DÉBUT -->
+
             <div class="recherche" onclick="afficherRecherche()">
                 <button>Recherche Avancée</button>
                 <div style="background-image: none;" class="contenuRecherche" id="RecherchePopUp">
-                     <div aria-label="Window" style="margin: auto; width: 1000px; height: 650px;">
+                     <div aria-label="Window" style="margin: auto; width: 1000px; height: 700px;">
         <div id="window-container">
             <h1 id="window-title">Recherche</h1>
-            <div class="search-container">
+            <form action="" method="post" class="search-container"> 
                 <div id="order-types">
-                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Poids</span></label>
 
-                    <!-- <input type="checkbox" name="search-box" id="search-box1">
-                    <label for="search-box1">Poids</label> -->
-                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Prix</span></label>
+                    <label><input type="checkbox" name="tri-poids" id="search-box1" onclick="trier()" > <span>Poids</span></label>
 
-                    <label><input type="checkbox" name="search-box" id="search-box1"><span>Type</span></label>
+                    <label><input type="checkbox" name="tri-prix" id="search-box2" onclick="trier()"><span>Prix</span></label>
+
+                    <label><input type="checkbox" name="tri-type" id="search-box3" onclick="trier()"><span>Type</span></label>
                 </div>
                 <div id="star-rating">
-                    <input class="rating rating--nojs" max="5" step="1" type="range" value="3">
+
+                    <input class="rating rating--nojs" max="5" step="1" type="range" value="5">
+
                     <br><br>
-                    <button type="submit" style="font-size: 1.8em;">Croissant</button>
+
+                    <button type="checkbox" style="font-size: 1.8em;">Croissant</button>
+                    <br><br>
+                    <button type="submit" style="font-size: 1.8em;">Confirmer</button>
+                    
                 </div>
                 <div id="item-types">
                     <div>
                         <input aria-label="Item-Frame" type="checkbox" name="" id="armes">
+
                         <input aria-label="Item-Frame" type="checkbox" name="" id="armures">
+
                         <input aria-label="Item-Frame" type="checkbox" name="" id="reset">
                     </div>
                     <div>
                         <input aria-label="Item-Frame" type="checkbox" name="" id="nourriture">
+
                         <input aria-label="Item-Frame" type="checkbox" name="" id="munitions">
+
                         <input aria-label="Item-Frame" type="checkbox" name="" id="medicaments">
                     </div>
                 </div>
-            </div>
+            </form>
         </div>           
                      </div>
                 </div>
             </div>
+
+            <!-- RECHERCHE AVANCÉE FIN -->
+
             <div class="searchAndCart">
                 <a href="panier.php" style="text-decoration: none;">
                     <button type="submit" aria-label="Panier" style="margin: 13px;"></button>
@@ -115,7 +131,7 @@
                             $objet[1] = $nomItem; 
                             $objet[6] = $descriptionItem;
                             $temp = json_encode($objet);
-                            echo "<article class='test' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
+                            echo "<article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                             echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                             if($estConnecter){
                             echo "<form method='get'>";
