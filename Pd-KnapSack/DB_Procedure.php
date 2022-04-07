@@ -119,7 +119,7 @@
         try{
             $sqlProcedure = "CALL ModifierItemPanier(:pAlias,:pQte,:pNumItem)";
             $stmt = $pdo->prepare($sqlProcedure);
-            $alias = 'madzcandy';
+            $alias = $_SESSION['alias'];
             $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
             $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
             $stmt->bindParam(':pNumItem', $numItem, PDO::PARAM_INT);
