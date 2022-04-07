@@ -1,6 +1,7 @@
 <?php 
     $title = "Panier";
     require('header.php');
+    session_start();
     include("DB_Procedure.php");
 
 
@@ -17,7 +18,7 @@
         ModifierItemPanier($qteNum, $numitem);  
     } 
 
-  $tab = AfficherPanier('madzcandy');  
+  $tab = AfficherPanier($_SESSION['alias']);  
 ?>
 
 
