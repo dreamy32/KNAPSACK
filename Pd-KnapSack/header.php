@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="css/mc-tooltips.css">
     <link rel="stylesheet" href="css/minecraft_elements.css">
     <link rel="stylesheet" href="css/range.css">
+    <script src="js/tri.js"></script>
     <script src="js/menuPopUp.js"></script>
     <script src="js/snackbar.js"></script>
     <script src="js/sound.js"></script>
