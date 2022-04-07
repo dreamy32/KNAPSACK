@@ -146,8 +146,8 @@ input[type]:not([type="range"])[type="checkbox"] {
      -moz-appearance: none;
           appearance: none;
   background: url(../images/checkbox.png) 0 0/100% 100%;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
 }
 
 input[type]:not([type="range"])[type="checkbox"]:checked {
@@ -162,23 +162,52 @@ input[type]:not([type="range"])[type="checkbox"]:hover {
   background: url(../images/hovered_checkbox.png) 0 0/100% 100%;
 }
 
+input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"] {
+  background: url(../images/item_frame.png) 0 0/100% 100%;
+  width: 100px;
+  height: 100px;
+}
+
+input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"]:checked {
+  background: url(../images/glow_item_frame.png) 0 0/100% 100%;
+}
+
+input[type]:not([type="range"])[type="checkbox"][aria-label="Item-Frame"][id="reset"]:hover {
+  background: url(../images/glow_item_frame.png) 0 0/100% 100%;
+}
+
 div[aria-label="Window"] {
-  background: url(../images/Oak_Wood_Planks.png) 0 0/21%;
+  background: url(../images/Oak_Wood_Planks.png) 0 0/40%;
   border-radius: 22px;
 }
 
-div[aria-label="Window"] h1, div[aria-label="Window"] h2, div[aria-label="Window"] h3, div[aria-label="Window"] h4, div[aria-label="Window"] h5, div[aria-label="Window"] h6 {
-  margin-left: 35px;
-  margin-top: 13px;
-  float: left;
-  color: #212121;
-  text-shadow: none;
+div[id="window-container"] {
+  background: url(../images/window.png) 0 0/100% 100%;
+  margin-top: 2%;
+  height: 100%;
+  overflow: hidden;
 }
 
-div[aria-label="Window"]::after {
-  display: block;
-  height: 100%;
-  content: "";
-  background: url(../images/window.png) 0 0/100% 100%;
+#window-title {
+  text-align: start;
+  font-weight: 100;
+  -webkit-margin-start: 3%;
+          margin-inline-start: 3%;
+  padding-top: 10px;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  text-shadow: none;
+  color: #2d2d2d;
+}
+
+label {
+  display: table;
+}
+
+label span {
+  margin-left: 15px;
+  color: black;
+  text-shadow: none;
+  font-size: 2em;
 }
 /*# sourceMappingURL=minecraft_elements.css.map */

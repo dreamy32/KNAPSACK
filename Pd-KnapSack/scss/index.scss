@@ -74,31 +74,31 @@ $boxDim: 11vh;
     overflow-y: scroll;
     direction: rtl;
     grid-area: content;
-    section {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 0 3vh;
-        // max-width: 1220px;
-        article {
-            background: $boxImgTop;
-            background-repeat: no-repeat;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: $boxDim;
-            height: $boxDim;
-            &:hover {
-                background: url(../images/hovered_box.png);
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-            img {
-                width: 7vh;
-            }
-        }
+}
+section {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 3vh;
+    // max-width: 1220px;
+}
+article {
+    background: $boxImgTop;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $boxDim;
+    height: $boxDim;
+    &:hover {
+        background: url(../images/hovered_box.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    img {
+        width: 9vh;
     }
 }
 
@@ -125,9 +125,6 @@ $iconBgColor: black;
 .searchAndCart {
     display: flex;
     flex-direction: row-reverse;
-}
-.fullWidth {
-    // flex-basis: 100%;
 }
 
 #style-1::-webkit-scrollbar {
@@ -165,9 +162,138 @@ $iconBgColor: black;
     width: 72%;
 }
 //MediaQueries
-@media only screen and (min-width: 500px) {
+@media only screen and (max-width: 500px) {
     input[type]:not([type="range"]) {
-        font-size: 1.2em;
-        padding: 25px;
+        font-size: 1.2em !important;
+        padding: 25px !important;
+    }
+}
+
+//Window Related Style
+//Recherche
+.search-container {
+    margin: auto;
+    display: grid;
+    grid-template-areas:
+        "order-types item-types"
+        "star-rating item-types";
+    height: 80%;
+    width: 93%;
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: 1.8fr 2fr;
+    div {
+        height: fit-content;
+        width: fit-content;
+        margin-left: 9%;
+    }
+}
+
+#order-types {
+    grid-area: order-types;
+    margin-top: 8%;
+    margin-bottom: 10%;
+}
+
+#star-rating {
+    grid-area: star-rating;
+}
+
+$fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
+#item-types {
+    grid-area: item-types;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+    margin-left: unset;
+    div {
+        width: min-content;
+        height: min-content;
+        margin-left: 7.5%;
+        margin-right: 7.5%;
+    }
+    input {
+        margin-bottom: 30%;
+        &:last-child {
+            margin-bottom: unset;
+        }
+        //After
+        &::after {
+            display: block;
+            margin-top: -30%;
+            margin-left: -30%;
+            // position: absolute;
+            content: "";
+            height: 80px;
+            width: 80px;
+        }
+        &[id="armures"]::after {
+            background: url(../images/diamond_chestplate.png) $fullSize;
+        }
+        &[id="armes"]::after {
+            background: url(../images/diamond_sword.png) $fullSize;
+        }
+        &[id="nourriture"]::after {
+            background: url(../images/bread.png) $fullSize;
+        }
+        &[id="munitions"]::after {
+            background: url(../images/arrow.png) $fullSize;
+        }
+        &[id="medicaments"]::after {
+            background: url(../images/potion.webp) $fullSize;
+        }
+        &[id="reset"]::after {
+            background: url(../images/barrier.png) $fullSize;
+        }
+    }
+}
+
+//Panier
+.cart-container {
+    margin: auto;
+    display: grid;
+    grid-template-areas: "item-list item-info";
+    height: 80%;
+    width: 93%;
+    grid-template-columns: 1fr 0.65fr;
+    grid-template-rows: 1fr;
+    div {
+    }
+}
+#items-list {
+    backdrop-filter: brightness(0.5);
+    overflow: auto;
+}
+div[aria-label="Item-Slot"] {
+    background: $boxImgTop 0 0 / 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    img {
+        width: 65%;
+    }
+}
+.item-holder{
+    display: inline-flex;
+    align-items: center;
+}
+.item-holder > span{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: xx-large;
+}
+.input-number{
+    margin-left: 50px;
+    display: contents;
+    button{
+        &:first-child{
+            margin-right: 10px;
+        }
+        &:last-child{
+            margin-left: 10px;
+        }
     }
 }

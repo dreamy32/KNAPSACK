@@ -122,9 +122,6 @@ input[type]:not([type="range"]) {
             &:checked{
                 background: url(../images/glow_item_frame.png) $fullSize;
             }
-            &[id="reset"]:hover{
-                background: url(../images/glow_item_frame.png) $fullSize;
-            }
         }
     }
 }
