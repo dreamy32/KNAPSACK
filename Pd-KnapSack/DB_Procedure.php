@@ -131,6 +131,24 @@
     }
 
     
+    function SupprimerItemPanier($numItem){
+        Connexion();
+        global $pdo;
+        try{
+            $sqlProcedure = "CALL SupprimerItemPanier(:pAlias, :pNumItem)";
+            $stmt = $pdo->prepare($sqlProcedure);
+            $alias = $_SESSION['alias'];
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->bindParam(':pNumItem', $numItem, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+    
     function AfficherPanier($alias){
         Connexion();
         global $pdo;
