@@ -73,6 +73,7 @@
     </head>
 
     <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
+    <a href="index.php"><img src="images/Knapsack.png"></img></a>
         <div id="d"></div>
         
         <div aria-label="Window" style="margin: auto; height: 98%; background: inherit;">
