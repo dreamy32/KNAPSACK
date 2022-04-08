@@ -152,19 +152,26 @@
     function AfficherPanier($alias){
         Connexion();
         global $pdo;
+        
         try{
+            
             $stmt = $pdo->prepare("CALL AfficherPanier(:alias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
             $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
             $stmt->execute();
+            
             $info = [];
+            
 
             while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                
                 $rangee = [];
                 array_push($rangee,$donnee[0]);
                 array_push($rangee,$donnee[1]);
                 array_push($rangee,$donnee[2]);
                 array_push($info,$rangee);
+                
             }
+            
 
             $stmt->closeCursor();
             return $info;

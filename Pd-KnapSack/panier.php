@@ -4,6 +4,7 @@
     include("DB_Procedure.php");
     session_start();
 
+    echo 'aaaaa';
 
     if(!empty($_GET["typeaction"])) {
         $action = $_GET["typeaction"];
@@ -17,7 +18,8 @@
         }
         ModifierItemPanier($qteNum, $numitem);  
     } 
-
+    echo 'aaaaa22';
+    /*
 
     if(!empty($_GET["supprimer"]))
     {
@@ -29,7 +31,9 @@
         }        
     }
 
+    */
 
+    /*
     if(!empty($_GET["payer"]))
     {
         $action = $_GET["payer"];
@@ -40,8 +44,10 @@
         }        
     }
 
+    */
 
     $tab = AfficherPanier($_SESSION['alias']);  
+    echo 'aaaaa333';
 ?>
 
 
@@ -127,11 +133,19 @@
                         <br>
                         <br>
                         <br>
+
+                        <div>
+                            
+                        </div>
+
+                        
                         
                         <div>
                             <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
                             <input type= hidden name="payer" value="">
                         </div>
+
+
                         
 
 
