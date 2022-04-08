@@ -30,6 +30,7 @@
     }
 ?>
 <body style="text-align: center;">
+    <a href="index.php"><img src="images/Knapsack.png"></img></a>
     <h1>Connexion</h1>
     <form method="post">
         <h3>Nom d'utilisateur:</h3>

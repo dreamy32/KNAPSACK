@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 ?>
 
 <body style="text-align: center;">
+    <a href="index.php"><img src="images/Knapsack.png"></img></a>
     <h1>S'inscrire</h1>
     <form method="post">
         <div class="inscripContainer">

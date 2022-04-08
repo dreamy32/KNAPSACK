@@ -19,6 +19,7 @@
     }
 ?>
 <body style="text-align: center;">
+    <a href="index.php"><img src="images/Knapsack.png"></img></a>
     <h1>Modifier Mot De Passe</h1>
     <form method="post">
         <h3>Actuel:</h3>
