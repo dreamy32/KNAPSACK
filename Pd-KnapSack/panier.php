@@ -4,7 +4,6 @@
     include("DB_Procedure.php");
     session_start();
 
-    echo 'aaaaa';
 
     if(!empty($_GET["typeaction"])) {
         $action = $_GET["typeaction"];
@@ -18,8 +17,8 @@
         }
         ModifierItemPanier($qteNum, $numitem);  
     } 
-    echo 'aaaaa22';
-    /*
+
+
 
     if(!empty($_GET["supprimer"]))
     {
@@ -31,23 +30,22 @@
         }        
     }
 
-    */
 
-    /*
+
+  
     if(!empty($_GET["payer"]))
     {
         $action = $_GET["payer"];
-        $idJoueur = $_GET["idJoueur"];
+        $alias = $_SESSION["alias"];
         $qteNum = 0;
         if ($action == 'TRUE') {
-            MontantTotalPanier($idJoueur);
+            PayerPanier($alias);
         }        
     }
 
-    */
+  
 
     $tab = AfficherPanier($_SESSION['alias']);  
-    echo 'aaaaa333';
 ?>
 
 
@@ -65,6 +63,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="js/sound.js"></script>
         <script src="js/item-types_reset.js"></script>
+
         <style>
             #window-title {
                 font-size: 5.5vh;
@@ -107,11 +106,11 @@
                             ?>
                             <form action="panier.php" method="get">
                             <div class="item-holder">
-                                <div aria-label="Item-Slot"> 
-                                    <img class="minetext" data-mctitle="Apple&nbsp;5lb"
+                                <div aria-label="Item-Slot">                                    
+                                    <img class="minetext" id="img_<?=$objet[2]?>" data-mctitle="Apple&nbsp;5lb"
                                         src='items_images/<?=$objet[0]?>.png'
                                         alt='Image de <?=$objet[2] ?>'
-                                    >
+                                    >                               
                                 </div>
                                 <span><?=$objet[2] ?></span>
                                 <div class="input-number">
@@ -135,17 +134,13 @@
                         <br>
                         <br>
 
-                        <div>
-                            
-                        </div>
-
                         
-                        
-                        <div>
-                            <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
-                            <input type= hidden name="payer" value="">
-                        </div>
-
+                        <form action="panier.php" method="get">
+                            <div>
+                                <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
+                                <input type= hidden name="payer" value="">
+                            </div>
+                        </form>
 
                         
 
@@ -156,4 +151,16 @@
                 </div>
             </div>
 
-<?php require('footer.php')?>
+<?php require('footer.php') ?>
+
+
+<!--
+<script type="text/javascript">
+            function DeleteItem()
+            {
+                alert("joli");
+            }
+
+            alert("poli");
+        </script>
+-->
