@@ -288,30 +288,29 @@ function AfficherPanier($alias)
     }
 }
 
-    /*
+    
     function MontantTotalPanier($idJoueur)
     {
         Connexion();
         global $pdo;
         try{
-            $stmt = $pdo->prepare("CALL MontantTotalPanier(:IdJoueur)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_STR);
+            $stmt = $pdo->prepare("SELECT MontantTotalPanier(:IdJoueur)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_INT);
             $stmt->execute();
-            $info = [];
-            while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
-                array_push($info,$donnee[0]);
+            $totalPanier = 0;
+
+            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                $totalPanier = $donnee[0];
             }
             $stmt->closeCursor();
-            return $info;
+            return $totalPanier;
         }catch(PDOException $e){
             return $e->getMessage();
         }
-        $stmt->closeCursor();
-        return $info;
-    } catch (PDOException $e) {
-        return $e->getMessage();
     }
-    */
+
+
+    
 
     function PayerPanier($alias)
     {
@@ -327,38 +326,6 @@ function AfficherPanier($alias)
             return $e->getMessage();
         }
     }
-
-
-    /*
-    function PoidsSac($alias)
-    {
-        echo($alias);
-        Connexion();
-        global $pdo;
-        try{
-            $poids = 0;
-            //echo('0');
-            $stmt = $pdo->prepare("SELECT PoidsSac(:pAlias)");
-            //echo('1');
-            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
-            //echo('2');
-            $stmt->execute();
-            //echo('3');
-           // $stmt->bindResult($poids);
-           // echo('4');
-            $poids = $stmt->fetchAll();
-           // echo('5');
-            return $poids[1];
-        }catch(PDOException $e){
-            echo $e->getMessage();
-            return $e->getMessage();
-        }
-    }
-
-    */
-
-
-
 
     
     function PoidsSac($alias){
@@ -399,6 +366,28 @@ function AfficherPanier($alias)
             }
             $stmt->closeCursor();
             return $poidsMax;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+    
+    function Dexterite($alias){
+        Connexion();
+        global $pdo;
+        
+        try{
+            
+            $stmt = $pdo->prepare("SELECT dexterite FROM Joueurs WHERE $alias = alias",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->execute();
+            $dexterite = 0;
+
+            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
+                $dexterite = $donnee[0];              
+            }
+            $stmt->closeCursor();
+            return $dexterite;
         }catch(PDOException $e){
             return $e->getMessage();
         }
