@@ -324,9 +324,16 @@ article img {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: items-list;
-  -webkit-backdrop-filter: brightness(0.5);
-          backdrop-filter: brightness(0.5);
+  background-color: #00000075;
   overflow: auto;
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  #items-list {
+    background-color: unset;
+    -webkit-backdrop-filter: brightness(0.5);
+            backdrop-filter: brightness(0.5);
+  }
 }
 
 div[aria-label="Item-Slot"] {
@@ -463,9 +470,16 @@ div[aria-label="Item-Slot"]:hover::after {
 }
 
 .input-number input {
+  -moz-appearance: textfield;
+  text-align: center;
   width: 80px !important;
   height: 85px !important;
   font-size: 1.5em !important;
+}
+
+.input-number input::-webkit-outer-spin-button, .input-number input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .input-number button:first-child {
