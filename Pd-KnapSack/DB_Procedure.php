@@ -165,8 +165,6 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
         $ordre = "";
     }
 
-    echo $nbEtoilesWHERE . $typeWHERE . $triORDERBY . $ordre;
-
     try {
         $stmt = $pdo->query("SELECT * FROM Items WHERE estEnVente = 1 " . $nbEtoilesWHERE . $typeWHERE . $triORDERBY . $ordre);
         $stmt->setFetchMode(PDO::FETCH_NUM);
