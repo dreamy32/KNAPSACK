@@ -3,12 +3,14 @@ use KNAPSACKDB;
 
 call AfficherPanier(13);
 call AjouterItemPanier("2", 2, 38);
-call AjouterItemPanier("2", 1, 41);
+call AjouterItemPanier("2", 1, 60);
 call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
 CALL AfficherInventaire(23);
 
-SELECT MontantTotalPanier('23');
+update Joueurs set solde = 1000 where idjoueur = 23;
 
+SELECT MontantTotalPanier('23');
+SELECT PoidsSac(2);
 
 # Procédure qui ajoute un item au panier =============================================================================================
 DELIMITER $$

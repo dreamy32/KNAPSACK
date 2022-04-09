@@ -145,7 +145,7 @@
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
                                 <span style="color:aquamarine">Poids du sac:</span>
-                                <span><?=$poidsSac?>/<?=$poidsMax?></span>
+                                <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
                             </span>
                             <br>
                             <br>

@@ -353,7 +353,6 @@ function AfficherInventaire($idJoueur)
 
     function PayerPanier($alias)
     {
-        echo($alias);
         Connexion();
         global $pdo;
         try{

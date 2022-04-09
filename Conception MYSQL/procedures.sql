@@ -245,8 +245,12 @@ CREATE PROCEDURE AjouterItemInventaire
 BEGIN
 	IF quantiteP > 0 AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP)
     THEN
-		INSERT INTO Inventaire(quantite, date, Items_IdItems, Joueurs_IdJoueur)
-        VALUES (quantiteP,NOW(),Items_IdItemsP,Joueurs_IdJoueurP);
+        SELECT COUNT(Items_IdItems) INTO @nbItem FROM Inventaire WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
+		IF(@nbItem = 0) THEN
+			INSERT INTO Inventaire(quantite, date, Items_IdItems, Joueurs_IdJoueur) VALUES (quantiteP,NOW(),Items_IdItemsP,Joueurs_IdJoueurP);
+        ELSE
+        	UPDATE Inventaire SET quantite = quantite + quantiteP WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
+		END IF;
 		COMMIT;
         ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'valeurs mauvaises';
