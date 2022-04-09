@@ -30,7 +30,7 @@
                         <button type="submit" aria-label="Chest"></button>
                     </a>
 
-                    <div class="contenuMenu" id="MenuPopUp" style="border: solid 3px black;">
+                    <div class="contenuMenu" id="MenuPopUp">
                         <?php
                             $profile = AfficherInfosJoueur($_SESSION['alias']);
                             $solde = $profile[1];
@@ -58,43 +58,43 @@
                      <div aria-label="Window" style="margin: auto; width: 1000px; height: 700px;">
         <div id="window-container">
             <h1 id="window-title">Recherche</h1>
-            <form action="" method="post" class="search-container"> 
+            <div class="search-container"> 
                 <div id="order-types">
 
-                    <label><input type="checkbox" name="tri-poids" id="search-box1" onclick="trier()" > <span>Poids</span></label>
+                    <label><input type="checkbox" name="tri" value="poids" id="search-box1"> <span>Poids</span></label>
 
-                    <label><input type="checkbox" name="tri-prix" id="search-box2" onclick="trier()"><span>Prix</span></label>
+                    <label><input type="checkbox" name="tri" value="prixUnitaire" id="search-box2"><span>Prix</span></label>
 
-                    <label><input type="checkbox" name="tri-type" id="search-box3" onclick="trier()"><span>Type</span></label>
+                    <label><input type="checkbox" name="tri" value="type" id="search-box3"><span>Type</span></label>
                 </div>
                 <div id="star-rating">
 
-                    <input class="rating rating--nojs" max="5" step="1" type="range" value="5">
+                    <input class="rating rating--nojs" id="nbEtoiles" name="nbEtoiles" max="5" step="1" type="range" value="0">
 
                     <br><br>
 
                     <button type="checkbox" style="font-size: 1.8em;">Croissant</button>
                     <br><br>
-                    <button type="submit" style="font-size: 1.8em;">Confirmer</button>
+                    <button onclick="trier()" style="font-size: 1.8em;">Confirmer</button>
                     
                 </div>
                 <div id="item-types">
                     <div>
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="armes">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Armes" value="W" name="type" id="armes">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="armures">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Armures" value="A" name="type" id="armures">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="reset">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Rénitialiser" name="type" id="reset">
                     </div>
                     <div>
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="nourriture">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Nourriture" value="N" name="type" id="nourriture">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="munitions">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Munitions" value="M" name="type" id="munitions">
 
-                        <input aria-label="Item-Frame" type="checkbox" name="type" id="medicaments">
+                        <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Médicaments" value="D" name="type" id="medicaments">
                     </div>
                 </div>
-            </form>
+                        </div>
         </div>           
                      </div>
                 </div>
@@ -124,7 +124,16 @@
             </section>
             <section>
                 <?php
+
+                if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"]))
+                {
+                    $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type']);
+                }
+                else
+                {
                     $listeObjets = AfficherItemsVente('%');
+                }
+
                         foreach($listeObjets as $objet){
                             $nomItem = str_replace("'","-",$objet[1]);
                             $descriptionItem = str_replace("'","-",$objet[6]);
@@ -132,7 +141,7 @@
                             $objet[6] = $descriptionItem;
                             $temp = json_encode($objet);
                             echo "<article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
-                            echo "<div class='testItem' id='itempPopUp$objet[0]' style='border: solid 3px black;'>";
+                            echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                             if($estConnecter){
                             echo "<form method='get'>";
                             echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0])'></button>";
@@ -155,7 +164,7 @@
                         $objet[5] : poids
                         $objet[6] : description
                         $objet[7] : est en vente*/
-                        for ($i = 1; $i < 100; $i++) {
+                        for ($i = 1; $i < 96; $i++) {
                             echo "<article></article>";
                         }
                 ?>
