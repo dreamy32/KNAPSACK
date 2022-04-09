@@ -4,6 +4,11 @@
     include("DB_Procedure.php");
     session_start();
 
+    $estConnecter = FALSE;
+    if(!empty($_SESSION['alias']))
+        $estConnecter = TRUE;
+
+
 
     if(!empty($_GET["typeaction"])) {
         $action = $_GET["typeaction"];
@@ -46,6 +51,17 @@
   
 
     $tab = AfficherPanier($_SESSION['alias']);  
+
+    $profile = AfficherInfosJoueur($_SESSION['alias']);
+    $solde = $profile[1];
+    $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
+    $poidsMax = $profile[3];
+/* Affiche le boutton profile, solde, et se deconnecter */
+/*
+    if ($estConnecter) {
+        echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></a></div>';
+    }
+    */
 ?>
 
 
@@ -137,17 +153,44 @@
                         
                         <form action="panier.php" method="get">
                             <div>
+                                 Solde: <?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps">
+                            </div>
+                            <div>
                                 <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
                                 <input type= hidden name="payer" value="">
                             </div>
                         </form>
-
-                        
-
-
                         <br><br>
+                    </div>                    
+                    <div id="item-info">
+                        <h1>Total</h1>
+                        <div style="text-align: center;">
+                            <h2>Poids:</h2>
+                            <br>
+                            <span class="red-alert">1001<span>/999</span></span>
+                            <br>
+                            <br>
+                            <h3>Dextérité: <span>25<sup class="red-alert">-1</sup></span></h3>
+                        </div>
+                        <div style="text-align: center;">
+                            <h2>Prix</h2>
+                            <br>
+                            <div style="display: inline-flex;">
+                                <span>4'500</span>
+                                <img style="width: 33px;" src="./images/emerald.png">
+                            </div>
+                        </div>
+                        <button type="submit">Acheter</button>
+                        <div style="text-align: center;">
+                            <h3>Solde<br>après-achat:</h3>
+                            <br>
+                            <div style="display: inline-flex;">
+                                <span><div>Solde: <?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div id="item-info"></div>
+
+
                 </div>
             </div>
 

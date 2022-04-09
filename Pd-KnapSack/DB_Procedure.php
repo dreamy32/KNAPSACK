@@ -207,15 +207,10 @@
         Connexion();
         global $pdo;
         try{
-            echo('11111111');
             $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
-            echo('11111111222222222222');
             $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
-            echo('111111112222222222233333333333333333333');
             $stmt->execute();
-            echo('111111112222222222233333333333333333333444444444444444444444444444444');
             $stmt->closeCursor();
-            echo('1111111122222222222333333333333333333334444444444444444444444444444445555555555555555555555555555555555555555');
         }catch(PDOException $e){
             return $e->getMessage();
         }
