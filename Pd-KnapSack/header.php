@@ -17,7 +17,7 @@
     <script src="js/menuPopUp.js"></script>
     <script src="js/snackbar.js"></script>
     <script src="js/sound.js"></script>
-    <script src="js/item-types_reset.js"></script>
+    <script src="js/recherche.js"></script>
     <title><?= $title ?></title>
     <style>
         .menu {
