@@ -263,8 +263,16 @@ $fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
 }
 #items-list {
     grid-area: items-list;
-    backdrop-filter: brightness(0.5);
+    //Pour les browsers ne supportant pas backdrop-filter (Mozilla)
+    background-color: #00000075;
     overflow: auto;
+}
+//Supportant backdrop-filter (Chrome)
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    #items-list {
+        background-color: unset;
+        backdrop-filter: brightness(0.5);
+    }
 }
 div[aria-label="Item-Slot"] {
     background: $boxImgTop 0 0 / 100% 100%;
@@ -301,7 +309,7 @@ div[aria-label="Item-Slot"] {
     }
 }
 
-.red-alert{
+.red-alert {
     color: red !important;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000 !important;
 }
@@ -365,10 +373,19 @@ div[aria-label="Item-Slot"] {
 }
 .input-number {
     display: contents;
+    // text-indent: ;
+    
     input {
+        -moz-appearance: textfield;
+        text-align: center;
         width: 80px !important;
         height: 85px !important;
         font-size: 1.5em !important;
+        &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
     }
     button {
         &:first-child {
