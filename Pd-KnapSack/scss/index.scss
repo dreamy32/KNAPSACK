@@ -252,15 +252,17 @@ $fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
 .cart-container {
     margin: auto;
     display: grid;
-    grid-template-areas: "item-list item-info";
+    overflow: hidden;
+    grid-template-areas: "items-list item-info";
     height: 80%;
     width: 93%;
-    grid-template-columns: 1fr 0.65fr;
+    grid-template-columns: 1fr 0.4fr;
     grid-template-rows: 1fr;
     div {
     }
 }
 #items-list {
+    grid-area: items-list;
     backdrop-filter: brightness(0.5);
     overflow: auto;
 }
@@ -269,8 +271,8 @@ div[aria-label="Item-Slot"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     img {
         width: 65%;
     }
@@ -279,27 +281,95 @@ div[aria-label="Item-Slot"] {
         filter: opacity(0.8);
         position: absolute;
         content: "";
-        height: 100px;
-        width: 100px;
+        height: 80px;
+        width: 80px;
     }
 }
 .item-holder {
     display: inline-flex;
     align-items: center;
+    margin-top: -1.4%;
+    margin-left: 1.5%;
+    &:first-child {
+        margin-top: 1.4%;
+    }
     & > span {
         margin-top: 10px;
         margin-left: 15px;
-        margin-right: 15px;
-        font-size: xx-large;
+        margin-right: 30px;
+        font-size: 1.7em;
     }
 }
 
+.red-alert{
+    color: red !important;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000 !important;
+}
 #item-info {
+    grid-area: item-info;
     background: url("../images/Oak_Wood_Planks.png") 0 0 / 24%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: auto;
+
+    span,
+    sup {
+        font-size: x-large;
+        text-shadow: none;
+        font-weight: 100;
+        color: black;
+        text-shadow: -1px 1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+    }
+    sup {
+        font-size: 0.6em;
+        vertical-align: top;
+    }
+    button {
+        font-size: x-large;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        display: inline;
+        text-shadow: none;
+        font-weight: 100;
+        // -webkit-text-stroke: 0.01px white;
+        text-shadow: -1px 1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+        color: black;
+    }
+    h1 {
+        font-size: 3.3em;
+        margin-bottom: -5%;
+    }
+    h2 {
+        font-size: 2.3em;
+    }
+    h3 {
+        font-size: 1.8em;
+    }
+    h4 {
+        font-size: large;
+    }
+    div {
+        &:nth-of-type(1) {
+        }
+        &:nth-of-type(3) {
+            margin-bottom: 20px;
+        }
+    }
 }
 .input-number {
-    margin-left: 50px;
     display: contents;
+    input {
+        width: 80px !important;
+        height: 85px !important;
+        font-size: 1.5em !important;
+    }
     button {
         &:first-child {
             margin-right: 10px;
