@@ -299,6 +299,36 @@ function AfficherPanier($alias)
     }
 }
 
+
+
+function AfficherInventaire($idJoueur)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("CALL AfficherInventaire(:IdJoueurP)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':IdJoueurP', $idJoueur, PDO::PARAM_INT);
+        $stmt->execute();
+        $info = [];
+
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[0]);
+            array_push($rangee, $donnee[1]);
+            array_push($rangee, $donnee[2]);
+            array_push($rangee, $donnee[3]);
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+
+
+
     
     function MontantTotalPanier($idJoueur)
     {

@@ -229,9 +229,12 @@ CREATE PROCEDURE AfficherInventaire
 BEGIN
 	IF EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = IdJoueurP)
     THEN
-			SELECT quantite, date, Items_IdItems FROM Inventaire WHERE Joueurs_IdJoueur = IdJoueurP;
-        ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
+		SELECT Inventaire.quantite, date, Items_IdItems, nom
+        FROM Inventaire 
+        INNER JOIN Items ON Inventaire.Items_IdItems = IdItems	
+        WHERE Joueurs_IdJoueur = IdJoueurP;        
+	ELSE
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le joueur existe pas';
 	END IF;    
 END $$
 
