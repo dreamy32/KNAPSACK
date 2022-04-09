@@ -101,6 +101,30 @@ else
 }
 }});
 
+
+  if (url != "")
+  {
+    if (document.getElementById("order-button").value === "false")
+    {
+      url += "&ordre=" + "ASC";
+    }
+    else
+    {
+      url += "&ordre=" + "DESC";
+    }
+  }
+  else
+  {
+    if (document.getElementById("order-button").value === "false")
+    {
+      url += "?ordre=" + "ASC";
+    }
+    else
+    {
+      url += "?ordre=" + "DESC";
+    }
+  }
+
     
   if (url == "")
   {

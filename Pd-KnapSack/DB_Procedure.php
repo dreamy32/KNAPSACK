@@ -102,7 +102,7 @@ function AfficherItemsVente($type = '%')
     }
 }
 
-function AfficherItemsVenteTri($tri, $nbEtoiles, $type)
+function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
 {
     Connexion();
     global $pdo;
@@ -156,8 +156,17 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type)
         $triORDERBY = " ORDER BY " . $tri;
     }
 
+    if ($triORDERBY != "")
+    {
+        $ordre = " " . $ordre; 
+    }
+    else
+    {
+        $ordre = "";
+    }
+
     try {
-        $stmt = $pdo->query("SELECT * FROM Items WHERE estEnVente = 1 " . $nbEtoilesWHERE . $typeWHERE . $triORDERBY);
+        $stmt = $pdo->query("SELECT * FROM Items WHERE estEnVente = 1 " . $nbEtoilesWHERE . $typeWHERE . $triORDERBY . $ordre);
         $stmt->setFetchMode(PDO::FETCH_NUM);
 
         $info = [];
