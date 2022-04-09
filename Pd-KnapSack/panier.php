@@ -49,12 +49,17 @@
     }
 
   
-
+    $poidsSac = PoidsSac($_SESSION['alias']);
+    $poidsMax = PoidsMax($_SESSION['alias']);
     $tab = AfficherPanier($_SESSION['alias']);  
+
+    echo $poidsSac;
+    echo $poidsMax;
+
 
     $profile = AfficherInfosJoueur($_SESSION['alias']);
     $solde = $profile[1];
-    $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
+    //$poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
     $poidsMax = $profile[3];
 /* Affiche le boutton profile, solde, et se deconnecter */
 /*
@@ -165,16 +170,20 @@
                     <div id="item-info">
                         <h1>Total</h1>
                         <div style="text-align: center;">
-                            <h2>Poids:</h2>
+                            <span style="font-size: 25px;">
+                                <span style="color:aquamarine">Poids du sac:</span>
+                                <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
+                            </span>
                             <br>
-                            <span class="red-alert">1001<span>/999</span></span>
+                            <br>
+                            <span style="font-size: 25px;">
+                                <span style="color:aquamarine">Dextérité: 
+                                    <span>25<sup class="red-alert">-1</sup></span>
+                                </span>
+                            </span>
                             <br>
                             <br>
-                            <h3>Dextérité: <span>25<sup class="red-alert">-1</sup></span></h3>
-                        </div>
-                        <div style="text-align: center;">
-                            <h2>Prix</h2>
-                            <br>
+                            <span>Prix</span>
                             <div style="display: inline-flex;">
                                 <span>4'500</span>
                                 <img style="width: 33px;" src="./images/emerald.png">

@@ -217,6 +217,83 @@
     }
 
 
+    /*
+    function PoidsSac($alias)
+    {
+        echo($alias);
+        Connexion();
+        global $pdo;
+        try{
+            $poids = 0;
+            //echo('0');
+            $stmt = $pdo->prepare("SELECT PoidsSac(:pAlias)");
+            //echo('1');
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            //echo('2');
+            $stmt->execute();
+            //echo('3');
+           // $stmt->bindResult($poids);
+           // echo('4');
+            $poids = $stmt->fetchAll();
+           // echo('5');
+            return $poids[1];
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return $e->getMessage();
+        }
+    }
+
+    */
+
+
+
+
+    
+    function PoidsSac($alias){
+        Connexion();
+        global $pdo;
+        
+        try{
+            
+            $stmt = $pdo->prepare("SELECT PoidsSac(:pAlias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->execute();
+            $poids = 0;
+
+            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
+                $poids = $donnee[0];              
+            }
+            $stmt->closeCursor();
+            return $poids;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+
+    function PoidsMax($alias){
+        Connexion();
+        global $pdo;
+        
+        try{
+            
+            $stmt = $pdo->prepare("SELECT poidsMaxTransport FROM Joueurs WHERE $alias = alias",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->execute();
+            $poidsMax = 0;
+
+            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
+                $poidsMax = $donnee[0];              
+            }
+            $stmt->closeCursor();
+            return $poidsMax;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
+
+
 
 
     function ChercherInfoItemSelonId($idItem){

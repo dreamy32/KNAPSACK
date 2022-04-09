@@ -423,6 +423,9 @@ BEGIN
 		
 		DELETE FROM Panier where @idJoueur = Joueurs_IdJoueur;
 		COMMIT;
+        SELECT DexteritePerdue(pAlias) into @newDexterite;
+		UPDATE Joueurs SET dexterite = @newDexterite WHERE alias = pAlias;
+        COMMIT;
 		CLOSE cur_panier;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =  'L''alias du joueur est invalide.';
@@ -432,4 +435,6 @@ END$$
 
 /* test */
 SET SQL_SAFE_UPDATES = 0;
+call AjouterItemPanier("2", 2, 57);
+call AjouterItemPanier("2", 2, 56);
 call payerPanier("2");
