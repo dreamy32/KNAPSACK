@@ -133,7 +133,7 @@
                 {
                     $listeObjets = AfficherItemsVente('%');
                 }
-
+                
                         foreach($listeObjets as $objet){
                             $nomItem = str_replace("'","-",$objet[1]);
                             $descriptionItem = str_replace("'","-",$objet[6]);
