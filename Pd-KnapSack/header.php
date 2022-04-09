@@ -14,11 +14,10 @@
     <link rel="stylesheet" href="css/mc-tooltips.css">
     <link rel="stylesheet" href="css/minecraft_elements.css">
     <link rel="stylesheet" href="css/range.css">
-    <script src="js/tri.js"></script>
     <script src="js/menuPopUp.js"></script>
     <script src="js/snackbar.js"></script>
     <script src="js/sound.js"></script>
-    <script src="js/item-types_reset.js"></script>
+    <script src="js/recherche.js"></script>
     <title><?= $title ?></title>
     <style>
         .menu {

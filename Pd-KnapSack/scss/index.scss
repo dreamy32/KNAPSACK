@@ -374,7 +374,7 @@ div[aria-label="Item-Slot"] {
 .input-number {
     display: contents;
     // text-indent: ;
-    
+
     input {
         -moz-appearance: textfield;
         text-align: center;
@@ -382,10 +382,10 @@ div[aria-label="Item-Slot"] {
         height: 85px !important;
         font-size: 1.5em !important;
         &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
     button {
         &:first-child {

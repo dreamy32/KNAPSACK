@@ -37,11 +37,6 @@ function afficherMenuItem(idItem) {
   }
   else if(!estOuvert){
     var item = document.getElementById(("itempPopUp" + idItem));
-    /*
-    var topItem = document.getElementById(idItem).offsetTop;
-    topItem = topItem - 150;
-    */
-    item.style.top = (topItem + "vh");
     item.classList.toggle("show");
     dernierIdDiv = idItem;
     estOuvert = true;
@@ -105,6 +100,30 @@ else
   url += "-" + checkbox.value;
 }
 }});
+
+
+  if (url != "")
+  {
+    if (document.getElementById("order-button").value === "false")
+    {
+      url += "&ordre=" + "ASC";
+    }
+    else
+    {
+      url += "&ordre=" + "DESC";
+    }
+  }
+  else
+  {
+    if (document.getElementById("order-button").value === "false")
+    {
+      url += "?ordre=" + "ASC";
+    }
+    else
+    {
+      url += "?ordre=" + "DESC";
+    }
+  }
 
     
   if (url == "")

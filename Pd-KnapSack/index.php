@@ -73,7 +73,7 @@
 
                     <br><br>
 
-                    <button type="checkbox" style="font-size: 1.8em;">Croissant</button>
+                    <button name="ordre" id="order-button" value="false" style="font-size: 1.8em;">Croissant</button>
                     <br><br>
                     <button onclick="trier()" style="font-size: 1.8em;">Confirmer</button>
                     
@@ -109,7 +109,7 @@
                 </span>
             </div>
         </header>
-        <main class="item item2">
+        <main style="display: flex;flex-direction: column;justify-content: space-evenly;" class="item item2">
             <p>INFORMATIONS</p>
             <p id="infoNom" value="">Nom</p>
             <img src="" id="infoImageItem" style="width: 100px;height:100px;" class='minetext'>
@@ -127,13 +127,13 @@
 
                 if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"]))
                 {
-                    $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type']);
+                    $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type'], $_GET['ordre']);
                 }
                 else
                 {
                     $listeObjets = AfficherItemsVente('%');
                 }
-
+                
                         foreach($listeObjets as $objet){
                             $nomItem = str_replace("'","-",$objet[1]);
                             $descriptionItem = str_replace("'","-",$objet[6]);
