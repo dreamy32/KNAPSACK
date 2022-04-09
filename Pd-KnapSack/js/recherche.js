@@ -4,7 +4,7 @@ $().ready(() => {
   let searchTypesCheckboxes = $("*[name=search-box]");
   let resetCheckbox = $("#reset");
   let orderButton = $("#order-button");
-  let ascOrDesc = true;
+  let ascOrDesc = orderButton.val();
   //
   resetCheckbox.click(() =>
     Reset([itemTypesCheckboxes, searchTypesCheckboxes])
