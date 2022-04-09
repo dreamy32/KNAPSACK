@@ -8,8 +8,6 @@
     if(!empty($_SESSION['alias']))
         $estConnecter = TRUE;
 
-
-
     if(!empty($_POST["typeaction"])) {
         $action = $_POST["typeaction"];
         $numitem = $_POST["numItem"];
@@ -23,8 +21,6 @@
         ModifierItemPanier($qteNum, $numitem);  
     } 
 
-
-
     if(!empty($_POST["supprimer"]))
     {
         $action = $_POST["supprimer"];
@@ -34,9 +30,6 @@
             SupprimerItemPanier($numitem);  
         }        
     }
-
-
-
   
     if(!empty($_POST["payer"]))
     {
@@ -47,8 +40,7 @@
             PayerPanier($alias);
         }        
     }
-
-  
+ 
     $poidsSac = PoidsSac($_SESSION['alias']);
     $poidsMax = PoidsMax($_SESSION['alias']);
     $totalPanier = MontantTotalPanier($_SESSION['idJoueur']);
@@ -57,15 +49,6 @@
 
     $profile = AfficherInfosJoueur($_SESSION['alias']);
     $solde = $profile[1];
-    
-    //$poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
-    //$poidsMax = $profile[3];
-/* Affiche le boutton profile, solde, et se deconnecter */
-/*
-    if ($estConnecter) {
-        echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></a></div>';
-    }
-    */
 ?>
 
 
@@ -119,8 +102,7 @@
                 <h1 id="window-title">Panier</h1>
                 <div class="cart-container">
                     <div id="items-list">
-
-                        
+                      
                         <?php
                         foreach($tab as $objet){
                             ?>
@@ -163,7 +145,7 @@
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
                                 <span style="color:aquamarine">Poids du sac:</span>
-                                <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
+                                <span><?=$poidsSac?>/<?=$poidsMax?></span>
                             </span>
                             <br>
                             <br>

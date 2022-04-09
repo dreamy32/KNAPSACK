@@ -5,7 +5,7 @@ call AfficherPanier(13);
 call AjouterItemPanier("2", 2, 38);
 call AjouterItemPanier("2", 1, 41);
 call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
-
+CALL AfficherInventaire(23);
 
 SELECT MontantTotalPanier('23');
 
