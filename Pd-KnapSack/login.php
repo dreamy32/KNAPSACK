@@ -21,7 +21,7 @@
             session_start();
             $_SESSION['alias'] = $InfoJoueur[5];
             $_SESSION['mdp'] = $InfoJoueur[8];
-            $_SESSION['idJoueur'] = $InfoJoueur[1];
+            $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
         }
     }

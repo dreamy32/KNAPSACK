@@ -73,7 +73,7 @@
 
                     <br><br>
 
-                    <button type="checkbox" style="font-size: 1.8em;">Croissant</button>
+                    <button value="true" style="font-size: 1.8em;">Croissant</button>
                     <br><br>
                     <button onclick="trier()" style="font-size: 1.8em;">Confirmer</button>
                     

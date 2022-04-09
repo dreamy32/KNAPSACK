@@ -2,10 +2,12 @@ use KNAPSACKDB;
 
 
 call AfficherPanier(13);
-call AjouterItemPanier("madzcandy", 2, 38);
-call AjouterItemPanier("madzcandy", 1, 41);
+call AjouterItemPanier("2", 2, 38);
+call AjouterItemPanier("2", 1, 41);
 call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
 
+
+SELECT MontantTotalPanier('23');
 
 
 # Procédure qui ajoute un item au panier =============================================================================================
@@ -242,7 +244,7 @@ BEGIN
     INNER JOIN Inventaire ON Joueurs.IdJoueur = Inventaire.Joueurs_IdJoueur
 	INNER JOIN Items ON Inventaire.Items_IdItems = Items.IdItems
 	WHERE alias = pAlias
-    GROUP BY poids;
+    GROUP BY idJoueur;
     RETURN @totalPoids;
 END $$	
 /* TESTS*/
@@ -436,5 +438,6 @@ END$$
 /* test */
 SET SQL_SAFE_UPDATES = 0;
 call AjouterItemPanier("2", 2, 57);
-call AjouterItemPanier("2", 2, 56);
+call AjouterItemPanier("2", 2, 58);
+SELECT PoidsSac('2');
 call payerPanier("2");

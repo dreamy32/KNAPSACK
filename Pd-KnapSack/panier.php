@@ -10,10 +10,10 @@
 
 
 
-    if(!empty($_GET["typeaction"])) {
-        $action = $_GET["typeaction"];
-        $numitem = $_GET["numItem"];
-        $qte = $_GET["qte"];
+    if(!empty($_POST["typeaction"])) {
+        $action = $_POST["typeaction"];
+        $numitem = $_POST["numItem"];
+        $qte = $_POST["qte"];
         $qteNum = 0;
         if ($action == 'SUBSTRACT') {
             $qteNum = ((int)$qte) - 1;           
@@ -25,10 +25,10 @@
 
 
 
-    if(!empty($_GET["supprimer"]))
+    if(!empty($_POST["supprimer"]))
     {
-        $action = $_GET["supprimer"];
-        $numitem = $_GET["numItem"];
+        $action = $_POST["supprimer"];
+        $numitem = $_POST["numItem"];
         $qteNum = 0;
         if ($action == 'TRUE') {
             SupprimerItemPanier($numitem);  
@@ -38,9 +38,9 @@
 
 
   
-    if(!empty($_GET["payer"]))
+    if(!empty($_POST["payer"]))
     {
-        $action = $_GET["payer"];
+        $action = $_POST["payer"];
         $alias = $_SESSION["alias"];
         $qteNum = 0;
         if ($action == 'TRUE') {
@@ -51,16 +51,15 @@
   
     $poidsSac = PoidsSac($_SESSION['alias']);
     $poidsMax = PoidsMax($_SESSION['alias']);
+    $totalPanier = MontantTotalPanier($_SESSION['idJoueur']);
+    $dexterite = Dexterite($_SESSION['alias']);
     $tab = AfficherPanier($_SESSION['alias']);  
-
-    echo $poidsSac;
-    echo $poidsMax;
-
 
     $profile = AfficherInfosJoueur($_SESSION['alias']);
     $solde = $profile[1];
+    
     //$poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
-    $poidsMax = $profile[3];
+    //$poidsMax = $profile[3];
 /* Affiche le boutton profile, solde, et se deconnecter */
 /*
     if ($estConnecter) {
@@ -125,7 +124,7 @@
                         <?php
                         foreach($tab as $objet){
                             ?>
-                            <form action="panier.php" method="get">
+                            <form action="panier.php" method="post">
                             <div class="item-holder">
                                 <div aria-label="Item-Slot">                                    
                                     <img class="minetext" id="img_<?=$objet[2]?>" data-mctitle="Apple&nbsp;5lb"
@@ -156,19 +155,11 @@
                         <br>
 
                         
-                        <form action="panier.php" method="get">
-                            <div>
-                                 Solde: <?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps">
-                            </div>
-                            <div>
-                                <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
-                                <input type= hidden name="payer" value="">
-                            </div>
-                        </form>
+                       
                         <br><br>
                     </div>                    
                     <div id="item-info">
-                        <h1>Total</h1>
+                        <h1>&nbsp; Mes infos: </h1>
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
                                 <span style="color:aquamarine">Poids du sac:</span>
@@ -178,25 +169,39 @@
                             <br>
                             <span style="font-size: 25px;">
                                 <span style="color:aquamarine">Dextérité: 
-                                    <span>25<sup class="red-alert">-1</sup></span>
+                                    <span><?=$dexterite?></span>
                                 </span>
                             </span>
                             <br>
                             <br>
-                            <span>Prix</span>
-                            <div style="display: inline-flex;">
-                                <span>4'500</span>
-                                <img style="width: 33px;" src="./images/emerald.png">
-                            </div>
-                        </div>
-                        <button type="submit">Acheter</button>
-                        <div style="text-align: center;">
-                            <h3>Solde<br>après-achat:</h3>
+                            <span  style="font-size: 25px;">
+                                <span style="color:aquamarine">Solde: 
+                                    <span><?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></span>
+                                </span>
+                            </span>
                             <br>
-                            <div style="display: inline-flex;">
-                                <span><div>Solde: <?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></span>
-                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <span  style="font-size: 25px;">
+                                <span style="color:aquamarine">Total du panier:
+                                    <div style="display: inline-flex;">
+                                        <span><?=$totalPanier?></span>
+                                        <img style="width: 33px;" src="images/icons/ask_money.png" alt="caps">
+                                    </div>
+                                </span>
+                            </span>
                         </div>
+                
+
+
+                        <form action="panier.php" method="post">
+                           
+                            <div style="text-align: center;">
+                                <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
+                                <input type= hidden name="payer" value="">
+                            </div>
+                        </form>
                     </div>
 
 
