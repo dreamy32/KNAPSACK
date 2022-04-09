@@ -388,3 +388,48 @@ RETURN(
 );
 END$$
 */
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE PROCEDURE payerPanier (pAlias VARCHAR(30))
+BEGIN
+	DECLARE finished INTEGER DEFAULT 0;
+    DECLARE pNumItem INTEGER DEFAULT 0;
+	DECLARE cur_panier CURSOR FOR SELECT items_IdItems FROM Panier WHERE Joueurs_IdJoueur = (SELECT idJoueur FROM Joueurs WHERE alias = pAlias); 
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+	SELECT idJoueur INTO @IdJoueur FROM Joueurs WHERE alias = pAlias;
+	SET @totalPanier = (SELECT MontantTotalPanier(@idJoueur));
+	
+	if(@totalPanier = 0) THEN
+		 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de payer car le panier est vide.';
+	end if;
+
+	IF(TRIM(pAlias) != '') THEN
+		UPDATE Joueurs SET solde = solde - @totalPanier WHERE alias = pAlias;
+		OPEN cur_panier;
+		getPanier: LOOP #boucle qui traite chacun des items du panier
+			FETCH cur_panier INTO pNumItem;
+			IF finished = 1 THEN 
+				LEAVE getPanier;
+			END IF;			
+			SELECT qteAchat INTO @qteAchat FROM Panier WHERE Joueurs_IdJoueur = @idJoueur AND Items_IdItems = pNumItem;
+			call AjouterItemInventaire(@qteAchat, pNumItem, @idJoueur);
+		END LOOP getPanier;
+		
+		DELETE FROM Panier where @idJoueur = Joueurs_IdJoueur;
+		COMMIT;
+		CLOSE cur_panier;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =  'L''alias du joueur est invalide.';
+	END IF;
+END;
+END$$
+
+/* test */
+SET SQL_SAFE_UPDATES = 0;
+call payerPanier("2");

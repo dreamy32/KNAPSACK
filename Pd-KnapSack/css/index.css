@@ -311,19 +311,30 @@ article img {
   margin: auto;
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "item-list item-info";
+  overflow: hidden;
+      grid-template-areas: "items-list item-info";
   height: 80%;
   width: 93%;
-  -ms-grid-columns: 1fr 0.65fr;
-      grid-template-columns: 1fr 0.65fr;
+  -ms-grid-columns: 1fr 0.4fr;
+      grid-template-columns: 1fr 0.4fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
 }
 
 #items-list {
-  -webkit-backdrop-filter: brightness(0.5);
-          backdrop-filter: brightness(0.5);
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: items-list;
+  background-color: #00000075;
   overflow: auto;
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  #items-list {
+    background-color: unset;
+    -webkit-backdrop-filter: brightness(0.5);
+            backdrop-filter: brightness(0.5);
+  }
 }
 
 div[aria-label="Item-Slot"] {
@@ -337,8 +348,8 @@ div[aria-label="Item-Slot"] {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 
 div[aria-label="Item-Slot"] img {
@@ -351,8 +362,8 @@ div[aria-label="Item-Slot"]:hover::after {
           filter: opacity(0.8);
   position: absolute;
   content: "";
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
 }
 
 .item-holder {
@@ -362,22 +373,114 @@ div[aria-label="Item-Slot"]:hover::after {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: -1.4%;
+  margin-left: 1.5%;
+}
+
+.item-holder:first-child {
+  margin-top: 1.4%;
 }
 
 .item-holder > span {
   margin-top: 10px;
   margin-left: 15px;
-  margin-right: 15px;
-  font-size: xx-large;
+  margin-right: 30px;
+  font-size: 1.7em;
+}
+
+.red-alert {
+  color: red !important;
+  text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000 !important;
 }
 
 #item-info {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: item-info;
   background: url("../images/Oak_Wood_Planks.png") 0 0/24%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  overflow: auto;
+}
+
+#item-info span,
+#item-info sup {
+  font-size: x-large;
+  text-shadow: none;
+  font-weight: 100;
+  color: black;
+  text-shadow: -1px 1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+}
+
+#item-info sup {
+  font-size: 0.6em;
+  vertical-align: top;
+}
+
+#item-info button {
+  font-size: x-large;
+}
+
+#item-info h1,
+#item-info h2,
+#item-info h3,
+#item-info h4,
+#item-info h5,
+#item-info h6 {
+  display: inline;
+  text-shadow: none;
+  font-weight: 100;
+  text-shadow: -1px 1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+  color: black;
+}
+
+#item-info h1 {
+  font-size: 3.3em;
+  margin-bottom: -5%;
+}
+
+#item-info h2 {
+  font-size: 2.3em;
+}
+
+#item-info h3 {
+  font-size: 1.8em;
+}
+
+#item-info h4 {
+  font-size: large;
+}
+
+#item-info div:nth-of-type(3) {
+  margin-bottom: 20px;
 }
 
 .input-number {
-  margin-left: 50px;
   display: contents;
+}
+
+.input-number input {
+  -moz-appearance: textfield;
+  text-align: center;
+  width: 80px !important;
+  height: 85px !important;
+  font-size: 1.5em !important;
+}
+
+.input-number input::-webkit-outer-spin-button, .input-number input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .input-number button:first-child {

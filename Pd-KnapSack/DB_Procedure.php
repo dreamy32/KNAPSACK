@@ -217,6 +217,32 @@ function ModifierItemPanier($qte, $numItem)
     }
 }
 
+    
+    // function AfficherPanier($alias){
+    //     Connexion();
+    //     global $pdo;
+        
+    //     try{
+            
+    //         $stmt = $pdo->prepare("CALL AfficherPanier(:alias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    //         $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
+    //         $stmt->execute();
+            
+    //         $info = [];
+            
+
+    //         while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                
+    //             $rangee = [];
+    //             array_push($rangee,$donnee[0]);
+    //             array_push($rangee,$donnee[1]);
+    //             array_push($rangee,$donnee[2]);
+    //             array_push($info,$rangee);
+                
+    //         }
+    //     }
+    // }
+            
 
 function SupprimerItemPanier($numItem)
 {
@@ -262,24 +288,45 @@ function AfficherPanier($alias)
     }
 }
 
-function MontantTotalPanier($idJoueur)
-{
-    Connexion();
-    global $pdo;
-    try {
-        $stmt = $pdo->prepare("CALL MontantTotalPanier(:IdJoueur)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_STR);
-        $stmt->execute();
-        $info = [];
-        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            array_push($info, $donnee[0]);
+    /*
+    function MontantTotalPanier($idJoueur)
+    {
+        Connexion();
+        global $pdo;
+        try{
+            $stmt = $pdo->prepare("CALL MontantTotalPanier(:IdJoueur)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+            $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_STR);
+            $stmt->execute();
+            $info = [];
+            while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+                array_push($info,$donnee[0]);
+            }
+            $stmt->closeCursor();
+            return $info;
+        }catch(PDOException $e){
+            return $e->getMessage();
         }
         $stmt->closeCursor();
         return $info;
     } catch (PDOException $e) {
         return $e->getMessage();
     }
-}
+    */
+
+    function PayerPanier($alias)
+    {
+        echo($alias);
+        Connexion();
+        global $pdo;
+        try{
+            $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 
 
 

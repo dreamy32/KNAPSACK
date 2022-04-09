@@ -52,18 +52,18 @@ p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: header;
-  background-color: #066781;
+  background: url(../images/oakBackground.jpg);
   font-size: 1.5em;
   color: #ffffff;
 }
 
 .item2 {
-  background-color: #fc4628;
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   -ms-grid-column: 2;
@@ -94,7 +94,7 @@ p {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 5vh 3vh;
+  margin: 0 3vh;
 }
 
 .item3 section article {
@@ -110,8 +110,8 @@ p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 8vh;
-  height: 8vh;
+  width: 11vh;
+  height: 11vh;
 }
 
 .item3 section article:hover {
@@ -121,12 +121,7 @@ p {
 }
 
 .item3 section article img {
-  width: 5vh;
-}
-
-.item4 {
-  background-color: #5faaa7;
-  grid-area: footer;
+  width: 9vh;
 }
 
 .cart {
@@ -143,17 +138,10 @@ p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
-}
-
-.fullWidth {
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
 }
 
 #style-1::-webkit-scrollbar {
@@ -191,5 +179,130 @@ p {
   background: url(../images/hovered_button.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+.inscripContainer {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 72%;
+}
+
+@media only screen and (max-width: 500px) {
+  input[type]:not([type="range"]) {
+    font-size: 1.2em !important;
+    padding: 25px !important;
+  }
+}
+
+.search-container {
+  margin: auto;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "order-types item-types" "star-rating item-types";
+  height: 80%;
+  width: 93%;
+  -ms-grid-columns: 1.2fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
+  -ms-grid-rows: 1.8fr 2fr;
+      grid-template-rows: 1.8fr 2fr;
+}
+
+.search-container div {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: 9%;
+}
+
+#order-types {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: order-types;
+  margin-top: 8%;
+  margin-bottom: 10%;
+}
+
+#star-rating {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: star-rating;
+}
+
+#item-types {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 2;
+  grid-area: item-types;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  justify-self: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: unset;
+}
+
+#item-types div {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin-left: 7.5%;
+  margin-right: 7.5%;
+}
+
+#item-types input {
+  margin-bottom: 30%;
+}
+
+#item-types input:last-child {
+  margin-bottom: unset;
+}
+
+#item-types input::after {
+  display: block;
+  margin-top: -30%;
+  margin-left: -30%;
+  content: "";
+  height: 80px;
+  width: 80px;
+}
+
+#item-types input[id="armures"]::after {
+  background: url(../images/diamond_chestplate.png) 0 0/100% 100%;
+}
+
+#item-types input[id="armes"]::after {
+  background: url(../images/diamond_sword.png) 0 0/100% 100%;
+}
+
+#item-types input[id="nourriture"]::after {
+  background: url(../images/bread.png) 0 0/100% 100%;
+}
+
+#item-types input[id="munitions"]::after {
+  background: url(../images/arrow.png) 0 0/100% 100%;
+}
+
+#item-types input[id="medicaments"]::after {
+  background: url(../images/potion.webp) 0 0/100% 100%;
+}
+
+#item-types input[id="reset"]::after {
+  background: url(../images/barrier.png) 0 0/100% 100%;
 }
 /*# sourceMappingURL=index.css.map */
