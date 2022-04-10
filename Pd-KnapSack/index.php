@@ -66,7 +66,10 @@
                     <label><input type="checkbox" name="tri" value="prixUnitaire" id="search-box2"><span>Prix</span></label>
 
                     <label><input type="checkbox" name="tri" value="type" id="search-box3"><span>Type</span></label>
+                
+                    
                 </div>
+                Astuce : le tri par défaut est par type, poids et prix.
                 <div id="star-rating">
 
                     <input class="rating rating--nojs" id="nbEtoiles" name="nbEtoiles" max="5" step="1" type="range" value="0">
