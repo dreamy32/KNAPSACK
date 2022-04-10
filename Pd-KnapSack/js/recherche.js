@@ -29,5 +29,6 @@ const ResetCheckboxes = (checkboxesArr) => {
     for (const checkbox of checkboxes) {
       if (checkbox.checked) checkbox.checked = false;
     }
+    
   }
 };
