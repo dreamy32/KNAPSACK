@@ -284,13 +284,15 @@ div[aria-label="Item-Slot"] {
     img {
         width: 65%;
     }
-    &:hover::after {
-        background: url("../images/cross.png") 0 0 / 100% 100%;
-        filter: opacity(0.8);
-        position: absolute;
-        content: "";
-        height: 80px;
-        width: 80px;
+    &[aria-details="deletable"] {
+        &:hover::after {
+            background: url("../images/cross.png") 0 0 / 100% 100%;
+            filter: opacity(0.8);
+            position: absolute;
+            content: "";
+            height: 80px;
+            width: 80px;
+        }
     }
 }
 .item-holder {

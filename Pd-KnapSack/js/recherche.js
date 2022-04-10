@@ -1,7 +1,7 @@
 $().ready(() => {
   //
   let itemTypesCheckboxes = $("*[name=type]");
-  let searchTypesCheckboxes = $("*[name=search-box]");
+  let searchTypesCheckboxes = $("*[name=tri]");
   let resetCheckbox = $("#reset");
   let orderButton = $("#order-button");
   let ascOrDesc = (orderButton.val() === 'true');
