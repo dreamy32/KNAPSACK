@@ -1,6 +1,5 @@
 <?php 
     $title = "Panier";
-    require('header.php');
     include("DB_Procedure.php");
     session_start();
 
