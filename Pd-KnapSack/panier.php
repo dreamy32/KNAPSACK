@@ -37,8 +37,14 @@
         $alias = $_SESSION["alias"];
         $qteNum = 0;
         if ($action == 'TRUE') {
-            PayerPanier($alias);
-        }        
+            try{
+                PayerPanier($alias);
+               
+            } catch (Exception $e) {
+                echo 'Erreur:'. $e->getMessage();
+            }
+        }
+               
     }
  
     $poidsSac = PoidsSac($_SESSION['alias']);
@@ -107,25 +113,27 @@
                         foreach($tab as $objet){
                             ?>
                             <form action="panier.php" method="post">
-                            <div class="item-holder">
-                                <div aria-label="Item-Slot">                                    
+                            <div class="item-holder" style="width:100%; float:left;">
+                                <div aria-label="Item-Slot" style="float:left;">                                    
                                     <img class="minetext" id="img_<?=$objet[2]?>" data-mctitle="Apple&nbsp;5lb"
                                         src='items_images/<?=$objet[0]?>.png'
                                         alt='Image de <?=$objet[2] ?>'
                                     >                               
                                 </div>
                                 <span><?=$objet[2] ?></span>
-                                <div class="input-number">
+                                <div class="input-number" style="float:right;">
                                     <button type=submit aria-label="Minus" onclick="this.form.typeaction.value='SUBSTRACT'"></button>
                                     <input type=hidden name="numItem" value="<?=$objet[0]?>">
                                     <input type=hidden name="typeaction" value="">
                                     <input readonly aria-label="Alternative" type="number" name="qte" id="qte" style="width: 85px; height: 100px; font-size: xx-large;" value="<?=$objet[1] ?>">
-                                    <button type=submit aria-label="Plus" onclick="this.form.typeaction.value='ADD'"></button>
+                                    &nbsp;&nbsp;&nbsp;<button type=submit aria-label="Plus" onclick="this.form.typeaction.value='ADD'"></button>
+
+                                    <span>&nbsp;&nbsp;&nbsp;
+                                        <button type=submit onclick="this.form.supprimer.value='TRUE'">X</button>
+                                        <input type= hidden name="supprimer" value="">
+                                     </span>
                                 </div>
-                                <span>
-                                    <button type=submit onclick="this.form.supprimer.value='TRUE'">X</button>
-                                    <input type= hidden name="supprimer" value="">
-                                </span>
+                                
                             </div>
                             </form>
                             <?php

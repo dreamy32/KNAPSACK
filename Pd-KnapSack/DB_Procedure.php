@@ -363,7 +363,8 @@ function AfficherInventaire($idJoueur)
             $stmt->execute();
             $stmt->closeCursor();
         }catch(PDOException $e){
-            return $e->getMessage();
+            throw new Exception(substr($e->getMessage(),40));
+            //return $e->getMessage();
         }
     }
 
