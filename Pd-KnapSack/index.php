@@ -37,17 +37,18 @@ if (!empty($_GET["nbItem"])) {
                     <a href="inventaire.php" style="text-decoration: none; display: inherit; margin-left: 10px;">
                         <button type="submit" aria-label="Chest"></button>
                     </a>
+                    <?php if (isset($_SESSION['alias'])){echo $_SESSION['alias']; echo $poidJoueur . " " . $poidsMax;} ?>
 
                     <div class="contenuMenu" id="MenuPopUp">
                         <?php
                         $profile = AfficherInfosJoueur($_SESSION['alias']);
                         $solde = $profile[1];
-                        $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
+                        $poidJoueur = PoidsSac($_SESSION['alias']); /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
                         $poidsMax = $profile[3];
                         /* Affiche le boutton profile, solde, et se deconnecter */
                         if ($estConnecter) {
                             echo '<a href="profile.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Profile</p></div></a>';
-                            echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></a></div>';
+                            echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="../images/emerald.png" alt="caps"></a></div>';
                             echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
                         } else {
                             echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
@@ -55,7 +56,7 @@ if (!empty($_GET["nbItem"])) {
                         ?>
                     </div>
                 </div>
-                <!--<span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>-->
+                <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
             </div>
 
             <!-- RECHERCHE AVANCÉE DÉBUT -->
