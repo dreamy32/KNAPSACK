@@ -111,5 +111,8 @@
             -webkit-animation: fadeIn 0.5s;
             animation: fadeIn 0.5s
         }
+        *::first-letter{
+            text-transform: capitalize;
+        }
     </style>
 </head>

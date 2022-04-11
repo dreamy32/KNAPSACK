@@ -148,20 +148,23 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
 
     $triORDERBY = "";
 
+    if ($tri == null) {
+        $triORDERBY = "ORDER BY type, poids, prixUnitaire";
+        if (($nbEtoilesWHERE != null || $typeWHERE != null)) {
+            $triORDERBY = " ORDER BY type, poids, prixUnitaire";
+        }
+    }
+
     if ($tri != null) {
         $triORDERBY = "ORDER BY " . $tri;
+        if (($nbEtoilesWHERE != null || $typeWHERE != null)) {
+            $triORDERBY = " ORDER BY " . $tri;
+        }
     }
 
-    if (($nbEtoilesWHERE != null || $typeWHERE != null) && $triORDERBY != null) {
-        $triORDERBY = " ORDER BY " . $tri;
-    }
-
-    if ($triORDERBY != "")
-    {
-        $ordre = " " . $ordre; 
-    }
-    else
-    {
+    if ($triORDERBY != "") {
+        $ordre = " " . $ordre;
+    } else {
         $ordre = "";
     }
 
@@ -228,32 +231,32 @@ function ModifierItemPanier($qte, $numItem)
     }
 }
 
-    
-    // function AfficherPanier($alias){
-    //     Connexion();
-    //     global $pdo;
-        
-    //     try{
-            
-    //         $stmt = $pdo->prepare("CALL AfficherPanier(:alias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    //         $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
-    //         $stmt->execute();
-            
-    //         $info = [];
-            
 
-    //         while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
-                
-    //             $rangee = [];
-    //             array_push($rangee,$donnee[0]);
-    //             array_push($rangee,$donnee[1]);
-    //             array_push($rangee,$donnee[2]);
-    //             array_push($info,$rangee);
-                
-    //         }
-    //     }
-    // }
-            
+// function AfficherPanier($alias){
+//     Connexion();
+//     global $pdo;
+
+//     try{
+
+//         $stmt = $pdo->prepare("CALL AfficherPanier(:alias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+//         $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
+//         $stmt->execute();
+
+//         $info = [];
+
+
+//         while($donnee = $stmt->fetch(PDO::FETCH_NUM)){
+
+//             $rangee = [];
+//             array_push($rangee,$donnee[0]);
+//             array_push($rangee,$donnee[1]);
+//             array_push($rangee,$donnee[2]);
+//             array_push($info,$rangee);
+
+//         }
+//     }
+// }
+
 
 function SupprimerItemPanier($numItem)
 {
@@ -329,29 +332,28 @@ function AfficherInventaire($idJoueur)
 
 
 
-    
-    function MontantTotalPanier($idJoueur)
-    {
-        Connexion();
-        global $pdo;
-        try{
-            $stmt = $pdo->prepare("SELECT MontantTotalPanier(:IdJoueur)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_INT);
-            $stmt->execute();
-            $totalPanier = 0;
 
-            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){
-                $totalPanier = $donnee[0];
-            }
-            $stmt->closeCursor();
-            return $totalPanier;
-        }catch(PDOException $e){
-            return $e->getMessage();
+function MontantTotalPanier($idJoueur)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT MontantTotalPanier(:IdJoueur)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':IdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->execute();
+        $totalPanier = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $totalPanier = $donnee[0];
         }
+        $stmt->closeCursor();
+        return $totalPanier;
+    } catch (PDOException $e) {
+        return $e->getMessage();
     }
+}
 
 
-    
 
     function PayerPanier($alias)
     {
@@ -367,72 +369,76 @@ function AfficherInventaire($idJoueur)
             //return $e->getMessage();
         }
     }
+}
 
-    
-    function PoidsSac($alias){
-        Connexion();
-        global $pdo;
-        
-        try{
-            
-            $stmt = $pdo->prepare("SELECT PoidsSac(:pAlias)",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
-            $stmt->execute();
-            $poids = 0;
 
-            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
-                $poids = $donnee[0];              
-            }
-            $stmt->closeCursor();
-            return $poids;
-        }catch(PDOException $e){
-            return $e->getMessage();
+function PoidsSac($alias)
+{
+    Connexion();
+    global $pdo;
+
+    try {
+
+        $stmt = $pdo->prepare("SELECT PoidsSac(:pAlias)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+        $stmt->execute();
+        $poids = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $poids = $donnee[0];
         }
+        $stmt->closeCursor();
+        return $poids;
+    } catch (PDOException $e) {
+        return $e->getMessage();
     }
+}
 
 
 
-    function PoidsMax($alias){
-        Connexion();
-        global $pdo;
-        
-        try{
-            
-            $stmt = $pdo->prepare("SELECT poidsMaxTransport FROM Joueurs WHERE $alias = alias",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $stmt->execute();
-            $poidsMax = 0;
+function PoidsMax($alias)
+{
+    Connexion();
+    global $pdo;
 
-            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
-                $poidsMax = $donnee[0];              
-            }
-            $stmt->closeCursor();
-            return $poidsMax;
-        }catch(PDOException $e){
-            return $e->getMessage();
+    try {
+
+        $stmt = $pdo->prepare("SELECT poidsMaxTransport FROM Joueurs WHERE $alias = alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $poidsMax = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $poidsMax = $donnee[0];
         }
+        $stmt->closeCursor();
+        return $poidsMax;
+    } catch (PDOException $e) {
+        return $e->getMessage();
     }
+}
 
 
-    
-    function Dexterite($alias){
-        Connexion();
-        global $pdo;
-        
-        try{
-            
-            $stmt = $pdo->prepare("SELECT dexterite FROM Joueurs WHERE $alias = alias",array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-            $stmt->execute();
-            $dexterite = 0;
 
-            if($donnee = $stmt->fetch(PDO::FETCH_NUM)){           
-                $dexterite = $donnee[0];              
-            }
-            $stmt->closeCursor();
-            return $dexterite;
-        }catch(PDOException $e){
-            return $e->getMessage();
+function Dexterite($alias)
+{
+    Connexion();
+    global $pdo;
+
+    try {
+
+        $stmt = $pdo->prepare("SELECT dexterite FROM Joueurs WHERE $alias = alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $dexterite = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $dexterite = $donnee[0];
         }
+        $stmt->closeCursor();
+        return $dexterite;
+    } catch (PDOException $e) {
+        return $e->getMessage();
     }
+}
 
 
 

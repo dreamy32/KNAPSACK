@@ -6,7 +6,13 @@
 
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
+    {
         $estConnecter = TRUE;
+    }
+    else
+    {
+        header("Location: login.php");
+    }
 
     if(!empty($_POST["typeaction"])) {
         $action = $_POST["typeaction"];
