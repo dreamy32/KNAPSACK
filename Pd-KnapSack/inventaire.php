@@ -11,7 +11,7 @@
     }
     else
     {
-        header("Location: http://queebies.world/PhpBuilding/login.php");
+        header("Location: login.php");
     }
 
     if(!empty($_POST["typeaction"])) {
