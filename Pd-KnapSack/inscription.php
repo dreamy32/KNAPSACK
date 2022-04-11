@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($estValide) {
         include('DB_Procedure.php');
         AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
-        header('Location: index.php');
+        header('Location: login.php');
         $errorToast = ""; //Si valide, on retire le contenu de la variable.
     }
     echo $errorToast;
