@@ -183,8 +183,10 @@ if (!empty($_GET["nbItem"])) {
 
             function AugmenterNbItemChoisie(idItem) {
                 var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
-                var nbInput = parseInt(inputNbItemChoisie.value);
-                inputNbItemChoisie.value = nbInput + 1;
+                var maxNbItem = document.getElementById("infoNbItem");
+                if(maxNbItem.value > inputNbItemChoisie.value){
+                    var nbInput = parseInt(inputNbItemChoisie.value);
+                    inputNbItemChoisie.value = nbInput + 1;}
             }
 
             function ChangerInformation(idItem) {
