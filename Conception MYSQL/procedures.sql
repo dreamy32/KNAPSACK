@@ -5,35 +5,51 @@
 | Amélie Bouchard | Antony Collin-Desrochers | KNAPSACK |
 | David Bérubé    | Samy Tétrault            |          |
 +--------------------------------------------+----s------+
-*/
 
-#Ajouter Armure
+
++---+------------+---+
+| | | Procédures | | |
++---+------------+---+
+
++----------------------+
+| Items et leurs types |
++----------------------+
+*/
+#Ajouter un Item à Inventaire
 DELIMITER $$
-CREATE PROCEDURE AjouterArmure
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), matiere varchar(30), taille int(11))
+CREATE PROCEDURE AjouterItemInventaire
+(quantiteP int(11), Items_IdItemsP int(11), Joueurs_IdJoueurP int(11))
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(matiere) != '' AND taille > 0
+	IF quantiteP > 0 AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP)
     THEN
-			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
-			SET @IdItems = LAST_INSERT_ID();
-			INSERT INTO Armures(Items_IdItems, taille, matiere)
-			VALUES(@IdItems, taille, matiere);
-	COMMIT;
+        SELECT COUNT(Items_IdItems) INTO @nbItem FROM Inventaire WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
+		IF(@nbItem = 0) THEN
+			INSERT INTO Inventaire(quantite, date, Items_IdItems, Joueurs_IdJoueur) VALUES (quantiteP,NOW(),Items_IdItemsP,Joueurs_IdJoueurP);
         ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Les valeurs sont mauvaises';
+        	UPDATE Inventaire SET quantite = quantite + quantiteP WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
+		END IF;
+		COMMIT;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'valeurs mauvaises';
 	END IF;    
 END $$
-
+#Supprimer Item
+DELIMITER $$
+CREATE PROCEDURE SupprimerItem(IdItemsP int(11))
+BEGIN
+DECLARE typeItem char(1);
+	IF IdItemsP > 0 THEN
+			DELETE FROM Items WHERE IdItems = IdItemsP;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le id item est invalide';
+	END IF;    
+END $$
 #Afficher objets en vente sans les détails de son type
 DELIMITER $$
 CREATE PROCEDURE AfficherItemsVente()
 BEGIN
 	SELECT nom, quantite, type, prixUnitaire, poids, description from Items where estEnVente = 1;
 END $$
-
-call AfficherItemsVente();
-
 #Afficher les details selon le type d'un item
 DELIMITER $$
 CREATE PROCEDURE AfficherItemDetails(IdItemsP int(11))
@@ -66,73 +82,23 @@ DECLARE typeItem char(1);
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le id item est introuvable';
 	END IF;    
 END $$
-
-#Supprimer Item
 DELIMITER $$
-CREATE PROCEDURE SupprimerItem(IdItemsP int(11))
+CREATE PROCEDURE AjouterArmure
+(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), matiere varchar(30), taille int(11))
 BEGIN
-DECLARE typeItem char(1);
-	IF IdItemsP > 0 THEN
-			DELETE FROM Items WHERE IdItems = IdItemsP;
-    ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Le id item est invalide';
-	END IF;    
-END $$
-
-#Trigger Supprimer
-delimiter |
-create trigger SupprimerItemTrigger
-before delete on Items
-for each row
-begin
-            IF old.type = 'W' THEN
-            DELETE FROM Armes WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF old.type = 'A' THEN
-            DELETE FROM Armures WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF old.type = 'N' THEN
-            DELETE FROM Nourriture WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF old.type = 'M' THEN
-            DELETE FROM Munitions WHERE Items_IdItems = old.IdItems;
-            END IF;
-
-            IF old.type = 'D' THEN
-            DELETE FROM Medicament WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF EXISTS (SELECT Items_IdItems FROM Evaluations WHERE Items_IdItems = old.IdItems) THEN
-            DELETE FROM Evaluations WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF EXISTS (SELECT Items_IdItems FROM Inventaire WHERE Items_IdItems = old.IdItems) THEN
-            DELETE FROM Inventaire WHERE Items_IdItems = old.IdItems;
-            END IF;
-            
-            IF EXISTS (SELECT Items_IdItems FROM Panier WHERE Items_IdItems = old.IdItems) THEN
-            DELETE FROM Panier WHERE Items_IdItems = old.IdItems;
-            END IF;
-end |
-
-#Ajouter Évaluation
-DELIMITER $$
-CREATE PROCEDURE AjouterÉvaluation
-(Items_IdItemsP int(11),Joueurs_IdJoueurP int(11), commentaire varchar(300), nbEtoiles int(5))
-BEGIN
-	IF EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP) AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND TRIM(commentaire) != '' AND nbEtoiles >= 0 AND nbEtoiles <= 5 
+	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(matiere) != '' AND taille > 0
     THEN
-			INSERT INTO Evaluations(Items_IdItems,Joueurs_IdJoueur, commentaire, nbEtoiles)
-			VALUES(Items_IdItemsP,Joueurs_IdJoueurP, commentaire, nbEtoiles);
+			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
+			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			SET @IdItems = LAST_INSERT_ID();
+			INSERT INTO Armures(Items_IdItems, taille, matiere)
+			VALUES(@IdItems, taille, matiere);
 	COMMIT;
         ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Les valeurs sont mauvaises';
 	END IF;    
 END $$
-
+#Types d'items
 #Ajouter Medicament
 DELIMITER $$
 CREATE PROCEDURE AjouterMedicament
@@ -205,6 +171,65 @@ BEGIN
 	END IF;    
 END $$
 
+
+
+
+#Trigger Supprimer
+delimiter |
+create trigger SupprimerItemTrigger
+before delete on Items
+for each row
+begin
+            IF old.type = 'W' THEN
+            DELETE FROM Armes WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF old.type = 'A' THEN
+            DELETE FROM Armures WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF old.type = 'N' THEN
+            DELETE FROM Nourriture WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF old.type = 'M' THEN
+            DELETE FROM Munitions WHERE Items_IdItems = old.IdItems;
+            END IF;
+
+            IF old.type = 'D' THEN
+            DELETE FROM Medicament WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF EXISTS (SELECT Items_IdItems FROM Evaluations WHERE Items_IdItems = old.IdItems) THEN
+            DELETE FROM Evaluations WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF EXISTS (SELECT Items_IdItems FROM Inventaire WHERE Items_IdItems = old.IdItems) THEN
+            DELETE FROM Inventaire WHERE Items_IdItems = old.IdItems;
+            END IF;
+            
+            IF EXISTS (SELECT Items_IdItems FROM Panier WHERE Items_IdItems = old.IdItems) THEN
+            DELETE FROM Panier WHERE Items_IdItems = old.IdItems;
+            END IF;
+end |
+
+#Ajouter Évaluation
+DELIMITER $$
+CREATE PROCEDURE AjouterÉvaluation
+(Items_IdItemsP int(11),Joueurs_IdJoueurP int(11), commentaire varchar(300), nbEtoiles int(5))
+BEGIN
+	IF EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP) AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND TRIM(commentaire) != '' AND nbEtoiles >= 0 AND nbEtoiles <= 5 
+    THEN
+			INSERT INTO Evaluations(Items_IdItems,Joueurs_IdJoueur, commentaire, nbEtoiles)
+			VALUES(Items_IdItemsP,Joueurs_IdJoueurP, commentaire, nbEtoiles);
+	COMMIT;
+        ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Les valeurs sont mauvaises';
+	END IF;    
+END $$
+
+
+
 #Afficher Panier
 DELIMITER $$
 CREATE PROCEDURE AfficherPanier (pAlias VARCHAR(30))
@@ -238,24 +263,7 @@ BEGIN
 	END IF;    
 END $$
 
-#Ajouter un Item à Inventaire
-DELIMITER $$
-CREATE PROCEDURE AjouterItemInventaire
-(quantiteP int(11), Items_IdItemsP int(11), Joueurs_IdJoueurP int(11))
-BEGIN
-	IF quantiteP > 0 AND EXISTS (SELECT IdJoueur FROM Joueurs WHERE IdJoueur = Joueurs_IdJoueurP) AND EXISTS (SELECT IdItems FROM Items WHERE IdItems = Items_IdItemsP)
-    THEN
-        SELECT COUNT(Items_IdItems) INTO @nbItem FROM Inventaire WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
-		IF(@nbItem = 0) THEN
-			INSERT INTO Inventaire(quantite, date, Items_IdItems, Joueurs_IdJoueur) VALUES (quantiteP,NOW(),Items_IdItemsP,Joueurs_IdJoueurP);
-        ELSE
-        	UPDATE Inventaire SET quantite = quantite + quantiteP WHERE Items_IdItems = Items_IdItemsP AND Joueurs_IdJoueur = Joueurs_IdJoueurP;
-		END IF;
-		COMMIT;
-        ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'valeurs mauvaises';
-	END IF;    
-END $$
+
 
 #Montant total panier
 DELIMITER ;;
