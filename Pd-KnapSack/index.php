@@ -15,7 +15,13 @@ if (!empty($_SESSION['alias']))
 
 if (!empty($_GET["nbItem"])) {
     AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
-    echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";
+    $errorToast =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Cet item à été ajouté à votre panier!
+    </span>
+    <script>Snackbar();</script>";
+    echo $errorToast;
 }
 ?>
 
