@@ -130,6 +130,7 @@
 
                 if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"]))
                 {
+                    
                     $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type'], $_GET['ordre']);
                 }
                 else

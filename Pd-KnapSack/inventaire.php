@@ -6,7 +6,13 @@
 
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
+    {
         $estConnecter = TRUE;
+    }
+    else
+    {
+        header("Location: http://queebies.world/PhpBuilding/login.php");
+    }
 
     if(!empty($_POST["typeaction"])) {
         $action = $_POST["typeaction"];
