@@ -31,8 +31,7 @@ p {
       grid-template-columns: 2fr 1fr;
   grid-auto-rows: 1fr 8fr;
   height: 100vh;
-      grid-template-areas: "header sidebar"
- "content sidebar";
+      grid-template-areas: "header sidebar" "content sidebar";
 }
 
 .item {
@@ -356,7 +355,7 @@ div[aria-label="Item-Slot"] img {
   width: 65%;
 }
 
-div[aria-label="Item-Slot"]:hover::after {
+div[aria-label="Item-Slot"][aria-details="deletable"]:hover::after {
   background: url("../images/cross.png") 0 0/100% 100%;
   -webkit-filter: opacity(0.8);
           filter: opacity(0.8);
