@@ -403,7 +403,7 @@ function PoidsMax($alias)
 
     try {
 
-        $stmt = $pdo->prepare("SELECT poidsMaxTransport FROM Joueurs WHERE alias :pAlias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $pdo->prepare("SELECT poidsMaxTransport FROM Joueurs WHERE alias = :pAlias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
         $stmt->execute();
         $poidsMax = 0;
@@ -427,7 +427,8 @@ function Dexterite($alias)
 
     try {
 
-        $stmt = $pdo->prepare("SELECT dexterite FROM Joueurs WHERE $alias = alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $pdo->prepare("SELECT dexterite FROM Joueurs WHERE alias = :pAlias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
         $stmt->execute();
         $dexterite = 0;
 
