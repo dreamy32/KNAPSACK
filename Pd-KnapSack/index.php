@@ -7,6 +7,7 @@ if ($_GET['deconnecter'] == 'true') {
     session_destroy();
     session_unset();
     setcookie("PHPSESSID", null, -1);
+    header('Location: index.php');
 }
 $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
@@ -117,7 +118,7 @@ if (!empty($_GET["nbItem"])) {
             <h1>Informations</h1>
             <h2 id="infoNom" value="">Nom</h2>
             <div aria-label="Item-Slot" style="width: 120px; height: 120px;">
-                <img src="" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
+                <img src="items_images/img_base.png" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
             </div>
             <h3 id="infoPrixItem" value=""></h3>
             <input type="number" id="infoNbItem" readonly aria-label="Alternative" value="" style="width: 80px;">

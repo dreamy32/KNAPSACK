@@ -369,7 +369,7 @@ function MontantTotalPanier($idJoueur)
             //return $e->getMessage();
         }
     }
-}
+
 
 
 function PoidsSac($alias)

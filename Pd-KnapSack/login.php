@@ -9,6 +9,7 @@
         */
         $estValide  = TRUE;
         $alias = $_POST["alias"];
+        echo $alias;
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
         if(!($_POST["alias"] == $InfoJoueur[5]))
