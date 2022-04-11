@@ -197,7 +197,7 @@ if (!empty($_GET["nbItem"])) {
 
             function ChangerInformation(idItem) {
                 var infoNomItem = document.getElementById("infoNom");
-                infoNomItem.innerHTML = idItem[1] /*.toUpperCase()*/ ;
+                infoNomItem.innerHTML = idItem[1];
                 var infoNbItem = document.getElementById("infoNbItem");
                 infoNbItem.value = idItem[2];
                 var infoImageItem = document.getElementById("infoImageItem");
