@@ -355,18 +355,19 @@ function MontantTotalPanier($idJoueur)
 
 
 
-
-function PayerPanier($alias)
-{
-    Connexion();
-    global $pdo;
-    try {
-        $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
-        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
-        $stmt->execute();
-        $stmt->closeCursor();
-    } catch (PDOException $e) {
-        return $e->getMessage();
+    function PayerPanier($alias)
+    {
+        Connexion();
+        global $pdo;
+        try{
+            $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
+            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }catch(PDOException $e){
+            throw new Exception(substr($e->getMessage(),40));
+            //return $e->getMessage();
+        }
     }
 }
 
