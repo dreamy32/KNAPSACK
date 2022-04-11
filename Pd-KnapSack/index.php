@@ -115,7 +115,7 @@ if (!empty($_GET["nbItem"])) {
         </header>
         <main style="display: flex;flex-direction: column;justify-content: space-evenly;" class="item item2">
             <h1>Informations</h1>
-            <h2 id="infoNom" value="">Nom</h2>
+            <h2 id="infoNom" value="">Sélectionnez un item !</h2>
             <div aria-label="Item-Slot" style="width: 120px; height: 120px;">
                 <img src="" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
             </div>
@@ -131,9 +131,8 @@ if (!empty($_GET["nbItem"])) {
             <section>
                 <?php
 
-                if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"]))
-                {
-                    
+                if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"])) {
+
                     $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type'], $_GET['ordre']);
                 } else {
                     $listeObjets = AfficherItemsVente('%');
@@ -189,7 +188,7 @@ if (!empty($_GET["nbItem"])) {
 
             function ChangerInformation(idItem) {
                 var infoNomItem = document.getElementById("infoNom");
-                infoNomItem.innerHTML = idItem[1]/*.toUpperCase()*/;
+                infoNomItem.innerHTML = idItem[1] /*.toUpperCase()*/ ;
                 var infoNbItem = document.getElementById("infoNbItem");
                 infoNbItem.value = idItem[2];
                 var infoImageItem = document.getElementById("infoImageItem");
