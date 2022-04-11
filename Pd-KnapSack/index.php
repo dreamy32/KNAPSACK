@@ -56,7 +56,9 @@ if (!empty($_GET["nbItem"])) {
                         ?>
                     </div>
                 </div>
+                <?php if(isset($_SESSION['alias'])) { ?>
                 <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
+                <?php }?>
             </div>
 
             <!-- RECHERCHE AVANCÉE DÉBUT -->
