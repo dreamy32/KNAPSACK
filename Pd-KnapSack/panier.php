@@ -3,6 +3,7 @@
     include("DB_Procedure.php");
     session_start();
 
+    $messageErreur="";
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
     {
@@ -23,7 +24,15 @@
         } else if ($action == 'ADD') {
             $qteNum = ((int)$qte) + 1;
         }
-        ModifierItemPanier($qteNum, $numitem);  
+
+        if ($qteNum>=0) {
+            try{
+                ModifierItemPanier($qteNum, $numitem); 
+            }
+            catch (Exception $e) {
+                $messageErreur=$e->getMessage();
+            } 
+        }
     } 
 
     if(!empty($_POST["supprimer"]))
@@ -32,7 +41,12 @@
         $numitem = $_POST["numItem"];
         $qteNum = 0;
         if ($action == 'TRUE') {
-            SupprimerItemPanier($numitem);  
+            try{
+                SupprimerItemPanier($numitem);  
+               
+            } catch (Exception $e) {
+                $messageErreur=$e->getMessage();
+            }         
         }        
     }
   
@@ -44,21 +58,23 @@
         if ($action == 'TRUE') {
             try{
                 PayerPanier($alias);
-               
             } catch (Exception $e) {
-                echo 'Erreur:'. $e->getMessage();
+                $messageErreur=$e->getMessage();
             }
         }
-               
     }
  
-    $poidsSac = PoidsSac($_SESSION['alias']);
-    $poidsMax = PoidsMax($_SESSION['alias']);
-    $totalPanier = MontantTotalPanier($_SESSION['idJoueur']);
-    $dexterite = Dexterite($_SESSION['alias']);
-    $tab = AfficherPanier($_SESSION['alias']);  
-
-    $profile = AfficherInfosJoueur($_SESSION['alias']);
+    try{
+        $poidsSac = PoidsSac($_SESSION['alias']);
+        $poidsMax = PoidsMax($_SESSION['alias']);
+        $totalPanier = MontantTotalPanier($_SESSION['idJoueur']);
+        $dexterite = Dexterite($_SESSION['alias']);
+        $tab = AfficherPanier($_SESSION['alias']);  
+        $profile = AfficherInfosJoueur($_SESSION['alias']);
+    } catch (Exception $e) {
+        $messageErreur=$e->getMessage();
+    }
+   
     $solde = $profile[1];
 ?>
 
@@ -100,13 +116,16 @@
                 width: 6vh;
             }
 
+            .titleInfos{
+                color: #112F5A;
+            }
             
         </style>
     </head>
 
     <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
     <a href="index.php"><img src="images/Knapsack.png"></img></a>
-        <div id="d"></div>
+        <div style="color:red" id="d"><?php echo $messageErreur?></div>
         
         <div aria-label="Window" style="margin: auto; height: 98%; background: inherit;">
             <div id="window-container" style="margin-top: unset;">
@@ -157,32 +176,32 @@
                         <h1>&nbsp; Mes infos: </h1>
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
-                                <span style="color:aquamarine">Poids du sac:</span>
+                                <span class="titleInfos" style="color: #112F5A;">Poids du sac:</span>
                                 <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
                             </span>
                             <br>
                             <br>
                             <span style="font-size: 25px;">
-                                <span style="color:aquamarine">Dextérité: 
+                                <span class="titleInfos" style="color: #112F5A;">Dextérité: 
                                     <span><?=$dexterite?></span>
                                 </span>
                             </span>
                             <br>
                             <br>
                             <span  style="font-size: 25px;">
-                                <span style="color:aquamarine">Solde: 
-                                    <span><?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></span>
+                                <span  class="titleInfos" style="color: #112F5A;">Solde: 
+                                    <span><?=$solde ?> <img style="width: 20px;" src="../images/emerald.png" alt="emerald"></span>
                                 </span>
                             </span>
                             <br>
                             <br>
                             <br>
                             <br>
-                            <span  style="font-size: 25px;">
-                                <span style="color:aquamarine">Total du panier:
+                            <span style="font-size: 25px;">
+                                <span class="titleInfos" style="color: #112F5A;">Total du panier:
                                     <div style="display: inline-flex;">
                                         <span><?=$totalPanier?></span>
-                                        <img style="width: 33px;" src="images/icons/ask_money.png" alt="caps">
+                                        <img style="width: 33px;" src="../images/emerald.png" alt="emerald">
                                     </div>
                                 </span>
                             </span>

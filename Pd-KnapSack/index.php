@@ -14,8 +14,16 @@ if (!empty($_SESSION['alias']))
     $estConnecter = TRUE;
 
 if (!empty($_GET["nbItem"])) {
-    AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
-    echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";
+
+    try
+    {
+        AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
+        echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";
+    }
+    catch(Exception $e)
+    {
+         echo '<script>alert("Erreur:' .  $e->getMessage() . '")</script>';       
+    } 
 }
 ?>
 

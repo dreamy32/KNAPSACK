@@ -7,10 +7,13 @@ call AjouterItemPanier("2", 1, 60);
 call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
 CALL AfficherInventaire(23);
 
-update Joueurs set solde = 1000 where idjoueur = 23;
+
+
+update Joueurs set solde = 100000 where idjoueur = 23;
 
 SELECT MontantTotalPanier('23');
 SELECT PoidsSac(2);
+call AjouterItemPanier("madzcandy", 2, 52);
 
 # Procédure qui ajoute un item au panier =============================================================================================
 DELIMITER $$
@@ -87,7 +90,7 @@ BEGIN
 			SELECT (qteAchat - pQte) INTO @qteModifiee FROM Panier WHERE items_idItems = pNumItem AND Joueurs_IdJoueur = @idJoueur;
             
 			IF(@qteInventaire + @qteModifiee  < 0) THEN
-					SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de modifier la quantit�e de cet item car il manque de cet item dans l''inventaire.';
+					SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de modifier la quantitée de cet item car il manque de cet item dans l''inventaire.';
 			END IF;
 			IF(@nbItem < 1) THEN
 					SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de modifier cet item car il n''existe pas dans le panier.';
@@ -407,10 +410,15 @@ BEGIN
 	DECLARE cur_panier CURSOR FOR SELECT items_IdItems FROM Panier WHERE Joueurs_IdJoueur = (SELECT idJoueur FROM Joueurs WHERE alias = pAlias); 
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
 	SELECT idJoueur INTO @IdJoueur FROM Joueurs WHERE alias = pAlias;
+    SELECT solde INTO @solde FROM Joueurs WHERE alias = pAlias;
 	SET @totalPanier = (SELECT MontantTotalPanier(@idJoueur));
 	
 	if(@totalPanier = 0) THEN
 		 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de payer car le panier est vide.';
+	end if;
+    
+    if (@solde-@totalPanier<0) THEN
+    	 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de payer car le solde est insuffisant.';
 	end if;
 
 	IF(TRIM(pAlias) != '') THEN

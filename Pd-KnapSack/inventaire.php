@@ -14,28 +14,7 @@
         header("Location: login.php");
     }
 
-    if(!empty($_POST["typeaction"])) {
-        $action = $_POST["typeaction"];
-        $numitem = $_POST["numItem"];
-        $qte = $_POST["qte"];
-        $qteNum = 0;
-        if ($action == 'SUBSTRACT') {
-            $qteNum = ((int)$qte) - 1;           
-        } else if ($action == 'ADD') {
-            $qteNum = ((int)$qte) + 1;
-        }
-        ModifierItemPanier($qteNum, $numitem);  
-    } 
-
-    if(!empty($_POST["supprimer"]))
-    {
-        $action = $_POST["supprimer"];
-        $numitem = $_POST["numItem"];
-        $qteNum = 0;
-        if ($action == 'TRUE') {
-            SupprimerItemPanier($numitem);  
-        }        
-    }
+    
 
     $poidsSac = PoidsSac($_SESSION['alias']);
     $poidsMax = PoidsMax($_SESSION['alias']);
@@ -134,21 +113,21 @@
                         <h1>&nbsp; Mes infos: </h1>
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
-                                <span style="color:aquamarine">Poids du sac:</span>
+                                <span class="titleInfos" style="color: #112F5A;">Poids du sac:</span>
                                 <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
                             </span>
                             <br>
                             <br>
                             <span style="font-size: 25px;">
-                                <span style="color:aquamarine">Dextérité: 
+                                <span class="titleInfos" style="color: #112F5A;">Dextérité: 
                                     <span><?=$dexterite?></span>
                                 </span>
                             </span>
                             <br>
                             <br>
                             <span  style="font-size: 25px;">
-                                <span style="color:aquamarine">Solde: 
-                                    <span><?=$solde ?> <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></span>
+                                <span class="titleInfos" style="color: #112F5A;">Solde: 
+                                    <span><?=$solde ?> <img style="width: 20px;" src="../images/emerald.png" alt="emerald"></span>
                                 </span>
                             </span>
      
