@@ -15,13 +15,16 @@ if (!empty($_SESSION['alias']))
 
 if (!empty($_GET["nbItem"])) {
     AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
-    $errorToast =
-    "<span id='snackbar'> 
-        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
-        Cet item à été ajouté à votre panier!
-    </span>
-    <script>Snackbar();</script>";
-    echo $errorToast;
+    $successToast =
+        "<span id='snackbar'> 
+            <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+            Cet item à été ajouté à votre panier!
+        </span>
+        <script>
+            Snackbar();
+            PurchaseSucessfulSound();
+        </script>";
+    echo $successToast;
 }
 ?>
 
@@ -37,7 +40,10 @@ if (!empty($_GET["nbItem"])) {
                     <a href="inventaire.php" style="text-decoration: none; display: inherit; margin-left: 10px;">
                         <button type="submit" aria-label="Chest"></button>
                     </a>
-                    <?php if (isset($_SESSION['alias'])){echo $_SESSION['alias']; echo $poidJoueur . " " . $poidsMax;} ?>
+                    <?php if (isset($_SESSION['alias'])) {
+                        echo $_SESSION['alias'];
+                        echo $poidJoueur . " " . $poidsMax;
+                    } ?>
 
                     <div class="contenuMenu" id="MenuPopUp">
                         <?php
@@ -56,9 +62,9 @@ if (!empty($_GET["nbItem"])) {
                         ?>
                     </div>
                 </div>
-                <?php if(isset($_SESSION['alias'])) { ?>
-                <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
-                <?php }?>
+                <?php if (isset($_SESSION['alias'])) { ?>
+                    <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
+                <?php } ?>
             </div>
 
             <!-- RECHERCHE AVANCÉE DÉBUT -->
@@ -72,40 +78,64 @@ if (!empty($_GET["nbItem"])) {
                             <div class="search-container">
                                 <div id="order-types">
 
-                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\bpoids\b/', $_GET['tri'])) {echo "checked=true";}  ?>  value="poids" id="search-box1"> <span>Poids</span></label>
+                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\bpoids\b/', $_GET['tri'])) {
+                                                                                    echo "checked=true";
+                                                                                }  ?> value="poids" id="search-box1"> <span>Poids</span></label>
 
-                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\bprixUnitaire\b/', $_GET['tri'])) {echo "checked=true";}  ?> value="prixUnitaire" id="search-box2"><span>Prix</span></label>
+                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\bprixUnitaire\b/', $_GET['tri'])) {
+                                                                                    echo "checked=true";
+                                                                                }  ?> value="prixUnitaire" id="search-box2"><span>Prix</span></label>
 
-                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\btype\b/', $_GET['tri'])) {echo "checked=true";}  ?> value="type" id="search-box3"><span>Type</span></label>
+                                    <label><input type="checkbox" name="tri" <?php if (isset($_GET['tri']) && preg_match('/\btype\b/', $_GET['tri'])) {
+                                                                                    echo "checked=true";
+                                                                                }  ?> value="type" id="search-box3"><span>Type</span></label>
 
 
                                 </div>
                                 Astuce : le tri par défaut est par type, poids et prix.
                                 <div id="star-rating">
 
-                                    <input class="rating rating--nojs" id="nbEtoiles" name="nbEtoiles" <?php if (isset($_GET['nbEtoiles']) && $_GET['nbEtoiles'] != 0) {echo "value=".$_GET['nbEtoiles'] ;}  ?> max="5" step="1" type="range" value="0">
+                                    <input class="rating rating--nojs" id="nbEtoiles" name="nbEtoiles" <?php if (isset($_GET['nbEtoiles']) && $_GET['nbEtoiles'] != 0) {
+                                                                                                            echo "value=" . $_GET['nbEtoiles'];
+                                                                                                        }  ?> max="5" step="1" type="range" value="0">
 
                                     <br><br>
 
-                                    <button name="ordre" id="order-button" <?php if (isset($_GET['ordre'])) {if($_GET['ordre'] === "DESC"){echo "value=true";}else{echo "value=false";} }  ?> value="false" style="font-size: 1.8em;">Croissant</button>
+                                    <button name="ordre" id="order-button" <?php if (isset($_GET['ordre'])) {
+                                                                                if ($_GET['ordre'] === "DESC") {
+                                                                                    echo "value=true";
+                                                                                } else {
+                                                                                    echo "value=false";
+                                                                                }
+                                                                            }  ?> value="false" style="font-size: 1.8em;">Croissant</button>
                                     <br><br>
                                     <button onclick="trier()" style="font-size: 1.8em;">Confirmer</button>
 
                                 </div>
                                 <div id="item-types">
                                     <div>
-                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bW\b/', $_GET['type'])) {echo "checked=true";}  ?> class="minetext" data-mctitle="Armes" value="W" name="type" id="armes">
+                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bW\b/', $_GET['type'])) {
+                                                                                            echo "checked=true";
+                                                                                        }  ?> class="minetext" data-mctitle="Armes" value="W" name="type" id="armes">
 
-                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bA\b/', $_GET['type'])) {echo "checked=true";}  ?>  class="minetext" data-mctitle="Armures" value="A" name="type" id="armures">
+                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bA\b/', $_GET['type'])) {
+                                                                                            echo "checked=true";
+                                                                                        }  ?> class="minetext" data-mctitle="Armures" value="A" name="type" id="armures">
 
                                         <input aria-label="Item-Frame" type="checkbox" class="minetext" data-mctitle="Rénitialiser" name="type" id="reset">
                                     </div>
                                     <div>
-                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bN\b/', $_GET['type'])) {echo "checked=true";}  ?>  class="minetext" data-mctitle="Nourriture" value="N" name="type" id="nourriture">
+                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bN\b/', $_GET['type'])) {
+                                                                                            echo "checked=true";
+                                                                                        }  ?> class="minetext" data-mctitle="Nourriture" value="N" name="type" id="nourriture">
 
-                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bM\b/', $_GET['type'])) {echo "checked=true";}  ?>  class="minetext" data-mctitle="Munitions" value="M" name="type" id="munitions">
+                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bM\b/', $_GET['type'])) {
+                                                                                            echo "checked=true";
+                                                                                        }  ?> class="minetext" data-mctitle="Munitions" value="M" name="type" id="munitions">
 
-                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bD\b/', $_GET['type'])) {echo "checked=true";}  ?>  class="minetext" data-mctitle="Médicaments" value="D" name="type" id="medicaments">
+                                        <input aria-label="Item-Frame" type="checkbox" <?php if (isset($_GET['type']) && preg_match('/\bD\b/', $_GET['type'])) {
+                                                                                            echo "checked=true";
+                                                                                        }  ?> class="minetext" data-mctitle="Médicaments" value="D" name="type" id="medicaments">
                                     </div>
                                 </div>
                             </div>
@@ -192,9 +222,10 @@ if (!empty($_GET["nbItem"])) {
 
             function AugmenterNbItemChoisie(idItem, qte) {
                 var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
-                if(qte > inputNbItemChoisie.value){
+                if (qte > inputNbItemChoisie.value) {
                     var nbInput = parseInt(inputNbItemChoisie.value);
-                    inputNbItemChoisie.value = nbInput + 1;}
+                    inputNbItemChoisie.value = nbInput + 1;
+                }
             }
 
             function ChangerInformation(idItem) {
