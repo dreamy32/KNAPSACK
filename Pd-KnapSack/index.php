@@ -18,7 +18,13 @@ if (!empty($_GET["nbItem"])) {
     try
     {
         AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
-        echo "<script>alert('Vous avez ajouter cette item a votre panier!')</script>";
+            $errorToast =
+                "<span id='snackbar'> 
+                    <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+                    Cet item à été ajouté à votre panier!
+                </span>
+                <script>Snackbar();</script>";
+                echo $errorToast;
     }
     catch(Exception $e)
     {
@@ -39,17 +45,18 @@ if (!empty($_GET["nbItem"])) {
                     <a href="inventaire.php" style="text-decoration: none; display: inherit; margin-left: 10px;">
                         <button type="submit" aria-label="Chest"></button>
                     </a>
+                    <?php if (isset($_SESSION['alias'])){echo $_SESSION['alias']; echo $poidJoueur . " " . $poidsMax;} ?>
 
                     <div class="contenuMenu" id="MenuPopUp">
                         <?php
                         $profile = AfficherInfosJoueur($_SESSION['alias']);
                         $solde = $profile[1];
-                        $poidJoueur = "50"; /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
+                        $poidJoueur = PoidsSac($_SESSION['alias']); /* Valeur qui sera chercher en fonction php selon le poid de linventaire */
                         $poidsMax = $profile[3];
                         /* Affiche le boutton profile, solde, et se deconnecter */
                         if ($estConnecter) {
                             echo '<a href="profile.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Profile</p></div></a>';
-                            echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="images/icons/ask_money.png" alt="caps"></a></div>';
+                            echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="../images/emerald.png" alt="caps"></a></div>';
                             echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
                         } else {
                             echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
@@ -57,7 +64,9 @@ if (!empty($_GET["nbItem"])) {
                         ?>
                     </div>
                 </div>
-                <!--<span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>-->
+                <?php if(isset($_SESSION['alias'])) { ?>
+                <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
+                <?php }?>
             </div>
 
             <!-- RECHERCHE AVANCÉE DÉBUT -->
@@ -65,7 +74,7 @@ if (!empty($_GET["nbItem"])) {
             <div class="recherche" onclick="afficherRecherche()">
                 <button>Recherche Avancée</button>
                 <div style="background-image: none;" class="contenuRecherche" id="RecherchePopUp">
-                    <div aria-label="Window" style="margin: auto; width: 1000px; height: 700px;">
+                    <div aria-label="Window" style="margin: auto; width: 1000px; height: 700px; transform: scale(65%); margin-left: -440px;">
                         <div id="window-container">
                             <h1 id="window-title">Recherche</h1>
                             <div class="search-container">
@@ -129,7 +138,7 @@ if (!empty($_GET["nbItem"])) {
                 <img src="items_images/img_base.png" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
             </div>
             <h3 id="infoPrixItem" value=""></h3>
-            <input type="number" id="infoNbItem" readonly aria-label="Alternative" value="" style="width: 80px;">
+            <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
             <h3 id="infoPoidsItem" value=""></h3>
             <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
         </main>
@@ -157,7 +166,7 @@ if (!empty($_GET["nbItem"])) {
                     echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                     if ($estConnecter) {
                         echo "<form method='get'>";
-                        echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0])'></button>";
+                        echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0], $objet[2])'></button>";
                         echo "<input type='number' value='1' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px' name='nbItem'>";
                         echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
                         echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
@@ -189,17 +198,16 @@ if (!empty($_GET["nbItem"])) {
                     inputNbItemChoisie.value = inputNbItemChoisie.value - 1;
             }
 
-            function AugmenterNbItemChoisie(idItem) {
+            function AugmenterNbItemChoisie(idItem, qte) {
                 var inputNbItemChoisie = document.getElementById("nbItemChoisie" + idItem);
-                var maxNbItem = document.getElementById("infoNbItem");
-                if(maxNbItem.value > inputNbItemChoisie.value){
+                if(qte > inputNbItemChoisie.value){
                     var nbInput = parseInt(inputNbItemChoisie.value);
                     inputNbItemChoisie.value = nbInput + 1;}
             }
 
             function ChangerInformation(idItem) {
                 var infoNomItem = document.getElementById("infoNom");
-                infoNomItem.innerHTML = idItem[1] /*.toUpperCase()*/ ;
+                infoNomItem.innerHTML = idItem[1];
                 var infoNbItem = document.getElementById("infoNbItem");
                 infoNbItem.value = idItem[2];
                 var infoImageItem = document.getElementById("infoImageItem");
