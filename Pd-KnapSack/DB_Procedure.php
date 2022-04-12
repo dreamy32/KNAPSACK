@@ -209,12 +209,12 @@ function AjouterItemPanier($idItem, $nbItem)
         $stmt->execute();
         $stmt->closeCursor();
         }catch(PDOException $e){
-            $pos = strpos($e->getMessage(),">:");
-            $message=$e->getMessage();
-            if ($pos!=-1) {
-                $message=substr($e->getMessage(),$pos+7);
+             $pos = strpos($e->getMessage(),">:");
+             $message=$e->getMessage();
+             if ($pos!=-1) {
+                 $message=substr($e->getMessage(),$pos+7);
             }
-            throw new Exception($message);            
+            echo "<script type='text/javascript'>alert('$message');</script>";       
         }
 }
 
