@@ -6,10 +6,10 @@ call AjouterItemPanier("2", 2, 38);
 call AjouterItemPanier("2", 1, 60);
 call AjouterJoueur("coco23", "1234", 'pop', "corn", "popCocorn", 23, 37, 100);
 CALL AfficherInventaire(23);
+call supprimerItemPanier("madzcandy", 42);
 
 
-
-update Joueurs set solde = 100000 where idjoueur = 23;
+update Joueurs set solde = 10000 where idjoueur = 23;
 
 SELECT MontantTotalPanier('23');
 SELECT PoidsSac(2);
