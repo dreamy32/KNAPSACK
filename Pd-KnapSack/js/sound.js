@@ -60,4 +60,11 @@ const ShopItemClick = () => {
   $(".shop-item").click(() =>
     audioFiles[Math.floor(Math.random() * nbAudioFiles)].play()
   );
-}
+};
+const PurchaseSucessfulSound = () => {
+  let audioElement = document.createElement("audio");
+  audioElement.setAttribute("src", `./audio/villager/yes${2}.ogg`);
+  audioElement.setAttribute("id", `yes-sound`);
+  $("body").append(audioElement);
+  audioElement.play();
+};
