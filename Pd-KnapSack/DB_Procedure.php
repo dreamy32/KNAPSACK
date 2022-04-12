@@ -208,9 +208,14 @@ function AjouterItemPanier($idItem, $nbItem)
         $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
-    } catch (PDOException $e) {
-        return $e->getMessage();
-    }
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            throw new Exception($message);            
+        }
 }
 
 function ModifierItemPanier($qte, $numItem)
@@ -227,7 +232,12 @@ function ModifierItemPanier($qte, $numItem)
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
-        return $e->getMessage();
+        $pos = strpos($e->getMessage(),">:");
+        $message=$e->getMessage();
+        if ($pos!=-1) {
+            $message=substr($e->getMessage(),$pos+7);
+        }
+        throw new Exception($message);        
     }
 }
 
@@ -244,7 +254,12 @@ function SupprimerItemPanier($numItem)
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
-        return $e->getMessage();
+        $pos = strpos($e->getMessage(),">:");
+        $message=$e->getMessage();
+        if ($pos!=-1) {
+            $message=substr($e->getMessage(),$pos+7);
+        }
+        throw new Exception($message); 
     }
 }
 
@@ -271,7 +286,12 @@ function AfficherPanier($alias)
         $stmt->closeCursor();
         return $info;
     } catch (PDOException $e) {
-        return $e->getMessage();
+        $pos = strpos($e->getMessage(),">:");
+        $message=$e->getMessage();
+        if ($pos!=-1) {
+            $message=substr($e->getMessage(),$pos+7);
+        }
+        throw new Exception($message); 
     }
 }
 
@@ -338,8 +358,12 @@ function MontantTotalPanier($idJoueur)
             $stmt->execute();
             $stmt->closeCursor();
         }catch(PDOException $e){
-            throw new Exception(substr($e->getMessage(),40));
-            //return $e->getMessage();
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            throw new Exception($message); 
         }
     }
 
