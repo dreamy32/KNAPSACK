@@ -183,7 +183,7 @@
                             <br>
                             <span style="font-size: 25px;">
                                 <span class="titleInfos" style="color: #112F5A;">Dextérité: 
-                                    <span><?=$dexterite?></span>
+                                    <span class="red-alert"><?=$dexterite?></span>
                                 </span>
                             </span>
                             <br>
