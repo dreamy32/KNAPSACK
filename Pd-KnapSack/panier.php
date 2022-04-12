@@ -19,8 +19,10 @@
         $numitem = $_POST["numItem"];
         $qte = $_POST["qte"];
         $qteNum = 0;
+        
         if ($action == 'SUBSTRACT') {
-            $qteNum = ((int)$qte) - 1;           
+            if((int)$qte > 1)
+                $qteNum = ((int)$qte) - 1;           
         } else if ($action == 'ADD') {
             $qteNum = ((int)$qte) + 1;
         }
