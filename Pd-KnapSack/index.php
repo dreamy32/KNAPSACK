@@ -13,8 +13,8 @@ $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
     $estConnecter = TRUE;
 
-if (!empty($_GET["nbItem"])) {
-    AjouterItemPanier($_GET["idItem"], $_GET["nbItem"]);
+if (!empty($_POST["nbItem"])) {
+    AjouterItemPanier($_POST["idItem"], $_POST["nbItem"]);
     $successToast =
         "<span id='snackbar'> 
             <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
@@ -187,7 +187,7 @@ if (!empty($_GET["nbItem"])) {
                     echo "<article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                     echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                     if ($estConnecter) {
-                        echo "<form method='get'>";
+                        echo "<form method='post'>";
                         echo "<button aria-label='Plus' type='button' onclick='AugmenterNbItemChoisie($objet[0], $objet[2])'></button>";
                         echo "<input type='number' value='1' aria-label='Alternative' readonly id='nbItemChoisie$objet[0]' style='width:80px' name='nbItem'>";
                         echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
