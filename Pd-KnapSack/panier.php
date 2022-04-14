@@ -175,11 +175,11 @@
                         <br><br>
                     </div>                    
                     <div id="item-info">
-                        <h1>&nbsp; Mes infos: </h1>
+                        <h1>Infos</h1>
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
                                 <span class="titleInfos" style="color: #112F5A;">Poids du sac:</span>
-                                <span class="red-alert"><?=$poidsSac?>/<?=$poidsMax?></span>
+                                <span class="red-alert"><?=$poidsSac?><span>/<?=$poidsMax?></span></span>
                             </span>
                             <br>
                             <br>
