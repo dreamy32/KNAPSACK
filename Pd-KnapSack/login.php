@@ -9,14 +9,31 @@
         */
         $estValide  = TRUE;
         $alias = $_POST["alias"];
+        $mdp = $_POST["motDePasse"];
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
+
+
+
         if(!($_POST["alias"] == $InfoJoueur[5]))
             $estValide = FALSE;
-        if(!(hash("sha512", $_POST["motDePasse"]) == $InfoJoueur[7]))
-            $estValide = FALSE;
-        if(empty($_POST["alias"]) || empty($_POST["motDePasse"]))
-            $estValide = FALSE;
+
+
+        if($alias != "" && $mdp != "")
+        {
+            $etat = ValiderIdentité($alias, $mdp);
+
+            if($etat = 0)
+            {
+                $estValide = false;
+            }
+            else
+            {
+                $estValide = true;
+            }
+        }
+       
+
         if($estValide){
             session_start();
             $_SESSION['alias'] = $InfoJoueur[5];

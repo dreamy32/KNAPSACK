@@ -45,6 +45,39 @@ function AjouterJoueur($alias, $mdp, $nom, $prenom, $courriel)
         return $e->getMessage();
     }
 }
+
+
+
+
+
+
+function ValiderIdentité($alias, $mdp)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT ValiderIdentité(:pAlias, :pMdp)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+        $stmt->bindParam(':pMdp', $mdp, PDO::PARAM_STR);
+        $stmt->execute();
+        $etat = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $etat = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $etat;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+
+
+
+
+
+
 // Ne fonctionne pas, Creation d'un select 
 function AfficherInfosJoueur($alias)
 {
