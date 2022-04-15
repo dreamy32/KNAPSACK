@@ -7,11 +7,12 @@
 +--------------------------------------------+----s------+
 
 
+
 +---+------------+---+
 | | | Procédures | | |
 +---+------------+---+
 */
-
+use KNAPSACKDB;
 
 
 #Ajouter un Item à Inventaire ========================================================================================================
@@ -715,6 +716,35 @@ SELECT MoyenneEvaluations(36);
 SELECT MoyenneEvaluations(9);
 */
 # ====================================================================================================================================
+
+
+
+
+
+
+# Fonction qui permet de valider l'identité d'un joueur ===============================================================================
+DELIMITER $$
+CREATE FUNCTION ValiderIdentité(pAlias varchar(20), pMdp varchar(80)) 
+RETURNS INT 
+BEGIN
+	SET @motdepasseHash = 0;
+    SET @etat = 0; -- légende état: 1 = succès, 2 = échec
+
+	SELECT motDePasse INTO @motdepasseHash FROM Joueurs WHERE alias = pAlias;
+	SET @mdpChiffre = SHA2(pMdp, 512);
+    
+	if(@mdpChiffre = @motdepasseHash) then
+		set @etat = 1;
+	end if;
+		
+	RETURN @etat;
+END$$
+# ====================================================================================================================================
+#SELECT ValiderIdentité("2", "2");
+
+
+
+
 
 
 
