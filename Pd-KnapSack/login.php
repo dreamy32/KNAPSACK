@@ -7,7 +7,7 @@
             Si incorect | afficher erreur & garder bonne information
             Si correct  |Commit changes et header('Location: profile.php');
         */
-        $estValide  = FALSE;
+        $estValide  = TRUE;
         $alias = $_POST["alias"];
         $mdp = $_POST["motDePasse"];
         include('DB_Procedure.php');
@@ -19,7 +19,7 @@
             $estValide = FALSE;
 */
 
-        if($alias != "" || $mdp != "")
+        if($alias != "" && $mdp != "")
         {
             $etat = ValiderIdentité($alias, $mdp);
 
