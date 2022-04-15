@@ -14,10 +14,10 @@
         $InfoJoueur = AfficherInfosJoueur($alias);
 
 
-
+/*
         if(!($_POST["alias"] == $InfoJoueur[5]))
             $estValide = FALSE;
-
+*/
 
         if($alias != "" || $mdp != "")
         {
