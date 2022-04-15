@@ -7,23 +7,18 @@
             Si incorect | afficher erreur & garder bonne information
             Si correct  |Commit changes et header('Location: profile.php');
         */
-        $estValide  = TRUE;
+        $estValide  = false;
         $alias = $_POST["alias"];
         $mdp = $_POST["motDePasse"];
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
 
 
-/*
-        if(!($_POST["alias"] == $InfoJoueur[5]))
-            $estValide = FALSE;
-*/
-
         if($alias != "" && $mdp != "")
         {
             $etat = ValiderIdentité($alias, $mdp);
-
-            if($etat = 0)
+            
+            if($etat == 0)
             {
                 $estValide = false;
             }
