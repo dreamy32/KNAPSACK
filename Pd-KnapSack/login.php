@@ -9,7 +9,6 @@
         */
         $estValide  = TRUE;
         $alias = $_POST["alias"];
-        echo $alias;
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
         if(!($_POST["alias"] == $InfoJoueur[5]))
@@ -24,6 +23,11 @@
             $_SESSION['mdp'] = $InfoJoueur[8];
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
+        }
+
+        if(!$estValide && $alias != "")
+        {
+            echo "Erreur. Votre nom d'utilisateur ou mot de passe est invalide";
         }
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
