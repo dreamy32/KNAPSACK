@@ -132,7 +132,11 @@ function AfficherItemsVente($type = '%')
         $stmt->closeCursor();
         return $info;
     } catch (PDOException $e) {
-        echo "<script type='text/javascript'>alert('Oups ! une erreur une survenue');</script>";       
+        echo "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Des erreurs sont survenus
+    </span>
+    <script>Snackbar();</script>";      
     }
 }
 
@@ -225,7 +229,11 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
 
         return $info;
     } catch (PDOException $e) {
-        echo "<script type='text/javascript'>alert('Oups ! une erreur une survenue');</script>";       
+        echo "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Des erreurs sont survenus
+    </span>
+    <script>Snackbar();</script>";       
     }
 }
 
