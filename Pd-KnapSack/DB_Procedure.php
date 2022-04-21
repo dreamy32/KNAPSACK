@@ -427,6 +427,33 @@ function PoidsSac($alias)
 
 
 
+function PoidsPanier($alias)
+{
+    Connexion();
+    global $pdo;
+
+    try {
+
+        $stmt = $pdo->prepare("SELECT PoidsPanier(:pAlias)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+        $stmt->execute();
+        $poids = 0;
+        echo("ccc");
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $poids = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $poids;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+
+
+
+
 function PoidsMax($alias)
 {
     Connexion();
