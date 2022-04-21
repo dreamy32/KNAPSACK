@@ -59,7 +59,7 @@ if (!empty($_POST["nbItem"])) {
                 </div>
 
                 <?php if (isset($_SESSION['alias'])) { ?>
-                    <span style="align-self: center;"><?= $_SESSION['alias'] ?></span>
+                    <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?></span>
                     <div style="display: flex;flex-direction: column;align-self: center;">
                         <span style="font-size: small;"><i><?= $solde ?></i></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
