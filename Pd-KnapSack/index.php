@@ -40,11 +40,6 @@ if (!empty($_POST["nbItem"])) {
                     <a href="inventaire.php" style="text-decoration: none; display: inherit; margin-left: 10px;">
                         <button type="submit" aria-label="Chest"></button>
                     </a>
-                    <?php if (isset($_SESSION['alias'])) {
-                        echo $_SESSION['alias'];
-                        echo $poidJoueur . " " . $poidsMax;
-                    } ?>
-
                     <div class="contenuMenu" id="MenuPopUp">
                         <?php
                         $profile = AfficherInfosJoueur($_SESSION['alias']);
@@ -63,6 +58,8 @@ if (!empty($_POST["nbItem"])) {
                     </div>
                 </div>
                 <?php if (isset($_SESSION['alias'])) { ?>
+                    <?=$_SESSION['alias']?>
+                    <span style="font-size: small;"><i><?=$solde?></i></span>
                     <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
                 <?php } ?>
             </div>
