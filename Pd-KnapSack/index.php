@@ -57,11 +57,14 @@ if (!empty($_POST["nbItem"])) {
                         ?>
                     </div>
                 </div>
-                <?php if (isset($_SESSION['alias'])) { ?>
-                    <?=$_SESSION['alias']?>
-                    <span style="font-size: small;"><i><?=$solde?></i></span>
-                    <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
-                <?php } ?>
+                <div>
+                    <?php if (isset($_SESSION['alias'])) { ?>
+                        <?= $_SESSION['alias'] ?>
+                        <span style="font-size: small;"><i><?= $solde ?></i></span>
+                        <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
+                    <?php } ?>
+                </div>
+
             </div>
 
             <!-- RECHERCHE AVANCÉE DÉBUT -->
