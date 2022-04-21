@@ -132,7 +132,7 @@ function AfficherItemsVente($type = '%')
         $stmt->closeCursor();
         return $info;
     } catch (PDOException $e) {
-        return $e->getMessage();
+        echo "<script type='text/javascript'>alert('Oups ! une erreur une survenue');</script>";       
     }
 }
 
@@ -225,8 +225,7 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
 
         return $info;
     } catch (PDOException $e) {
-        echo $e->getMessage();
-        return $e->getMessage();
+        echo "<script type='text/javascript'>alert('Oups ! une erreur une survenue');</script>";       
     }
 }
 
