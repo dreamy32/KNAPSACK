@@ -60,7 +60,7 @@ if (!empty($_POST["nbItem"])) {
                 <div>
                     <?php if (isset($_SESSION['alias'])) { ?>
                         <?= $_SESSION['alias'] ?>
-                        <span style="font-size: small;"><i><?= $solde ?></i></span>
+                        <span style="font-size: small;"><i><?= $solde . ' <img style="width: 20px;" src="../images/emerald.png" alt="caps">' ?></i></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
                     <?php } ?>
                 </div>
