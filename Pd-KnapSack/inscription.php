@@ -6,6 +6,12 @@ $errorToast =
         Des erreurs sont survenus
     </span>
     <script>Snackbar();</script>";
+$errorToastAlias =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Des erreurs sont survenus
+    </span>
+    <script>Snackbar();</script>";
 $exclamationMark = "<img style='width: 11px;' src='images/orange_exclamation.png' alt='errorFieldIcon'>&nbsp;&nbsp;&nbsp;&nbsp;";
 // $successToast =
 // "<span id='snackbar'> 
