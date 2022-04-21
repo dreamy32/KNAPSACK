@@ -649,6 +649,33 @@ SELECT (PoidsSac('Samy'));
 
 
 
+# Fonction qui retourne le poids du sac d'un joueur ==================================================================================
+DELIMITER $$
+CREATE FUNCTION PoidsPanier (pAlias VARCHAR(30))
+RETURNS FLOAT
+BEGIN
+	SET @totalPoids = 0;
+	SELECT SUM(Items.poids * Panier.qteAchat) INTO @totalPoids
+    FROM Joueurs
+    INNER JOIN Panier ON Joueurs.IdJoueur = Panier.Joueurs_IdJoueur
+	INNER JOIN Items ON Panier.Items_IdItems = Items.IdItems
+	WHERE alias = pAlias
+    GROUP BY idJoueur;
+    RETURN @totalPoids;
+END $$	
+/* TESTS*/
+/*
+call AjouterItemPanier("madzcandy", 10, 36);
+call AjouterItemInventaire(1, 36, 13);
+SELECT (PoidsPanier('2'));
+*/
+# ====================================================================================================================================
+
+
+
+
+
+
 
 # Fonction qui retourne la dextérité perdue d'un joueur ==============================================================================
 DELIMITER $$

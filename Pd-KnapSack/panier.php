@@ -3,6 +3,8 @@
     include("DB_Procedure.php");
     session_start();
 
+    echo ("lol");
+  
     $messageErreur="";
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
@@ -66,8 +68,12 @@
         }
     }
  
+
+    echo "allo0000";
     try{
+        echo "allo";
         $poidsSac = PoidsSac($_SESSION['alias']);
+        $poidsPanier = PoidsPanier($_SESSION['alias']);
         $poidsMax = PoidsMax($_SESSION['alias']);
         $totalPanier = MontantTotalPanier($_SESSION['idJoueur']);
         $dexterite = Dexterite($_SESSION['alias']);
@@ -180,6 +186,12 @@
                             <span style="font-size: 25px;">
                                 <span class="titleInfos" style="color: #112F5A;">Poids du sac:</span>
                                 <span class="red-alert"><?=$poidsSac?><span>/<?=$poidsMax?></span></span>
+                            </span>
+                            <br>
+                            <br>
+                            <span style="font-size: 25px;">
+                                <span class="titleInfos" style="color: #112F5A;">Poids du panier:</span>
+                                <span class="red-alert"><?=$poidsPanier?><span>/<?=$poidsPanier?></span></span>
                             </span>
                             <br>
                             <br>
