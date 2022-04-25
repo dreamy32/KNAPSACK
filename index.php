@@ -51,8 +51,7 @@ if (!empty($_POST["nbItem"])) {
                         if ($estConnecter) {
                             echo '<a href="profile.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Profile</p></div></a>';
                             echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="../images/emerald.png" alt="caps"></a></div>';
-                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
-                            {
+                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
                                 echo '<a href="admin.php" style="text-decoration: none;"><div class="advancedSearch"style="margin:5%"><p>Admin</p></div></a>';
                             }
                             echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
@@ -170,7 +169,7 @@ if (!empty($_POST["nbItem"])) {
             <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
             <h3 id="infoPoidsItem" value=""></h3>
             <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
-            <div id="evaluations">
+            <div id="evaluations" aria-label="Window" style="overflow: auto;">
                 <div>
                     <img src="./images/ma face.png" alt="">
                     <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
