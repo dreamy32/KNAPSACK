@@ -90,16 +90,17 @@ function AfficherInfosJoueur($alias)
         $stmt->execute();
         $info = [];
         while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            array_push($info, $donnee[0]);/* Id*/
-            array_push($info, str_replace("'", '-', $donnee[1]));
-            array_push($info, $donnee[2]);
-            array_push($info, $donnee[3]);
-            array_push($info, $donnee[4]);
-            array_push($info, $donnee[5]);
-            array_push($info, str_replace("\'", '-', $donnee[6]));
-            array_push($info, $donnee[7]);
-            array_push($info, $donnee[8]);
-            array_push($info, $donnee[9]);
+            array_push($rangee, $donnee[0]);
+            array_push($rangee, $donnee[1]);
+            array_push($rangee, $donnee[2]);
+            array_push($rangee, $donnee[3]);
+            array_push($rangee, $donnee[4]);
+            array_push($rangee, $donnee[5]);
+            array_push($rangee, $donnee[6]);
+            array_push($rangee, $donnee[7]);
+            array_push($rangee, $donnee[8]);
+            array_push($rangee, $donnee[9]);
+            array_push($rangee, $donnee[10]);
             array_push($info, $info);
         }
         $stmt->closeCursor();
