@@ -170,6 +170,23 @@ if (!empty($_POST["nbItem"])) {
             <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
             <h3 id="infoPoidsItem" value=""></h3>
             <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
+            <div id="evaluations">
+                <div>
+                    <img src="./images/ma face.png" alt="">
+                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
+                    <input readonly step="5" type="range" name="" id="">
+                </div>
+                <div>
+                    <img src="./images/ma face.png" alt="">
+                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
+                    <input readonly step="5" type="range" name="" id="">
+                </div>
+                <div>
+                    <img src="./images/ma face.png" alt="">
+                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
+                    <input readonly step="5" type="range" name="" id="">
+                </div>
+            </div>
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
