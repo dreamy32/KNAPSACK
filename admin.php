@@ -72,7 +72,7 @@
                     <div id="items-list">
                       
                     <div href="demande_Argent.php" style="text-decoration: none; width:300px"><div class="advancedSearch" style="margin:5%"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
-
+                    <input type="text" placeholder="Patoche" name="alias">
 
 
                     </div>                    
