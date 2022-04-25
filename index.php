@@ -26,6 +26,7 @@ if (!empty($_POST["nbItem"])) {
         </script>";
     echo $successToast;
 }
+
 ?>
 
 <body>
@@ -50,6 +51,10 @@ if (!empty($_POST["nbItem"])) {
                         if ($estConnecter) {
                             echo '<a href="profile.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Profile</p></div></a>';
                             echo '<a href="demande_Argent.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"> Solde: ' . $solde . ' <img style="width: 20px;" src="../images/emerald.png" alt="caps"></a></div>';
+                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
+                            {
+                                echo '<a href="admin.php" style="text-decoration: none;"><div class="advancedSearch"style="margin:5%"><p>Admin</p></div></a>';
+                            }
                             echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
                         } else {
                             echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';

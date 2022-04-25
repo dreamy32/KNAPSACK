@@ -99,6 +99,7 @@ function AfficherInfosJoueur($alias)
             array_push($info, $donnee[7]);
             array_push($info, $donnee[8]);
             array_push($info, $donnee[9]);
+            array_push($info, $donnee[10]);
             array_push($info, $info);
         }
         $stmt->closeCursor();
@@ -107,6 +108,8 @@ function AfficherInfosJoueur($alias)
         return $e->getMessage();
     }
 }
+
+
 function AfficherItemsVente($type = '%')
 {
     Connexion();
