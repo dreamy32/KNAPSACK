@@ -1,33 +1,41 @@
 <?php
 $title = "Inscription";
-$errorToast =
+$errorToastVide =
     "<span id='snackbar'> 
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
-        Des erreurs sont survenus
+        Des champs sont vides!
     </span>
     <script>Snackbar();</script>";
 $errorToastAlias =
     "<span id='snackbar'> 
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
-        Des erreurs sont survenus
+        L'alias est déjà utilisé par un autre utilisateur!
+    </span>
+    <script>Snackbar();</script>";
+$errorToastMdp =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Les mots de passes ne correspondent pas!
     </span>
     <script>Snackbar();</script>";
 $exclamationMark = "<img style='width: 11px;' src='images/orange_exclamation.png' alt='errorFieldIcon'>&nbsp;&nbsp;&nbsp;&nbsp;";
-// $successToast =
-// "<span id='snackbar'> 
-//     <img src='images/book_and_quill.png' alt='toast'> &nbsp;
-//     Vous êtes connectés
-// </span>"; Inutile, car si connecté, il ne verra pas le post. Devrait se voir sur l'accueil.
 require('header.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    /* Il reste à implementer les RegEx et la verification d'alias et de courriel unique*/
+    include('DB_Procedure.php');
     $estValide  = TRUE;
-    if (!($_POST["mdp"] == $_POST["mdpConfirmation"]))
+    if (!($_POST["mdp"] == $_POST["mdpConfirmation"])){
         $estValide = FALSE;
-    if (empty($_POST["alias"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["courriel"]))
+        echo $errorToastMdp;
+    }
+    if (empty($_POST["alias"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["courriel"])){
+        echo $errorToastVide;
         $estValide = FALSE;
+    }
+    if(AfficherInfosJoueur($alias)[5] == $_POST["alias"]){
+        $estValide = FALSE;
+        echo $errorToastAlias;
+    }
     if ($estValide) {
-        include('DB_Procedure.php');
         try{
             AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
             header('Location: login.php');
@@ -37,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             //Just continue
         }
     }
-    echo $errorToast;
 }
 ?>
 
