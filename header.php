@@ -28,7 +28,7 @@
         .menu .contenuMenu{
             visibility: hidden;
             width: 200px;
-            height: 175px;
+            height: 200px;
             color: #fff;
             text-align: center;
             border-radius: 6px;

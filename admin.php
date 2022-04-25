@@ -2,7 +2,7 @@
     $title = "Panier";
     include("DB_Procedure.php");
     session_start();
-
+  
     $messageErreur="";
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
@@ -44,7 +44,8 @@
         $qteNum = 0;
         if ($action == 'TRUE') {
             try{
-                SupprimerItemPanier($numitem);           
+                SupprimerItemPanier($numitem);  
+               
             } catch (Exception $e) {
                 $messageErreur=$e->getMessage();
             }         
@@ -66,7 +67,9 @@
     }
  
 
+    echo "allo0000";
     try{
+        echo "allo";
         $poidsSac = PoidsSac($_SESSION['alias']);
         $poidsPanier = PoidsPanier($_SESSION['alias']);
         $poidsMax = PoidsMax($_SESSION['alias']);
@@ -167,7 +170,13 @@
                         }       
                         ?>
 
+                        <br>
+                        <br>
+                        <br>
 
+                        
+                       
+                        <br><br>
                     </div>                    
                     <div id="item-info">
                         <h1>Infos</h1>
@@ -180,7 +189,7 @@
                             <br>
                             <span style="font-size: 25px;">
                                 <span class="titleInfos" style="color: #112F5A;">Poids du panier:</span>
-                                <span class="red-alert"><?=$poidsPanier?></span>
+                                <span class="red-alert"><?=$poidsPanier?><span>/<?=$poidsPanier?></span></span>
                             </span>
                             <br>
                             <br>
@@ -226,15 +235,3 @@
             </div>
 
 <?php require('footer.php') ?>
-
-
-<!--
-<script type="text/javascript">
-            function DeleteItem()
-            {
-                alert("joli");
-            }
-
-            alert("poli");
-        </script>
--->

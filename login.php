@@ -1,7 +1,12 @@
 <?php 
     $title = "Connexion";
     require('header.php');
-
+    $errorToast =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        L'alias ou le mot de passe est incorrect!
+    </span>
+    <script>Snackbar();</script>";
     if(array_key_exists('bouttonConnecter', $_POST)) {
         /* Valider information formulaire  
             Si incorect | afficher erreur & garder bonne information
@@ -13,20 +18,25 @@
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
 
-
-        if($alias != "" && $mdp != "")
+        if($InfoJoueur[5] == $alias && hash("sha512",$mdp) == $InfoJoueur[7]){
+            $estValide = true;
+        }
+        else{
+            $estValide = false;
+        }
+        /*if($alias != "" && $mdp != "")
         {
-            $etat = ValiderIdentité($alias, $mdp);
+            //$etat = ValiderIdentité($alias, $mdp);
             
-            if($etat == 0)
-            {
-                $estValide = false;
-            }
-            else
+            if(ValiderIdentité($alias, $mdp))
             {
                 $estValide = true;
             }
-        }
+            else
+            {
+                $estValide = false;
+            }
+        }*/
        
 
         if($estValide){
@@ -36,11 +46,7 @@
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
         }
-
-        if(!$estValide && $alias != "")
-        {
-            echo "Erreur. Votre nom d'utilisateur ou mot de passe est invalide";
-        }
+        echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
