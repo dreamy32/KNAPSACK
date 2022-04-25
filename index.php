@@ -176,6 +176,16 @@ if (!empty($_POST["nbItem"])) {
                     <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
                     <input readonly step="5" type="range" name="" id="">
                 </div>
+                <div>
+                    <img src="./images/ma face.png" alt="">
+                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
+                    <input readonly step="5" type="range" name="" id="">
+                </div>
+                <div>
+                    <img src="./images/ma face.png" alt="">
+                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
+                    <input readonly step="5" type="range" name="" id="">
+                </div>
             </div>
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
