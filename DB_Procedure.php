@@ -445,8 +445,7 @@ function PoidsPanier($alias)
         $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
         $stmt->execute();
         $poids = 0;
-        echo("ccc");
-
+        
         if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
             $poids = $donnee[0];
         }

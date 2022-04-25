@@ -2,7 +2,7 @@
     $title = "Panier";
     include("DB_Procedure.php");
     session_start();
-
+    
     $messageErreur="";
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
@@ -44,7 +44,8 @@
         $qteNum = 0;
         if ($action == 'TRUE') {
             try{
-                SupprimerItemPanier($numitem);           
+                SupprimerItemPanier($numitem);  
+               
             } catch (Exception $e) {
                 $messageErreur=$e->getMessage();
             }         
@@ -64,7 +65,7 @@
             }
         }
     }
- 
+
 
     try{
         $poidsSac = PoidsSac($_SESSION['alias']);
@@ -128,8 +129,7 @@
 
     <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
     <a href="index.php"><img src="images/Knapsack.png"></img></a>
-        <div style="color:red" id="d"><?php echo $messageErreur?></div>
-        
+        <div style="color:red" id="d"><?php echo $messageErreur?></div>      
         <div aria-label="Window" style="margin: auto; height: 98%; background: inherit;">
             <div id="window-container" style="margin-top: unset;">
                 <h1 id="window-title">Panier</h1>
@@ -167,7 +167,13 @@
                         }       
                         ?>
 
+                        <br>
+                        <br>
+                        <br>
 
+                        
+                       
+                        <br><br>
                     </div>                    
                     <div id="item-info">
                         <h1>Infos</h1>
@@ -180,7 +186,7 @@
                             <br>
                             <span style="font-size: 25px;">
                                 <span class="titleInfos" style="color: #112F5A;">Poids du panier:</span>
-                                <span class="red-alert"><?=$poidsPanier?></span>
+                                <span class="red-alert"><?=$poidsPanier?><span>/<?=$poidsPanier?></span></span>
                             </span>
                             <br>
                             <br>
