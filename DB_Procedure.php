@@ -84,6 +84,7 @@ function AfficherInfosJoueur($alias)
     Connexion();
     global $pdo;
     try {
+        //sss
         $stmt = $pdo->prepare("CALL AfficherInfosJoueur(:alias)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
         $stmt->execute();
@@ -445,7 +446,7 @@ function PoidsPanier($alias)
         $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
         $stmt->execute();
         $poids = 0;
-        
+
         if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
             $poids = $donnee[0];
         }
