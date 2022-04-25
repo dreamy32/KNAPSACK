@@ -22,8 +22,11 @@ $exclamationMark = "<img style='width: 11px;' src='images/orange_exclamation.png
 require('header.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include('DB_Procedure.php');
-    echo AfficherInfosJoueur($alias)[5];
     $estValide  = TRUE;
+    if(AfficherInfosJoueur($_POST["alias"])[5] == $_POST["alias"]){
+        $estValide = FALSE;
+        echo $errorToastAlias;
+    }
     if (!($_POST["mdp"] == $_POST["mdpConfirmation"])){
         $estValide = FALSE;
         echo $errorToastMdp;
@@ -31,10 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($_POST["alias"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["courriel"])){
         echo $errorToastVide;
         $estValide = FALSE;
-    }
-    if(AfficherInfosJoueur($alias)[5] == $_POST["alias"]){
-        $estValide = FALSE;
-        echo $errorToastAlias;
     }
     if ($estValide) {
         try{
