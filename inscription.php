@@ -1,5 +1,4 @@
 <?php
-echo"lol";
 $title = "Inscription";
 $errorToastVide =
     "<span id='snackbar'> 
