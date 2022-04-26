@@ -1,4 +1,5 @@
 <?php
+echo"lol";
 $title = "Inscription";
 $errorToastVide =
     "<span id='snackbar'> 
@@ -28,15 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo $errorToastAlias;
     }
     if (!($_POST["mdp"] == $_POST["mdpConfirmation"])){
+        echo "b";
         $estValide = FALSE;
         echo $errorToastMdp;
     }
     if (empty($_POST["alias"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["courriel"])){
+        echo "c";
         echo $errorToastVide;
         $estValide = FALSE;
     }
     if ($estValide) {
         try{
+            echo "d";
             AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
             header('Location: login.php');
             $errorToast = "";
