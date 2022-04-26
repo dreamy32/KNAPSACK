@@ -562,4 +562,26 @@ function HasAlreadyBought($id, $item)
         $stmt->closeCursor();
         return $hasBought;
 }
+
+function RetounerEvaluations($idItem){
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[0]);
+            array_push($rangee, $donnee[1]);
+            array_push($rangee, $donnee[2]);
+            array_push($rangee, $donnee[3]);
+            array_push($rangee, $donnee[4]);
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
+    }
 ?>
