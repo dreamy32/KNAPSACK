@@ -20,6 +20,19 @@
     <script src="js/recherche.js"></script>
     <title><?= $title ?></title>
     <style>
+        .eval-container{
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            width: 98%;
+            height: 83%;
+        }
+        #window-title {
+                font-size: 2.7vh;
+                margin-block-start: 1.3vh;
+                padding-top: unset;
+            }
         .menu {
             cursor: pointer;
             margin: 13px;

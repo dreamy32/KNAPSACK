@@ -169,21 +169,19 @@ if (!empty($_POST["nbItem"])) {
             <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
             <h3 id="infoPoidsItem" value=""></h3>
             <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
-            <div id="evaluations" aria-label="Window" style="overflow: auto;">
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
-                </div>
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
-                </div>
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
+            <div id="evaluations" aria-label="Window" style="overflow: auto; ">
+                <div id="window-container" style="margin-top: unset; ">
+
+                    <h1 id="window-title">Évaluations</h1>
+                    <div class="eval-container" style="min-height: 385px;">
+                        <div style="margin-top: 10px; margin-left: 30px;">
+                            <div style="display: inline-flex; align-items: center;">
+                                <img style="max-width: 65px; margin-right: 7px;" src="https://i.pinimg.com/originals/85/78/bf/8578bfd439ef6ee41e103ae82b561986.png" alt="">
+                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
+                            </div>
+                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
