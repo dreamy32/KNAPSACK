@@ -510,9 +510,6 @@ function Dexterite($alias)
 }
 
 
-
-
-
 function ChercherInfoItemSelonId($idItem)
 {
     $Items = AfficherItemsVente('%');
@@ -556,6 +553,32 @@ function AjouterÉvaluation($idItem,$commentaire,$nbEtoile){
             }
             echo "<script type='text/javascript'>alert('$message');</script>";       
         }
+}
+function HasAlreadyBought($id, $item)
+{
+    // 0 -> false
+    // 1 -> true
+
+    Connexion();
+    global $pdo;
+
+        $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
+        WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':pIdJoueur', $item, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $hasBought = false;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $etat = $donnee[0];
+        }
+
+        if ($etat == 1){
+            $hasBought = true;
+        }
+        $stmt->closeCursor();
+        return $hasBought;
 }
 
 function RetounerEvaluations($idItem){
