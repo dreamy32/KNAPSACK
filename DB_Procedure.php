@@ -535,4 +535,27 @@ function AjouterArgentToutLeMonde($soldeADonner){
         return $e->getMessage();
     }
 }
+function AjouterÉvaluation($idItem,$commentaire,$nbEtoile){
+    $idJoueur = AfficherInfosJoueur($_POST['alias'])[0];
+
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL AjouterÉvaluation(:pIdItem,:pIdJoueur,:pCommentaire,:pNbEtoile)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->bindParam(':pCommentaire', $commentaire, PDO::PARAM_STR);
+        $stmt->bindParam(':pNbEtoile', $nbEtoile, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+        }catch(PDOException $e){
+             $pos = strpos($e->getMessage(),">:");
+             $message=$e->getMessage();
+             if ($pos!=-1) {
+                 $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
 ?>
