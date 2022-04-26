@@ -1,11 +1,12 @@
 <?php 
     $title = "Panier";
+    require('header.php');
     require("DB_Procedure.php");
     session_start();
     $messageToastSucces =
     "<span id='snackbar'> 
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
-        Votre requête à été envoyé!
+        Les caps ont été envoyé!
     </span>
     <script>Snackbar();</script>";
 
@@ -75,7 +76,7 @@
 
                 console.log(option);
         var inputNbItemChoisie = document.getElementById("nbItemChoisie");
-        if(option == "reduire" && parseInt(inputNbItemChoisie.value)>1){
+        if(option == "reduire" && parseInt(inputNbItemChoisie.value)>200){
             inputNbItemChoisie.value = inputNbItemChoisie.value-200;
         }
         else if(option == "augmenter" && inputNbItemChoisie.value < 600){
@@ -100,7 +101,7 @@
                     <form action="" method="post">
                     <input readonly type="text" style="width:50%" value="Tout le monde">
                     
-                    <input max="600" value="0" name="nbCaps" id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
+                    <input max="600" value="200" name="nbCaps" id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
                     <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
                     <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
                     </form>
