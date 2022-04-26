@@ -18,7 +18,7 @@
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
 
-        if($InfoJoueur[5] == $alias && hash("sha512",$mdp) == $InfoJoueur[7]){
+        if($InfoJoueur[4] == $alias && hash("sha512",$mdp) == $InfoJoueur[7]){
             $estValide = true;
         }
         else{

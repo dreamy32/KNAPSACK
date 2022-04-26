@@ -23,7 +23,7 @@ require('header.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include('DB_Procedure.php');
     $estValide  = TRUE;
-    if(AfficherInfosJoueur($_POST["alias"])[5] == $_POST["alias"]){
+    if(AfficherInfosJoueur($_POST["alias"])[4] == $_POST["alias"]){
         $estValide = FALSE;
         echo $errorToastAlias;
     }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             //Just continue
         }
     }
-    echo AfficherInfosJoueur($_POST["alias"])[5];
+    echo AfficherInfosJoueur($_POST["alias"])[4];
 }
 ?>
 
