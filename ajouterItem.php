@@ -124,6 +124,66 @@
 
                             <tr>
                                 <td>
+                                    <label for="quantite">Quantité : </label>
+                                </td>
+                                <td>
+                                    <textarea id="quantite" name="quantite" rows="4" cols="40" maxlength="150">
+                                        <?php echo $quantite?>
+                                    </textarea>
+                                    <br>
+                                    <span class="messErreur">
+                                        <?php echo $messErreurQuantite?>
+                                    </span>
+                                </td>                             
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label for="type">Type : </label>
+                                </td>
+                                <td>
+                                    <textarea id="type" name="type" rows="4" cols="40" maxlength="150">
+                                        <?php echo $type?>
+                                    </textarea>
+                                    <br>
+                                    <span class="messErreur">
+                                        <?php echo $messErreurType?>
+                                    </span>
+                                </td>                              
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label for="prixUnitaire">PrixUnitaire : </label>
+                                </td>
+                                <td>
+                                    <textarea id="prixUnitaire" name="prixUnitaire" rows="4" cols="40" maxlength="150">
+                                        <?php echo $prixUnitaire?>
+                                    </textarea>
+                                    <br>
+                                    <span class="messErreur">
+                                        <?php echo $messErreurPrixUnitaire?>
+                                    </span>
+                                </td>                              
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label for="poids">Poids : </label>
+                                </td>
+                                <td>
+                                    <textarea id="poids" name="poids" rows="4" cols="40" maxlength="150">
+                                        <?php echo $poids?>
+                                    </textarea>
+                                    <br>
+                                    <span class="messErreur">
+                                        <?php echo $messErreurPoids?>
+                                    </span>
+                                </td>                              
+                            </tr>
+
+                            <tr>
+                                <td>
                                     <label for="description">Description : </label>
                                 </td>
                                 <td>
@@ -141,7 +201,7 @@
                             <tr>
                                 <td>
                                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-                                    Fichier : 
+                                    Photo : 
                                 </td>
                                 <td>                                
 			                         <input name="image" size="35" type="file"> 
@@ -150,15 +210,13 @@
                                         <?php echo $messErreurFichier?>
                                     </span>
                                 </td>
-                                
                             </tr>
 
                             <tr>
                                 <td colspan="2">                                
                                 <br>
                                     <input type="submit" name="upload" id="upload" value="Ajouter">
-                                </td>
-                                
+                                </td>                               
                             </tr>
                         </table>                                         
                     </FORM>                 
