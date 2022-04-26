@@ -22,8 +22,11 @@ $exclamationMark = "<img style='width: 11px;' src='images/orange_exclamation.png
 require('header.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include('DB_Procedure.php');
-    echo AfficherInfosJoueur($alias)[5];
     $estValide  = TRUE;
+    if(AfficherInfosJoueur($_POST["alias"])[4] == $_POST["alias"]){
+        $estValide = FALSE;
+        echo $errorToastAlias;
+    }
     if (!($_POST["mdp"] == $_POST["mdpConfirmation"])){
         $estValide = FALSE;
         echo $errorToastMdp;
@@ -32,15 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo $errorToastVide;
         $estValide = FALSE;
     }
-    if(AfficherInfosJoueur($alias)[5] == $_POST["alias"]){
-        $estValide = FALSE;
-        echo $errorToastAlias;
-    }
     if ($estValide) {
         try{
             AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
-            //header('Location: login.php');
-            $errorToast = ""; //Si valide, on retire le contenu de la variable.
+            header('Location: login.php');
+            $errorToast = "";
         }
         catch(PDOException $e){
             //Just continue

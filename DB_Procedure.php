@@ -84,7 +84,6 @@ function AfficherInfosJoueur($alias)
     Connexion();
     global $pdo;
     try {
-        //sss
         $stmt = $pdo->prepare("CALL AfficherInfosJoueur(:alias)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':alias', $alias, PDO::PARAM_STR);
         $stmt->execute();
