@@ -535,32 +535,27 @@ function AjouterArgentToutLeMonde($soldeADonner){
         return $e->getMessage();
     }
 }
-
-function HasAlreadyBought($id, $item)
-{
-    // 0 -> false
-    // 1 -> true
-
+function AjouterÉvaluation($idItem,$commentaire,$nbEtoile){
+    $idJoueur = AfficherInfosJoueur($_POST['alias'])[0];
     Connexion();
     global $pdo;
-
-        $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
-        WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':pIdItem', $id, PDO::PARAM_STR);
-        $stmt->bindParam(':pIdJoueur', $item, PDO::PARAM_STR);
+    try {
+        $sqlProcedure = "CALL AjouterÉvaluation(:pIdItem,:pIdJoueur,:pCommentaire,:pNbEtoile)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->bindParam(':pCommentaire', $commentaire, PDO::PARAM_STR);
+        $stmt->bindParam(':pNbEtoile', $nbEtoile, PDO::PARAM_INT);
         $stmt->execute();
-
-        $hasBought = false;
-
-        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            $etat = $donnee[0];
-        }
-
-        if ($etat == 1){
-            $hasBought = true;
-        }
         $stmt->closeCursor();
-        return $hasBought;
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
 }
 
 function RetounerEvaluations($idItem){
