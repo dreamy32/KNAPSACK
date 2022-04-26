@@ -530,7 +530,7 @@ function AjouterArgentToutLeMonde($soldeADonner){
         $stmt = $pdo->prepare("UPDATE Joueurs SET Solde = Solde + :pSoldeADonner", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
         $stmt->bindParam(':pSoldeADonner', $soldeADonner, PDO::FETCH_NUM);
         $stmt->execute();
-        return $stmt->rowCount()
+        return $stmt->rowCount();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
