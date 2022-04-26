@@ -1,9 +1,15 @@
 <?php 
     $title = "Panier";
-    include("DB_Procedure.php");
+    require('header.php');
+    require("DB_Procedure.php");
     session_start();
-  
-    $messageErreur="";
+    $messageToastSucces =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Les caps ont été envoyé!
+    </span>
+    <script>Snackbar();</script>";
+
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
     {
@@ -14,6 +20,12 @@
         header("Location: login.php");
     }
 
+    if (isset($_POST['nbCaps']) && $_POST['nbCaps'] != 0)
+    {
+        AjouterArgentToutLeMonde($_POST['nbCaps']);
+        echo $messageToastSucces;
+    }
+    
 ?>
 
 
@@ -59,6 +71,21 @@
             }
             
         </style>
+        <script>
+            function ModifierNbItemChoisie(option){
+
+                console.log(option);
+        var inputNbItemChoisie = document.getElementById("nbItemChoisie");
+        if(option == "reduire" && parseInt(inputNbItemChoisie.value)>200){
+            inputNbItemChoisie.value = inputNbItemChoisie.value-200;
+        }
+        else if(option == "augmenter" && inputNbItemChoisie.value < 600){
+            var nbInput = parseInt(inputNbItemChoisie.value);
+            inputNbItemChoisie.value = nbInput + 200;
+        }
+    }
+
+        </script>
     </head>
 
     <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
@@ -70,65 +97,15 @@
                 <h1 id="window-title">Panneau d'admin</h1>
                 <div class="cart-container">
                     <div id="items-list">
-                      
-                    <div href="demande_Argent.php" style="text-decoration: none; width:300px"><div class="advancedSearch" style="margin:5%"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
-                    <input type="text" placeholder="Patoche" name="alias">
 
-
+                    <form action="" method="post">
+                    <input readonly type="text" style="width:50%" value="Tout le monde">
+                    
+                    <input max="600" value="200" name="nbCaps" id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
+                    <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
+                    <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
+                    </form>
                     </div>                    
-                    <div id="item-info">
-                        <h1>Infos</h1>
-                        <div style="text-align: center;">
-                            <span style="font-size: 25px;">
-                                <span class="titleInfos" style="color: #112F5A;">Poids du sac:</span>
-                                <span class="red-alert"><?=$poidsSac?><span>/<?=$poidsMax?></span></span>
-                            </span>
-                            <br>
-                            <br>
-                            <span style="font-size: 25px;">
-                                <span class="titleInfos" style="color: #112F5A;">Poids du panier:</span>
-                                <span class="red-alert"><?=$poidsPanier?><span>/<?=$poidsPanier?></span></span>
-                            </span>
-                            <br>
-                            <br>
-                            <span style="font-size: 25px;">
-                                <span class="titleInfos" style="color: #112F5A;">Dextérité: 
-                                    <span class="red-alert"><?=$dexterite?></span>
-                                </span>
-                            </span>
-                            <br>
-                            <br>
-                            <span  style="font-size: 25px;">
-                                <span  class="titleInfos" style="color: #112F5A;">Solde: 
-                                    <span><?=$solde ?> <img style="width: 20px;" src="../images/emerald.png" alt="emerald"></span>
-                                </span>
-                            </span>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <span style="font-size: 25px;">
-                                <span class="titleInfos" style="color: #112F5A;">Total du panier:
-                                    <div style="display: inline-flex;">
-                                        <span><?=$totalPanier?></span>
-                                        <img style="width: 33px;" src="../images/emerald.png" alt="emerald">
-                                    </div>
-                                </span>
-                            </span>
-                        </div>
-                
-
-
-                        <form action="panier.php" method="post">
-                           
-                            <div style="text-align: center;">
-                                <button type=submit onclick="this.form.payer.value='TRUE'">Payer</button>
-                                <input type= hidden name="payer" value="">
-                            </div>
-                        </form>
-                    </div>
-
-
                 </div>
             </div>
 
