@@ -1,6 +1,6 @@
 <?php 
     $title = "Panier";
-    include("DB_Procedure.php");
+    require("DB_Procedure.php");
     session_start();
     $messageToastSucces =
     "<span id='snackbar'> 
