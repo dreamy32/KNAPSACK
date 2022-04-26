@@ -65,13 +65,14 @@
                 console.log(option);
         var inputNbItemChoisie = document.getElementById("nbItemChoisie");
         if(option == "reduire" && parseInt(inputNbItemChoisie.value)>1){
-            inputNbItemChoisie.value = inputNbItemChoisie.value-1;
+            inputNbItemChoisie.value = inputNbItemChoisie.value-200;
         }
-        else if(option == "augmenter"){
+        else if(option == "augmenter" && inputNbItemChoisie.value < 600){
             var nbInput = parseInt(inputNbItemChoisie.value);
-            inputNbItemChoisie.value = nbInput + 1;
+            inputNbItemChoisie.value = nbInput + 200;
         }
-        
+    }
+
         </script>
     </head>
 
@@ -88,10 +89,8 @@
                     <form action="" method="post">
                     <input readonly type="text" style="width:50%" value="Tout le monde">
                     
-                    <input value="0"  id="nbItemChoisie" style="width: 80px" aria-label="Alternative" type="number" value="<?= $profile[0] ?>" readonly>
-        <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>
-        <button aria-label="Normal" type="submit" name="bouttonDemander">Envoyer</button>
-                        
+                    <input max="600" value="0"  id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
+                    <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
                     <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
                     </form>
 
