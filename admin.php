@@ -59,6 +59,20 @@
             }
             
         </style>
+        <script>
+            function ModifierNbItemChoisie(option){
+
+                console.log(option);
+        var inputNbItemChoisie = document.getElementById("nbItemChoisie");
+        if(option == "reduire" && parseInt(inputNbItemChoisie.value)>1){
+            inputNbItemChoisie.value = inputNbItemChoisie.value-1;
+        }
+        else if(option == "augmenter"){
+            var nbInput = parseInt(inputNbItemChoisie.value);
+            inputNbItemChoisie.value = nbInput + 1;
+        }
+        
+        </script>
     </head>
 
     <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
@@ -70,10 +84,20 @@
                 <h1 id="window-title">Panneau d'admin</h1>
                 <div class="cart-container">
                     <div id="items-list">
-                      
-                    <div href="demande_Argent.php" style="text-decoration: none; width:300px"><div class="advancedSearch" style="margin:5%"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
-                    <input type="text" placeholder="Patoche" name="alias">
 
+                    <form action="" method="post">
+                    <input readonly type="text" style="width:50%" value="Tout le monde">
+                    
+                    <input value="0"  id="nbItemChoisie" style="width: 80px" aria-label="Alternative" type="number" value="<?= $profile[0] ?>" readonly>
+        <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>
+        <button aria-label="Normal" type="submit" name="bouttonDemander">Envoyer</button>
+                        
+                    <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
+                    </form>
+
+
+                    <input placeholder="Patoche" type="text" style="width:50%">
+                    <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
 
                     </div>                    
                     <div id="item-info">
