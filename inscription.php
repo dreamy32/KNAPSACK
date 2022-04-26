@@ -38,13 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($estValide) {
         try{
             AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
-            //header('Location: login.php');
-            $errorToast = ""; //Si valide, on retire le contenu de la variable.
+            header('Location: login.php');
+            $errorToast = "";
         }
         catch(PDOException $e){
             //Just continue
         }
     }
+    echo AfficherInfosJoueur($_POST["alias"])[5];
 }
 ?>
 
