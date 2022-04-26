@@ -601,5 +601,30 @@ function RetounerEvaluations($idItem){
         }
         $stmt->closeCursor();
         return $info;
+}
+
+function SupprimerEvaluation($idItem)
+{
+    try{
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("DELETE FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+
+        
     }
+    catch(PDOException $e){
+    $pos = strpos($e->getMessage(),">:");
+    $message=$e->getMessage();
+    if ($pos!=-1) {
+        $message=substr($e->getMessage(),$pos+7);
+    }
+    echo "<script type='text/javascript'>alert('$message');</script>";       
+    }
+}
+
+
 ?>
