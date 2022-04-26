@@ -2,8 +2,13 @@
     $title = "Panier";
     include("DB_Procedure.php");
     session_start();
-  
-    $messageErreur="";
+    $messageToastSucces =
+    "<span id='snackbar'> 
+        <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
+        Votre requête à été envoyé!
+    </span>
+    <script>Snackbar();</script>";
+
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
     {
@@ -14,6 +19,12 @@
         header("Location: login.php");
     }
 
+    if (isset($_POST['nbCaps']) && $_POST['nbCaps'] != 0)
+    {
+        //AjouterArgentToutLeMonde($_POST['nbCaps']);
+        echo $messageToastSucces;
+    }
+    
 ?>
 
 
@@ -89,17 +100,12 @@
                     <form action="" method="post">
                     <input readonly type="text" style="width:50%" value="Tout le monde">
                     
-                    <input max="600" value="0"  id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
+                    <input max="600" value="0" name="nbCaps" id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
                     <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
                     <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
                     </form>
-
-
-                    <input placeholder="Patoche" type="text" style="width:50%">
-                    <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
-
                     </div>                    
-                    <div id="item-info">
+                    <!-- <div id="item-info">
                         <h1>Infos</h1>
                         <div style="text-align: center;">
                             <span style="font-size: 25px;">
@@ -149,7 +155,7 @@
                                 <input type= hidden name="payer" value="">
                             </div>
                         </form>
-                    </div>
+                    </div> -->
 
 
                 </div>
