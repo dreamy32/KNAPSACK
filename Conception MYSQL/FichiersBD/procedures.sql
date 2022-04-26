@@ -838,6 +838,11 @@ call AjouterArmure("Casque en or", 23, "A", 15, 20, "Un casque en or", 1, "or", 
 
 
 
+# Modif pour mettre alias unique dans la table joueurs ===================
+ALTER TABLE Joueurs ADD CONSTRAINT alias_u UNIQUE (alias);
+# ========================================================================
+
+
 
 
 
