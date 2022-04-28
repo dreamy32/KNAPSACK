@@ -33,7 +33,6 @@ if (!empty($_POST["nbItem"])) {
 }
 
 ?>
-
 <body>
     <div id="minetip-tooltip">
         <span class="minetip-title" id="minetip-text">Minecraft Tip</span>
@@ -69,7 +68,7 @@ if (!empty($_POST["nbItem"])) {
                 <?php if (isset($_SESSION['alias'])) { ?>
                     <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?></span>
                     <div style="display: flex;flex-direction: column;align-self: center;">
-                        <span style="font-size: small;"><i><?= $solde ?></i></span>
+                        <span style="font-size: small;"><i><?= $solde ?></i> <img src="images/emerald.png" alt="emeraude" style="width: 20px;height:20px;"></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
                     </div>
                 <?php } ?>
