@@ -626,5 +626,8 @@ function SupprimerEvaluation($idItem)
     }
 }
 
-
+function PeutDeleteEval($idJoueur)
+{
+    
+}
 ?>
