@@ -643,5 +643,33 @@ function DeleteEval($idEval){
             echo "<script type='text/javascript'>alert('$message');</script>";       
         }
 }
+function PeutDeleteEval($idJoueur,$idEval){
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "SELECT PeutDeleteEval(:pidjoueur,:pidEval)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pidjoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->bindParam(':pidEval', $idEval, PDO::PARAM_INT);
+        $stmt->execute();
+        $peutDelete = false;
 
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $etat = $donnee[0];
+        }
+
+        if ($etat == 1){
+            $peutDelete = true;
+        }
+        $stmt->closeCursor();
+        return $peutDelete;
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
 ?>
