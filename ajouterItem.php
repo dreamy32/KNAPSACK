@@ -60,7 +60,7 @@
         {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $fich)) 
             {
-                $result = AjouterItem($pdo, $pseudo, $titre, $description, $fich);
+                $result = AjouterItemMagasin($pdo, $nom, $qte, $type, $prixU, $poids, $description);
 
                 if($result)
                 {
@@ -86,19 +86,14 @@
             <article>
                 <h1>Ajouter un nouvel item</h1>
                 <div class="upload">
-                    <br>
-                   
+                    <br>             
                     <?php  
                         if($mess != "" || $messSucces != "")
                         {
                             ?>
                                 <div class="messUploadEnvoi">
-                                    <span class="messErreur">
-                                        <?php echo $mess?>
-                                    </span>
-                                    <span class="messSucces">
-                                        <?php echo $messSucces?>
-                                    </span>
+                                    <span class="messErreur"><?php echo $mess?></span>
+                                    <span class="messSucces"><?php echo $messSucces?></span>
                                 </div>
                             <?php  
                         }
@@ -115,25 +110,20 @@
                                 <td>
                                     <input type="text" name="titre" id="titre" minlength="1" maxlength="25" value="<?php echo $titre?>">
                                     <br>
-                                    <span class="messErreur">
-                                        <?php echo $messErreurTitre?>
-                                    </span>
+                                    <span class="messErreur"><?php echo $messErreurTitre?></span>
                                 </td>
                                 
                             </tr>
-
                             <tr>
                                 <td>
                                     <label for="quantite">Quantité : </label>
                                 </td>
                                 <td>
-                                    <textarea id="quantite" name="quantite" rows="4" cols="40" maxlength="150">
+                                    <input type="number" id="quantite" name="quantite" rows="4" cols="40" maxlength="150">
                                         <?php echo $quantite?>
-                                    </textarea>
+                                    </input>
                                     <br>
-                                    <span class="messErreur">
-                                        <?php echo $messErreurQuantite?>
-                                    </span>
+                                    <span class="messErreur"> <?php echo $messErreurQuantite?></span>
                                 </td>                             
                             </tr>
 
@@ -142,9 +132,13 @@
                                     <label for="type">Type : </label>
                                 </td>
                                 <td>
-                                    <textarea id="type" name="type" rows="4" cols="40" maxlength="150">
-                                        <?php echo $type?>
-                                    </textarea>
+                                    <select id="type">
+                                        <option value="armure" selected>Armure</option>
+                                        <option value="arme">Arme</option>
+                                        <option value="medicament">Médicament</option>
+                                        <option value="munition">Munition</option>
+                                        <option value="nourriture">Nourriture</option>
+                                    </select>
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurType?>
@@ -157,9 +151,9 @@
                                     <label for="prixUnitaire">PrixUnitaire : </label>
                                 </td>
                                 <td>
-                                    <textarea id="prixUnitaire" name="prixUnitaire" rows="4" cols="40" maxlength="150">
+                                    <input type="number" name="prixUnitaire" rows="4" cols="40" maxlength="150">
                                         <?php echo $prixUnitaire?>
-                                    </textarea>
+                                    </input>
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurPrixUnitaire?>
@@ -172,9 +166,9 @@
                                     <label for="poids">Poids : </label>
                                 </td>
                                 <td>
-                                    <textarea id="poids" name="poids" rows="4" cols="40" maxlength="150">
+                                    <input type="number" id="poids" name="poids" rows="4" cols="40" maxlength="150">
                                         <?php echo $poids?>
-                                    </textarea>
+                                    </input>
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurPoids?>
@@ -204,7 +198,7 @@
                                     Photo : 
                                 </td>
                                 <td>                                
-			                         <input name="image" size="35" type="file"> 
+			                        <input name="image" size="35" type="file"> 
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurFichier?>

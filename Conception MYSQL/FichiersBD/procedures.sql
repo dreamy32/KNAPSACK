@@ -575,6 +575,23 @@ SELECT (SoldeCaps('madzcandy'));
 */
 # ====================================================================================================================================
 
+# Procédure qui ajoute un item au panier =============================================================================================
+DELIMITER $$
+CREATE PROCEDURE AjouterItemMagasin (pNom VARCHAR(45), pQte INT, pType CHAR, pPrixU DECIMAL, pPoids FLOAT, pDescription VARCHAR(120))
+BEGIN
+	IF(TRIM(pNom) != '' AND pQte > 0 AND pPrixU > 0 AND pPoids > 0)
+	THEN
+	    INSERT into Items (IdItems, nom, quantite, type, prixUnitaire, poids, description, estEnVente) values(NULL, pNom, pQte, pType, pPrixU, pPoids, pDescription, 1);
+		COMMIT;
+    END IF;
+END $$
+/* TESTS */
+
+call AjouterItemMagasin ("biscuit", "23", "N", "5", "2", "Petit biscuit delicieux");
+call AjouterItemMagasin ("cookie", "23", "N", "5", "2", "Petit biscuit delicieux");
+delete from Items where nom='cookie';
+# ====================================================================================================================================
+
 
 
 

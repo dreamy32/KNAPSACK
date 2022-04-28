@@ -535,4 +535,32 @@ function AjouterArgentToutLeMonde($soldeADonner){
         return $e->getMessage();
     }
 }
+
+
+
+function AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL AjouterItemMagasin(:pNom,:pQte,:pType,:pPrixU,:pPoids,:pDescription)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
+        $stmt->bindParam(':pType', $type, PDO::PARAM_STR); //** */
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR); 
+        $stmt->execute();
+        $stmt->closeCursor();
+        }catch(PDOException $e){
+             $pos = strpos($e->getMessage(),">:");
+             $message=$e->getMessage();
+             if ($pos!=-1) {
+                 $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
+
 ?>
