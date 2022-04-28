@@ -581,7 +581,7 @@ function HasAlreadyBought($id, $item)
         return $hasBought;
 }
 
-function RetounerEvaluations($idItem){
+function AfficherEvaluations($idItem){
     Connexion();
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
