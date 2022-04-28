@@ -625,6 +625,23 @@ function SupprimerEvaluation($idItem)
     echo "<script type='text/javascript'>alert('$message');</script>";       
     }
 }
-
+function DeleteEval($idEval){
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL DeleteEval(:pidEval)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pidEval', $idEval, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
 
 ?>
