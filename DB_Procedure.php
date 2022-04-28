@@ -643,5 +643,11 @@ function DeleteEval($idEval){
             echo "<script type='text/javascript'>alert('$message');</script>";       
         }
 }
-
+function PeutDeleteEvaluation($idJoueur){
+    $infoJoueur = AfficherInfosJoueur($_SESSION['alias']);
+    if($infoJoueur[0]==$idJoueur or $infoJoueur[10] == 1){
+        return True;
+    }
+    return False;
+}
 ?>
