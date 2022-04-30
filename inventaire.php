@@ -14,8 +14,6 @@
         header("Location: login.php");
     }
 
-    
-
     $poidsSac = PoidsSac($_SESSION['alias']);
     $poidsMax = PoidsMax($_SESSION['alias']);
     $dexterite = Dexterite($_SESSION['alias']);

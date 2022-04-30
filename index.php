@@ -2,6 +2,11 @@
 $title = "KnapSack";
 require('header.php');
 session_start();
+header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Methods: GET, POST');
+
+header("Access-Control-Allow-Headers: X-Requested-With");
 include('DB_Procedure.php');
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
@@ -28,7 +33,6 @@ if (!empty($_POST["nbItem"])) {
 }
 
 ?>
-
 <body>
     <div id="minetip-tooltip">
         <span class="minetip-title" id="minetip-text">Minecraft Tip</span>
@@ -64,7 +68,7 @@ if (!empty($_POST["nbItem"])) {
                 <?php if (isset($_SESSION['alias'])) { ?>
                     <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?></span>
                     <div style="display: flex;flex-direction: column;align-self: center;">
-                        <span style="font-size: small;"><i><?= $solde ?></i></span>
+                        <span style="font-size: small;"><i><?= $solde ?></i> <img src="images/emerald.png" alt="emeraude" style="width: 20px;height:20px;"></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
                     </div>
                 <?php } ?>
@@ -159,30 +163,38 @@ if (!empty($_POST["nbItem"])) {
             </div>
         </header>
         <main style="display: flex;flex-direction: column;justify-content: space-evenly;" class="item item2">
-            <h1>Informations</h1>
-            <h2 id="infoNom" value="">Sélectionnez un item !</h2>
-            <div aria-label="Item-Slot" style="width: 120px; height: 120px;">
-                <img src="items_images/img_base.png" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
+            <div style="display: flex; flex-direction: column; align-items: center; overflow: auto; width: 100%;">
+                <h1>Informations</h1>
+                <h2 id="infoNom" value="">Sélectionnez un item !</h2>
+                <div aria-label="Item-Slot" style="width: 120px; height: 120px;">
+                    <img src="items_images/img_base.png" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
+                </div>
+                <h3 id="infoPrixItem" value=""></h3>
+                <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
+                <h3 id="infoPoidsItem" value=""></h3>
+                <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
             </div>
-            <h3 id="infoPrixItem" value=""></h3>
-            <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
-            <h3 id="infoPoidsItem" value=""></h3>
-            <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
-            <div id="evaluations" aria-label="Window" style="overflow: auto;">
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
-                </div>
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
-                </div>
-                <div>
-                    <img src="./images/ma face.png" alt="">
-                    <p>J'aime beaucoup cet objet, vraiment sus et amongousse. Satisfaisant. Elon Musk freedom of speech.</p>
-                    <input readonly step="5" type="range" name="" id="">
+            <div id="evaluations" aria-label="Window" style="overflow: auto; ">
+                <div id="window-container" style="margin-top: unset; ">
+
+                    <h1 id="window-title">Évaluations</h1>
+                    <div class="eval-container">
+                        <div style="margin: 0 15px;">
+                            <div>
+                                <h4 style="margin-block: 0;">Vladimoune</h4>
+                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
+                            </div>
+                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
+                        </div>
+                        <hr>
+                        <div style="margin: 0 15px;">
+                            <div>
+                                <h4 style="margin-block: 0;">Vladimoune</h4>
+                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
+                            </div>
+                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

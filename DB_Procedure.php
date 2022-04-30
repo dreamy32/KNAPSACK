@@ -510,9 +510,6 @@ function Dexterite($alias)
 }
 
 
-
-
-
 function ChercherInfoItemSelonId($idItem)
 {
     $Items = AfficherItemsVente('%');
@@ -558,9 +555,127 @@ function AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description)
              $message=$e->getMessage();
              if ($pos!=-1) {
                  $message=substr($e->getMessage(),$pos+7);
+             }
+             echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
+
+function AjouterÉvaluation($idItem,$commentaire,$nbEtoile){
+    $idJoueur = AfficherInfosJoueur($_POST['alias'])[0];
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL AjouterÉvaluation(:pIdItem,:pIdJoueur,:pCommentaire,:pNbEtoile)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->bindParam(':pCommentaire', $commentaire, PDO::PARAM_STR);
+        $stmt->bindParam(':pNbEtoile', $nbEtoile, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
             }
             echo "<script type='text/javascript'>alert('$message');</script>";       
         }
 }
+function HasAlreadyBought($id, $item)
+{
+    // 0 -> false
+    // 1 -> true
 
+    Connexion();
+    global $pdo;
+
+        $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
+        WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':pIdJoueur', $item, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $hasBought = false;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $etat = $donnee[0];
+        }
+
+        if ($etat == 1){
+            $hasBought = true;
+        }
+        $stmt->closeCursor();
+        return $hasBought;
+}
+
+function AfficherEvaluations($idItem){
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[0]);
+            array_push($rangee, $donnee[1]);
+            array_push($rangee, $donnee[2]);
+            array_push($rangee, $donnee[3]);
+            array_push($rangee, $donnee[4]);
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
+}
+
+function SupprimerEvaluation($idItem)
+{
+    try{
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("DELETE FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+
+        
+    }
+    catch(PDOException $e){
+    $pos = strpos($e->getMessage(),">:");
+    $message=$e->getMessage();
+    if ($pos!=-1) {
+        $message=substr($e->getMessage(),$pos+7);
+    }
+    echo "<script type='text/javascript'>alert('$message');</script>";       
+    }
+}
+function DeleteEval($idEval){
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL DeleteEval(:pidEval)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':pidEval', $idEval, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+        }catch(PDOException $e){
+            $pos = strpos($e->getMessage(),">:");
+            $message=$e->getMessage();
+            if ($pos!=-1) {
+                $message=substr($e->getMessage(),$pos+7);
+            }
+            echo "<script type='text/javascript'>alert('$message');</script>";       
+        }
+}
+function PeutDeleteEvaluation($idJoueur){
+    $infoJoueur = AfficherInfosJoueur($_SESSION['alias']);
+    if($infoJoueur[0]==$idJoueur or $infoJoueur[10] == 1){
+        return True;
+    }
+    return False;
+}
 ?>
