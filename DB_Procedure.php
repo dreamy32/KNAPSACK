@@ -600,8 +600,7 @@ function AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description)
         }
 }
 
-function AjouterÉvaluation($idItem,$commentaire,$nbEtoile){
-    $idJoueur = AfficherInfosJoueur($_POST['alias'])[0];
+function AjouterÉvaluation($idJoueur, $idItem,$commentaire,$nbEtoile){
     Connexion();
     global $pdo;
     try {
@@ -654,7 +653,7 @@ function AfficherEvaluations($idItem){
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
 
-        $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem ORDER BY idEvaluations DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
         $stmt->execute();
         $info = [];
