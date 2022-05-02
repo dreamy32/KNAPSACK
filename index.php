@@ -172,7 +172,7 @@ if (!empty($_POST["nbItem"])) {
             <!-- Commentaire -->
             <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
                 <div id="window-container" style="margin-top: unset;">
-                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
+                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button id='ajoutEvalButton' type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
                     <div class="eval-container" id="evaluations">
                         <?php 
                             if(isset($_COOKIE['itemEval']))

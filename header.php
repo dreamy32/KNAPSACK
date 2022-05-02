@@ -130,21 +130,20 @@
         }
         .eval {
             cursor: pointer;
-            margin: 13px;
             display: flex;
             }
         .eval .ajoutEval{
             visibility: hidden;
-            width: 200px;
-            height: 200px;
+            width: 450px;
+            height: 375px;
             color: #fff;
             text-align: center;
+            align-content: center;
             border-radius: 6px;
-            padding: 8px 0;
+            padding: 8px;
             position: absolute;
             z-index: 1;
             top: 10%;
-            margin-left: 10px;
             font-size: medium;
             background-image: url(images/oakBackground.jpg);
             }
