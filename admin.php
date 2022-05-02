@@ -1,8 +1,8 @@
 <?php 
     $title = "Panier";
+    session_start();
     require('header.php');
     require("DB_Procedure.php");
-    session_start();
     $messageToastSucces =
     "<span id='snackbar'> 
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;

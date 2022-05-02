@@ -1,7 +1,6 @@
 <?php
-    require('DB_Procedure.php');
-    
     session_start();
+    require('DB_Procedure.php');
     $mess = "";
     $messSucces ="";
     $messErreurFichier = "";
