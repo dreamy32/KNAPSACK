@@ -183,7 +183,7 @@ if (!empty($_POST["nbItem"])) {
                                 echo "<div style='margin: 0 15px;'> <div> <h4 style='margin-block: 0;'>" . AfficherJoueurId($eval[2])[4] . "</h4>";
                                 echo "<span>" . $eval[3] . "</span></div>";
                                 echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
-                                if(PeutDeleteEvaluation($eval[2]) && $_SESSION['idJoueur'] == $eval[2])
+                                if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
                                     echo "<button type='button' aria-label='Minus' onclick=''></button>";
                             }
                         ?>
