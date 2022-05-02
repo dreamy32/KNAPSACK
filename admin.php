@@ -106,6 +106,7 @@
                     <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
                     <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
                     </form>
+                    <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item </div></div></a>
                     </div>                    
                 </div>
             </div>
