@@ -128,6 +128,34 @@
         *::first-letter{
             text-transform: capitalize;
         }
+        .eval {
+            cursor: pointer;
+            margin: 13px;
+            display: flex;
+            }
+        .eval .ajoutEval{
+            visibility: hidden;
+            width: 200px;
+            height: 200px;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            top: 10%;
+            margin-left: 10px;
+            font-size: medium;
+            background-image: url(images/oakBackground.jpg);
+            }
+        .eval .show {
+            visibility: visible;
+        }
+        .eval .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 0.5s;
+            animation: fadeIn 0.5s
+        }
     </style>
 </head>
 <?php
