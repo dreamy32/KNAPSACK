@@ -2,11 +2,10 @@
 $title = "KnapSack";
 require('header.php');
 session_start();
-header('Access-Control-Allow-Origin: *');
-
-header('Access-Control-Allow-Methods: GET, POST');
-
-header("Access-Control-Allow-Headers: X-Requested-With");
+echo $_SESSION['alias'];
+            echo $_SESSION['idJoueur'];
+            echo "<br>";
+            echo $_SESSION['mdp'];
 include('DB_Procedure.php');
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
@@ -17,7 +16,6 @@ if ($_GET['deconnecter'] == 'true') {
 $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
     $estConnecter = TRUE;
-
 if (!empty($_POST["nbItem"])) {
     AjouterItemPanier($_POST["idItem"], $_POST["nbItem"]);
     $successToast =
@@ -174,29 +172,28 @@ if (!empty($_POST["nbItem"])) {
                 <h3 id="infoPoidsItem" value=""></h3>
                 <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
             </div>
-            <div id="evaluations" aria-label="Window" style="overflow: auto; ">
-                <div id="window-container" style="margin-top: unset; ">
-
+            <!-- Commentaire -->
+            <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
+                <div id="window-container" style="margin-top: unset;">
                     <h1 id="window-title">Évaluations</h1>
-                    <div class="eval-container">
-                        <div style="margin: 0 15px;">
-                            <div>
-                                <h4 style="margin-block: 0;">Vladimoune</h4>
-                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
-                            </div>
-                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
-                        </div>
-                        <hr>
-                        <div style="margin: 0 15px;">
-                            <div>
-                                <h4 style="margin-block: 0;">Vladimoune</h4>
-                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
-                            </div>
-                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
-                        </div>
+                    <div class="eval-container" id="evaluations">
+                        <?php 
+                            if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval']))
+                                echo "<button type='button' aria-label='Plus' onclick=''></button>";
+                            if(isset($_COOKIE['itemEval']))
+                            $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
+                            foreach ( $TabEvaluations as $eval){
+                                echo "<div style='margin: 0 15px;'> <div> <h4 style='margin-block: 0;'>" . AfficherJoueurId($eval[2])[4] . "</h4>";
+                                echo "<span>" . $eval[3] . "</span></div>";
+                                echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
+                                if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
+                                    echo "<button type='button' aria-label='Minus' onclick=''></button>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
+            <!-- Fin des commentaires -->
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
@@ -227,6 +224,7 @@ if (!empty($_POST["nbItem"])) {
                         echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
                         echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
                         echo "<input type='hidden' name='idItem' value='$objet[0]'>";
+                        echo "<button type='button' onclick='fermerMenuItem()'>X</button>";
                         echo "</form>";
                     } else
                         echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
@@ -243,6 +241,7 @@ if (!empty($_POST["nbItem"])) {
                         $objet[7] : est en vente*/
                 for ($i = 1; $i < 96; $i++) {
                     echo "<article></article>";
+                    
                 }
                 ?>
             </section>
@@ -263,19 +262,37 @@ if (!empty($_POST["nbItem"])) {
             }
 
             function ChangerInformation(idItem) {
+                document.cookie = 'itemEval=' + idItem[0] ;
+                document.cookie = 'itemNom=' + idItem[1] ;
+                document.cookie = 'itemNbItem=' + idItem[2] ;
+                document.cookie = 'itemImageItem=' + idItem[0] ;
+                document.cookie = 'itemPrix=' + idItem[4] ;
+                document.cookie = 'itemPoids=' + idItem[5] ;
+                document.cookie = 'itemDescription=' + idItem[6] ;
+                if(idItem[0] != getCookie('ancienitemEval'))
+                    location.reload();
+                document.cookie = 'ancienitemEval=' + idItem[0];
+            }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) 
+                    return parts.pop().split(';').shift();
+            }
+            if(getCookie('itemEval') != null){
                 var infoNomItem = document.getElementById("infoNom");
-                infoNomItem.innerHTML = idItem[1];
+                infoNomItem.innerHTML = getCookie('itemNom');
                 var infoNbItem = document.getElementById("infoNbItem");
-                infoNbItem.value = idItem[2];
+                infoNbItem.value = getCookie('itemNbItem');
                 var infoImageItem = document.getElementById("infoImageItem");
-                infoImageItem.src = "items_images/" + idItem[0] + ".png";
+                infoImageItem.src = "items_images/" + getCookie('itemImageItem') + ".png";
                 var infoPrixItem = document.getElementById("infoPrixItem");
-                infoPrixItem.innerHTML = "Prix: " + idItem[4] + "$";
+                infoPrixItem.innerHTML = "Prix: " + getCookie('itemPrix') + "$";
                 var infoPoidsItem = document.getElementById("infoPoidsItem");
-                infoPoidsItem.innerHTML = "Poids: " + idItem[5] + "lb";
+                infoPoidsItem.innerHTML = "Poids: " + getCookie('itemPoids') + "lb";
                 var infoDescriptionItem = document.getElementById("infoDescriptionItem");
-                infoDescriptionItem.innerHTML = idItem[6];
-                afficherMenuItem(idItem[0]);
+                infoDescriptionItem.innerHTML = getCookie('itemDescription');
+                afficherMenuItem(getCookie('ancienitemEval'));
             }
             // ChangerInformation = (idItem) => {
             //     let infoNomItem = $("#infoNom");

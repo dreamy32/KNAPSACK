@@ -77,7 +77,6 @@ function ValiderIdentité($alias, $mdp)
 
 
 
-
 // Ne fonctionne pas, Creation d'un select 
 function AfficherInfosJoueur($alias)
 {
@@ -108,7 +107,35 @@ function AfficherInfosJoueur($alias)
         return $e->getMessage();
     }
 }
-
+function AfficherJoueurId($id)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("CALL AfficherJoueurId(:id)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            array_push($info, $donnee[0]);/* Id*/
+            array_push($info, str_replace("'", '-', $donnee[1]));
+            array_push($info, $donnee[2]);
+            array_push($info, $donnee[3]);
+            array_push($info, $donnee[4]);
+            array_push($info, $donnee[5]);
+            array_push($info, str_replace("\'", '-', $donnee[6]));
+            array_push($info, $donnee[7]);
+            array_push($info, $donnee[8]);
+            array_push($info, $donnee[9]);
+            array_push($info, $donnee[10]);
+            array_push($info, $info);
+        }
+        $stmt->closeCursor();
+        return $info;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
 
 function AfficherItemsVente($type = '%')
 {
@@ -606,8 +633,8 @@ function HasAlreadyBought($id, $item)
 
         $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
         WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':pIdItem', $id, PDO::PARAM_STR);
-        $stmt->bindParam(':pIdJoueur', $item, PDO::PARAM_STR);
+        $stmt->bindParam(':pIdItem', $item, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdJoueur', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         $hasBought = false;

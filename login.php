@@ -17,36 +17,26 @@
         $mdp = $_POST["motDePasse"];
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
-
         if($InfoJoueur[4] == $alias && hash("sha512",$mdp) == $InfoJoueur[7]){
             $estValide = true;
         }
         else{
             $estValide = false;
         }
-        /*if($alias != "" && $mdp != "")
-        {
-            //$etat = ValiderIdentité($alias, $mdp);
-            
-            if(ValiderIdentité($alias, $mdp))
-            {
-                $estValide = true;
-            }
-            else
-            {
-                $estValide = false;
-            }
-        }*/
-       
-
         if($estValide){
+            echo 'pog';
             session_start();
             $_SESSION['alias'] = $alias;
             $_SESSION['mdp'] = $mdp;
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
+            echo $_SESSION['alias'];
+            echo $_SESSION['idJoueur'];
+            echo "<br>";
+            echo $_SESSION['mdp'];
         }
-        echo $errorToast;
+        else
+            echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
