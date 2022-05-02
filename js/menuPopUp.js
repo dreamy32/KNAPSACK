@@ -1,7 +1,7 @@
 function afficherMenu() {
     var menu = document.getElementById("MenuPopUp");
     menu.classList.toggle("show");
-  }
+}
 function afficherRecherche() {
   var recherche = document.getElementById("RecherchePopUp");
   recherche.classList.toggle("show");
@@ -46,5 +46,9 @@ function fermerMenuItem(){
   var itemACache = document.getElementById(("itempPopUp" + dernierIdDiv));
   itemACache.classList.toggle("show");
   estOuvert = false;
+}
+function afficherFormCommentaire() {
+  var eval = document.getElementById("formAjoutEval");
+  eval.classList.toggle("show");
 }
 
