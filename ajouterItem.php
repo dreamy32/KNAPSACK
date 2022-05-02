@@ -4,28 +4,31 @@
     session_start();
     $mess = "";
     $messSucces ="";
-    $messErreurTitre = "";
-    $messErreurDescription = "";
-    $messErreurPseudo = "";
-    $messErreurDate = "";
     $messErreurFichier = "";
-    $titre = "";
+    $nom = "";
+    $qte = 0;
+    $type = "";
+    $prixU = 0;
+    $poids = 0;
     $description = "";
-    $pseudo = "";
-    $date = "";
 
     if(!isset($_SESSION['alias']))
     {
         header('Location: login.php');
     } 
 
-    if(isset($_POST['nom']))
+      if(isset($_POST['nom']))
     {
-        $item = $_POST['nom'];
+        $nom = $_POST['nom'];       
+        $qte = intval($_POST['quantite']);
+        $type = $_POST['type'];
+        $prixU = floatval($_POST['prixUnitaire']);
+        $poids = intval($_POST['poids']);
         $description= $_POST['description'];
-        $alias = $_SESSION['alias'];
-        //$rep = 'images/';
-        //$fich = $rep . $pseudo . $idUnique . basename($_FILES['image']['name']);
+        
+        $rep = 'items_images/';
+        $idUnique = rand(0,10000000);
+        $fich = $rep . $pseudo . $idUnique . basename($_FILES['image']['name']);
         $infoValid=true;
 
         // enlever les espaces et les "+" dans les url des images
@@ -35,10 +38,10 @@
 
         if(strlen(trim($nom)) == 0)
         {
-            $messErreurNom="Le nom de l'item ne peut être vide.";
+            $messErreurNom ="Le nom de l'objet ne peut être vide.";
             $infoValid=false;
         }
-
+        
         if(strlen(trim(basename($_FILES['image']['name']))) == 0)
         {
             $messErreurFichier="Aucun fichier n'a été sélectionné.";
@@ -48,20 +51,23 @@
 
         $imgFichType = strtolower(pathinfo($fich, PATHINFO_EXTENSION));
 
-
+        
         if($imgFichType != "jpg" && $imgFichType != "png" && $imgFichType != "jpeg" && $imgFichType != "gif")
         {
             $messErreurFichier="Ce type de fichier n'est pas supporté.";
             $infoValid=false;
         }
-
+        //echo"yo5";
 
         if ($infoValid  && is_uploaded_file($_FILES['image']['tmp_name'])) 
         {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $fich)) 
             {
-                $result = AjouterItemMagasin($pdo, $nom, $qte, $type, $prixU, $poids, $description);
-
+                //echo"yo6";
+                AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description);
+                $messSucces = "L'item a été ajoute avec succès.";
+                //echo"yo7";
+                /*
                 if($result)
                 {
                     $messSucces = "Le fichier a été téléchargé avec succès.";
@@ -70,6 +76,7 @@
                 {
                     $mess = "Problème lors de l'ajout de votre image.";            
                 }
+                */
             } 
             else 
             {
@@ -101,16 +108,16 @@
 
                 
                     <br>
-                    <FORM ACTION='upload.php' METHOD="POST"  enctype="multipart/form-data" class="formIdentification">
+                    <FORM ACTION='ajouterItem.php' METHOD="POST"  enctype="multipart/form-data" class="formIdentification">
                         <table class="tabConn">
                             <tr>
                                 <td>
-                                    <label for="titre">Nom de l'item : </label>
+                                    <label for="nom">Nom de l'item : </label>
                                 </td>
                                 <td>
-                                    <input type="text" name="titre" id="titre" minlength="1" maxlength="25" value="<?php echo $titre?>">
+                                    <input type="text" name="nom" id="nom" minlength="1" maxlength="25" value="<?php echo $nom?>">
                                     <br>
-                                    <span class="messErreur"><?php echo $messErreurTitre?></span>
+                                    <span class="messErreur"><?php echo $messErreur?></span>
                                 </td>
                                 
                             </tr>
@@ -132,12 +139,12 @@
                                     <label for="type">Type : </label>
                                 </td>
                                 <td>
-                                    <select id="type">
-                                        <option value="armure" selected>Armure</option>
-                                        <option value="arme">Arme</option>
-                                        <option value="medicament">Médicament</option>
-                                        <option value="munition">Munition</option>
-                                        <option value="nourriture">Nourriture</option>
+                                    <select id="type" name="type">
+                                        <option value="A" selected>Armure</option>
+                                        <option value="W">Arme</option>
+                                        <option value="D">Médicament</option>
+                                        <option value="M">Munition</option>
+                                        <option value="N">Nourriture</option>
                                     </select>
                                     <br>
                                     <span class="messErreur">
@@ -181,9 +188,7 @@
                                     <label for="description">Description : </label>
                                 </td>
                                 <td>
-                                    <textarea id="description" name="description" rows="4" cols="40" maxlength="150">
-                                        <?php echo $description?>
-                                    </textarea>
+                                    <textarea id="description" name="description" rows="4" cols="40" maxlength="90"><?php echo $description?></textarea>
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurDescription?>

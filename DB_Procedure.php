@@ -537,20 +537,34 @@ function AjouterArgentToutLeMonde($soldeADonner){
 
 function AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description)
 {
+  
     Connexion();
     global $pdo;
+    //$type="A";
+    $description=trim($description);
+    //"tt";;
     try {
         $sqlProcedure = "CALL AjouterItemMagasin(:pNom,:pQte,:pType,:pPrixU,:pPoids,:pDescription)";
+        /*echo"ajouter2";
+        echo "nom:".$nom;
+        echo "qte:".$qte;
+        echo "type:".$type;
+        echo "prixU:".$prixU;
+        echo "poids:".$poids;
+        echo "description:".$description;*/
+
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pType', $type, PDO::PARAM_STR); //** */
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_INT); 
+        $stmt->bindParam(':pType', $type, PDO::PARAM_STR);/** */
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR); 
         $stmt->execute();
         $stmt->closeCursor();
+        
         }catch(PDOException $e){
+            echo "Erreur:".$e->getMessage();
              $pos = strpos($e->getMessage(),">:");
              $message=$e->getMessage();
              if ($pos!=-1) {
