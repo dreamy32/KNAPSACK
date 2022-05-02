@@ -11,7 +11,8 @@
     }
     else
     {
-        header("Location: login.php");
+        echo "<script>window.location.href=login.php'</script>";
+        //header("Location: login.php");
     }
 
     $poidsSac = PoidsSac($_SESSION['alias']);

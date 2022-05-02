@@ -14,7 +14,8 @@
 
     if(!isset($_SESSION['alias']))
     {
-        header('Location: login.php');
+        echo "<script>window.location.href=login.php'</script>";
+        //header('Location: login.php');
     } 
 
       if(isset($_POST['nom']))

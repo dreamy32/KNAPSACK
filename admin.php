@@ -17,7 +17,8 @@
     }
     else
     {
-        header("Location: login.php");
+        echo "<script>window.location.href=login.php'</script>";
+        //header("Location: login.php");
     }
 
     if (isset($_POST['nbCaps']) && $_POST['nbCaps'] != 0)

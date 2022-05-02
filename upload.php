@@ -19,7 +19,8 @@
     echo "loll1a";
     if(!isset($_SESSION['alias']))
     {
-        header('Location: login.php');
+        echo "<script>window.location.href=login.php'</script>";
+        //header('Location: login.php');
     } 
 
     echo "debug2:". $_POST['nom'];

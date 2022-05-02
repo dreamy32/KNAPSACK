@@ -28,14 +28,15 @@
             $_SESSION['alias'] = $alias;
             $_SESSION['mdp'] = $mdp;
             $_SESSION['idJoueur'] = $InfoJoueur[0];
-            header('Location: index.php');
+            //header('Location: index.php');
+            echo "<script>window.location.href=index.php'</script>";
         }
         else
             echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
-        header('Location: inscription.php');
-        echo "allo";
+        echo "<script>window.location.href=inscription.php'</script>";
+        //header('Location: inscription.php');
     }
 ?>
 <body style="text-align: center;">
