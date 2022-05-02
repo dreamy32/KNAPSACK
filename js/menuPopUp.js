@@ -47,8 +47,20 @@ function fermerMenuItem(){
   itemACache.classList.toggle("show");
   estOuvert = false;
 }
+var commentaireOuvert = false
 function afficherFormCommentaire() {
   var eval = document.getElementById("formAjoutEval");
   eval.classList.toggle("show");
+  if(!(commentaireOuvert)){
+    var bouttonAjout = document.getElementById("ajoutEvalButton");
+    bouttonAjout.ariaLabel = 'Minus';
+    commentaireOuvert = true;
+  }
+  else{
+    var bouttonAjout = document.getElementById("ajoutEvalButton");
+    bouttonAjout.ariaLabel = 'Plus';
+    commentaireOuvert = false;
+  }
+  document.getElementById("ajoutEvalButton").contentWindow.location.reload(true);
 }
 
