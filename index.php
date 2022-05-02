@@ -2,6 +2,10 @@
 $title = "KnapSack";
 require('header.php');
 session_start();
+echo $_SESSION['alias'];
+            echo $_SESSION['idJoueur'];
+            echo "<br>";
+            echo $_SESSION['mdp'];
 include('DB_Procedure.php');
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
@@ -12,7 +16,6 @@ if ($_GET['deconnecter'] == 'true') {
 $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
     $estConnecter = TRUE;
-
 if (!empty($_POST["nbItem"])) {
     AjouterItemPanier($_POST["idItem"], $_POST["nbItem"]);
     $successToast =
@@ -170,7 +173,7 @@ if (!empty($_POST["nbItem"])) {
                 <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
             </div>
             <!-- Commentaire -->
-            <div id="evaluations" aria-label="Window" style="overflow: auto;">
+            <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
                 <div id="window-container" style="margin-top: unset;">
                     <h1 id="window-title">Évaluations</h1>
                     <div class="eval-container" id="evaluations">

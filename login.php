@@ -30,12 +30,16 @@
             $_SESSION['mdp'] = $mdp;
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
+            echo $_SESSION['alias'];
+            echo $_SESSION['idJoueur'];
+            echo "<br>";
+            echo $_SESSION['mdp'];
         }
-        echo $errorToast;
+        else
+            echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
-        header('Location: index.php');
     }
 ?>
 <body style="text-align: center;">
