@@ -27,6 +27,12 @@ if (!empty($_POST["nbItem"])) {
     echo $successToast;
 }
 
+if (isset($_POST['EvalId']))
+{
+    DeleteEval($_POST['EvalId']);
+    echo "<script>window.location.href='index.php'</script>";
+}
+
 ?>
 <body>
     <div id="minetip-tooltip">
@@ -182,7 +188,7 @@ if (!empty($_POST["nbItem"])) {
                                 echo "<span>" . $eval[3] . "</span></div>";
                                 echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
                                 if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
-                                    echo "<form> <button type='button' aria-label='Minus' style='width:50px' onclick='DeleteEval($eval[0])'></button> </form>";
+                                    echo "<form method='post'> <input type='hidden' name='EvalId' value='$eval[0]'> <button type='submit' aria-label='Minus' style='width:50px'></button> </form>";
                             }
                         ?>
                         <div class='eval'>
