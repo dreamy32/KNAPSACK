@@ -33,6 +33,10 @@ if (isset($_POST['EvalId']))
     echo "<script>window.location.href='index.php'</script>";
 }
 
+if(isset($_POST['nbEtoile'])){
+    AjouterÉvaluation($_SESSION['idJoueur'],$_COOKIE['itemEval'],$_POST['commentaire'],$_POST['nbEtoile']);
+    echo "<script>window.location.href='index.php'</script>";
+}
 ?>
 <body>
     <div id="minetip-tooltip">
@@ -193,7 +197,12 @@ if (isset($_POST['EvalId']))
                         ?>
                         <div class='eval'>
                             <div class='ajoutEval' id="formAjoutEval">
-                                <h1>Allo</h1>
+                                <h2>Ajouter une Évaluation!</h2>
+                                <form method="post">
+                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="300">
+                                    <input class='rating rating--nojs' id='eval-etoiles'  name="nbEtoile" max='5' step='1' type='range' >
+                                    <button aria-label='normal' type='submit'>Commenter!</button>
+                                </form>
                             </div>
                         </div>
                     </div>
