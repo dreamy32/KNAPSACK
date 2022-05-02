@@ -176,7 +176,7 @@ if (!empty($_POST["nbItem"])) {
                     <div class="eval-container" id="evaluations">
                         <?php 
                             if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval']))
-                                echo "<button type='button' aria-label='Plus' onclick=''></button>";
+                                echo "<button type='button' aria-label='Plus' onclick='' style='width:50px;'></button>";
                             if(isset($_COOKIE['itemEval']))
                             $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
                             foreach ( $TabEvaluations as $eval){
@@ -184,7 +184,7 @@ if (!empty($_POST["nbItem"])) {
                                 echo "<span>" . $eval[3] . "</span></div>";
                                 echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
                                 if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
-                                    echo "<button type='button' aria-label='Minus' onclick=''></button>";
+                                    echo "<button type='button' aria-label='Minus' onclick='' style='width:50px;'></button>";
                             }
                         ?>
                     </div>

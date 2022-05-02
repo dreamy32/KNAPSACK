@@ -1,5 +1,4 @@
 <!-- Fichier Php de tout ce qui concerne la BD -->
-
 <?php
 /* Fonction de connexion */
 /* Doit être appeler en premier dans chaque fonction suivis de global $pdo;*/

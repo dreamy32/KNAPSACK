@@ -1,8 +1,8 @@
 <?php 
     $title = "Panier";
+    session_start();
     require('header.php');
     include("DB_Procedure.php");
-    session_start();
 
     $estConnecter = FALSE;
     if(!empty($_SESSION['alias']))
@@ -11,7 +11,7 @@
     }
     else
     {
-        echo "<script>window.location.href='login.php'</script>";
+        //echo "<script>window.location.href='login.php'</script>";
         //header("Location: login.php");
     }
 
