@@ -42,7 +42,7 @@ function afficherMenuItem(idItem) {
     estOuvert = true;
   }
 }
-function fermerMenuItem(idItem){
+function fermerMenuItem(){
   var itemACache = document.getElementById(("itempPopUp" + dernierIdDiv));
   itemACache.classList.toggle("show");
   estOuvert = false;

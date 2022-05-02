@@ -17,7 +17,6 @@
         $mdp = $_POST["motDePasse"];
         include('DB_Procedure.php');
         $InfoJoueur = AfficherInfosJoueur($alias);
-
         if($InfoJoueur[4] == $alias && hash("sha512",$mdp) == $InfoJoueur[7]){
             $estValide = true;
         }
@@ -25,6 +24,7 @@
             $estValide = false;
         }
         if($estValide){
+            echo 'pog';
             session_start();
             $_SESSION['alias'] = $alias;
             $_SESSION['mdp'] = $mdp;
@@ -35,6 +35,7 @@
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
+        header('Location: index.php');
     }
 ?>
 <body style="text-align: center;">
