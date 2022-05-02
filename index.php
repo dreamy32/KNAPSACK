@@ -2,18 +2,12 @@
 $title = "KnapSack";
 session_start();
 require('header.php');
-echo "valeur de session:";
-echo $_SESSION['alias'];
-echo $_SESSION['idJoueur'];
-echo "<br>";
-echo $_SESSION['mdp'];
 include('DB_Procedure.php');
-echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
     session_unset();
     setcookie("PHPSESSID", null, -1);
-    header('Location: PhpBuilding/index.php');
+    header('Location: index.php');
 }
 $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
@@ -226,10 +220,10 @@ if (!empty($_POST["nbItem"])) {
                         echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
                         echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
                         echo "<input type='hidden' name='idItem' value='$objet[0]'>";
-                        echo "<button type='button' onclick='fermerMenuItem()'>X</button>";
                         echo "</form>";
                     } else
                         echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
+                    echo "<button type='button' onclick='fermerMenuItem()'>X</button>";
                     echo "</div></article></div>";
                 }
                 /*

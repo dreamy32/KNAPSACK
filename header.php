@@ -112,7 +112,7 @@
             border-radius: 6px;
             padding: 8px 0;
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             margin-left: 10px;
             font-size: medium;
             background-image: url(images/oakBackground.jpg);
