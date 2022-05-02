@@ -217,7 +217,7 @@ if (!empty($_POST["nbItem"])) {
                     $objet[1] = $nomItem;
                     $objet[6] = $descriptionItem;
                     $temp = json_encode($objet);
-                    echo "<article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
+                    echo "<div><article class='test shop-item' id='$objet[0]' onclick='ChangerInformation($temp)'> <img class='minetext' data-mctitle='$objet[1]&nbsp;$objet[5]lb' src='items_images/$objet[0].png'alt='Image de $objet[1]'>";
                     echo "<div class='testItem' id='itempPopUp$objet[0]'>";
                     if ($estConnecter) {
                         echo "<form method='post'>";
@@ -230,7 +230,7 @@ if (!empty($_POST["nbItem"])) {
                         echo "</form>";
                     } else
                         echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
-                    echo "</div></article>";
+                    echo "</div></article></div>";
                 }
                 /*
                         $objet[0] : id

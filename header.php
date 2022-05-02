@@ -85,7 +85,7 @@
             padding: 8px 0;
             position: absolute;
             z-index: 1;
-            top: 40%;
+            margin-top: 300px;
             font-size: medium;
             background-image: url(images/oakBackground.jpg);
             }
