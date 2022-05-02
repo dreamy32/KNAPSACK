@@ -78,7 +78,7 @@
         .test .testItem{
             visibility: hidden;
             width: 200px;
-            height: 200px;
+            height: 225px;
             color: #fff;
             text-align: center;
             border-radius: 6px;

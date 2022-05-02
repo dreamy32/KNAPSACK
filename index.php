@@ -221,6 +221,7 @@ if (!empty($_POST["nbItem"])) {
                         echo "<button aria-label='Minus' type='button' onclick='ReduireNbItemChoisie($objet[0])'></button>";
                         echo "<button aria-label='normal' type='submit'>Ajouter au panier</button>";
                         echo "<input type='hidden' name='idItem' value='$objet[0]'>";
+                        echo "<button type='button' onclick='fermerMenuItem()'>X</button>";
                         echo "</form>";
                     } else
                         echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
@@ -258,23 +259,15 @@ if (!empty($_POST["nbItem"])) {
             }
 
             function ChangerInformation(idItem) {
-                var infoNomItem = document.getElementById("infoNom");
-                infoNomItem.innerHTML = idItem[1];
-                var infoNbItem = document.getElementById("infoNbItem");
-                infoNbItem.value = idItem[2];
-                var infoImageItem = document.getElementById("infoImageItem");
-                infoImageItem.src = "items_images/" + idItem[0] + ".png";
-                var infoPrixItem = document.getElementById("infoPrixItem");
-                infoPrixItem.innerHTML = "Prix: " + idItem[4] + "$";
-                var infoPoidsItem = document.getElementById("infoPoidsItem");
-                infoPoidsItem.innerHTML = "Poids: " + idItem[5] + "lb";
-                var infoDescriptionItem = document.getElementById("infoDescriptionItem");
-                infoDescriptionItem.innerHTML = idItem[6];
                 document.cookie = 'itemEval=' + idItem[0] ;
+                document.cookie = 'itemNom=' + idItem[1] ;
+                document.cookie = 'itemNbItem=' + idItem[2] ;
+                document.cookie = 'itemImageItem=' + idItem[0] ;
+                document.cookie = 'itemPrix=' + idItem[4] ;
+                document.cookie = 'itemPoids=' + idItem[5] ;
+                document.cookie = 'itemDescription=' + idItem[6] ;
                 if(idItem[0] != getCookie('ancienitemEval'))
                     location.reload();
-                else
-                    afficherMenuItem(idItem[0]);
                 document.cookie = 'ancienitemEval=' + idItem[0];
             }
             function getCookie(name) {
@@ -282,6 +275,21 @@ if (!empty($_POST["nbItem"])) {
                 const parts = value.split(`; ${name}=`);
                 if (parts.length === 2) 
                     return parts.pop().split(';').shift();
+            }
+            if(getCookie('itemEval') != null){
+                var infoNomItem = document.getElementById("infoNom");
+                infoNomItem.innerHTML = getCookie('itemNom');
+                var infoNbItem = document.getElementById("infoNbItem");
+                infoNbItem.value = getCookie('itemNbItem');
+                var infoImageItem = document.getElementById("infoImageItem");
+                infoImageItem.src = "items_images/" + getCookie('itemImageItem') + ".png";
+                var infoPrixItem = document.getElementById("infoPrixItem");
+                infoPrixItem.innerHTML = "Prix: " + getCookie('itemPrix') + "$";
+                var infoPoidsItem = document.getElementById("infoPoidsItem");
+                infoPoidsItem.innerHTML = "Poids: " + getCookie('itemPoids') + "lb";
+                var infoDescriptionItem = document.getElementById("infoDescriptionItem");
+                infoDescriptionItem.innerHTML = getCookie('itemDescription');
+                afficherMenuItem(getCookie('ancienitemEval'));
             }
             // ChangerInformation = (idItem) => {
             //     let infoNomItem = $("#infoNom");
