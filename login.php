@@ -1,5 +1,6 @@
 <?php 
     $title = "Connexion";
+    session_start();
     require('header.php');
     $errorToast =
     "<span id='snackbar'> 
@@ -24,22 +25,17 @@
             $estValide = false;
         }
         if($estValide){
-            echo 'pog';
-            session_start();
             $_SESSION['alias'] = $alias;
             $_SESSION['mdp'] = $mdp;
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             header('Location: index.php');
-            echo $_SESSION['alias'];
-            echo $_SESSION['idJoueur'];
-            echo "<br>";
-            echo $_SESSION['mdp'];
         }
         else
             echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
         header('Location: inscription.php');
+        echo "allo";
     }
 ?>
 <body style="text-align: center;">
