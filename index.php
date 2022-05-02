@@ -1,17 +1,19 @@
 <?php
 $title = "KnapSack";
-require('header.php');
 session_start();
+require('header.php');
+echo "valeur de session:";
 echo $_SESSION['alias'];
-            echo $_SESSION['idJoueur'];
-            echo "<br>";
-            echo $_SESSION['mdp'];
+echo $_SESSION['idJoueur'];
+echo "<br>";
+echo $_SESSION['mdp'];
 include('DB_Procedure.php');
+echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
     session_unset();
     setcookie("PHPSESSID", null, -1);
-    header('Location: index.php');
+    header('Location: PhpBuilding/index.php');
 }
 $estConnecter = FALSE;
 if (!empty($_SESSION['alias']))
