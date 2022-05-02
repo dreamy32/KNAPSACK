@@ -24,21 +24,6 @@
         else{
             $estValide = false;
         }
-        /*if($alias != "" && $mdp != "")
-        {
-            //$etat = ValiderIdentité($alias, $mdp);
-            
-            if(ValiderIdentité($alias, $mdp))
-            {
-                $estValide = true;
-            }
-            else
-            {
-                $estValide = false;
-            }
-        }*/
-       
-
         if($estValide){
             session_start();
             $_SESSION['alias'] = $alias;
