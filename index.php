@@ -2,11 +2,6 @@
 $title = "KnapSack";
 require('header.php');
 session_start();
-header('Access-Control-Allow-Origin: *');
-
-header('Access-Control-Allow-Methods: GET, POST');
-
-header("Access-Control-Allow-Headers: X-Requested-With");
 include('DB_Procedure.php');
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
@@ -174,29 +169,27 @@ if (!empty($_POST["nbItem"])) {
                 <h3 id="infoPoidsItem" value=""></h3>
                 <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
             </div>
+            <!-- Commentaire -->
             <div id="evaluations" aria-label="Window" style="overflow: auto; ">
                 <div id="window-container" style="margin-top: unset; ">
 
                     <h1 id="window-title">Évaluations</h1>
-                    <div class="eval-container">
-                        <div style="margin: 0 15px;">
-                            <div>
-                                <h4 style="margin-block: 0;">Vladimoune</h4>
-                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
-                            </div>
-                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
-                        </div>
-                        <hr>
-                        <div style="margin: 0 15px;">
-                            <div>
-                                <h4 style="margin-block: 0;">Vladimoune</h4>
-                                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, dolorem alias? Esse, dolor maiores? Deserunt, accusantium odio! Numquam, illum quia!</span>
-                            </div>
-                            <input disabled class="rating rating--nojs" id="eval-etoiles" name="eval-etoiles" max="5" step="1" type="range" value="3">
-                        </div>
+                    <div class="eval-container" id="evaluations">
+                        <?php 
+                            if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval']))
+                                echo "<button type='button' aria-label='Plus' onclick=''></button>";
+                            if(isset($_COOKIE['itemEval']))
+                            $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
+                            foreach ( $TabEvaluations as $eval){
+                                echo "<div style='margin: 0 15px;'> <div> <h4 style='margin-block: 0;'>" . AfficherJoueurId($eval[2])[4] . "</h4>";
+                                echo "<span>" . $eval[3] . "</span></div>";
+                                echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
+            <!-- Fin des commentaires -->
         </main>
         <nav id="style-1" class="item3 minecraft-scrollbar">
             <section>
@@ -275,7 +268,18 @@ if (!empty($_POST["nbItem"])) {
                 infoPoidsItem.innerHTML = "Poids: " + idItem[5] + "lb";
                 var infoDescriptionItem = document.getElementById("infoDescriptionItem");
                 infoDescriptionItem.innerHTML = idItem[6];
-                afficherMenuItem(idItem[0]);
+                document.cookie = 'itemEval=' + idItem[0] ;
+                if(idItem[0] != getCookie('ancienitemEval'))
+                    location.reload();
+                else
+                    afficherMenuItem(idItem[0]);
+                document.cookie = 'ancienitemEval=' + idItem[0];
+            }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) 
+                    return parts.pop().split(';').shift();
             }
             // ChangerInformation = (idItem) => {
             //     let infoNomItem = $("#infoNom");
