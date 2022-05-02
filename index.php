@@ -236,6 +236,7 @@ if (!empty($_POST["nbItem"])) {
                         $objet[7] : est en vente*/
                 for ($i = 1; $i < 96; $i++) {
                     echo "<article></article>";
+                    
                 }
                 ?>
             </section>
