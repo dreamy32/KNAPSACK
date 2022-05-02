@@ -5,11 +5,11 @@
     include('DB_Procedure.php');    
     $profile = AfficherInfosJoueur($_SESSION['alias']);
     if(array_key_exists('bouttonModifier', $_POST)) {
-        echo "<script>window.location.href=modifier_Profile.php'</script>";
+        echo "<script>window.location.href='modifier_Profile.php'</script>";
         //header('Location: modifier_Profile.php');
     }
     else if(array_key_exists('bouttonMotDePasse', $_POST)) {
-        echo "<script>window.location.href=modifier_MotDePasse.php'</script>";
+        echo "<script>window.location.href='modifier_MotDePasse.php'</script>";
         //header('Location: modifier_MotDePasse.php');
     }
 ?>

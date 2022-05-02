@@ -7,7 +7,7 @@ if ($_GET['deconnecter'] == 'true') {
     session_destroy();
     session_unset();
     setcookie("PHPSESSID", null, -1);
-    echo "<script>window.location.href=index.php'</script>";
+    echo "<script>window.location.href='index.php'</script>";
     //header('Location: index.php');
 }
 $estConnecter = FALSE;
