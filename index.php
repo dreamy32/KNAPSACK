@@ -165,18 +165,16 @@ if (!empty($_POST["nbItem"])) {
                     <img src="items_images/img_base.png" alt="objet" id="infoImageItem" style="width: 100px;height:100px;">
                 </div>
                 <h3 id="infoPrixItem" value=""></h3>
-                <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 80px;">
+                <input type="number" id="infoNbItem" readonly aria-label="Alternative" style="width: 105px;">
                 <h3 id="infoPoidsItem" value=""></h3>
                 <p id="infoDescriptionItem" value="" style="text-align: center;"></p>
             </div>
             <!-- Commentaire -->
             <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
                 <div id="window-container" style="margin-top: unset;">
-                    <h1 id="window-title">Évaluations</h1>
+                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button type='button' aria-label='Plus' onclick='' style='float:right; margin-right:4%;'></button>";?></h1>
                     <div class="eval-container" id="evaluations">
                         <?php 
-                            if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval']))
-                                echo "<button type='button' aria-label='Plus' onclick='' style='width:50px;'></button>";
                             if(isset($_COOKIE['itemEval']))
                             $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
                             foreach ( $TabEvaluations as $eval){
