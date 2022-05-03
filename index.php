@@ -71,7 +71,7 @@ if(isset($_POST['nbEtoile'])){
                 </div>
 
                 <?php if (isset($_SESSION['alias'])) { ?>
-                    <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?></span>
+                    <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?><?php if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:yellow'> | ADMIN |</span>"; } ?></span>
                     <div style="display: flex;flex-direction: column;align-self: center;">
                         <span style="font-size: small;"><i><?= $solde ?></i> <img src="images/emerald.png" alt="emeraude" style="width: 20px;height:20px;"></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
@@ -232,7 +232,9 @@ if(isset($_POST['nbEtoile'])){
                             if(isset($_COOKIE['itemEval']))
                             $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
                             foreach ( $TabEvaluations as $eval){
-                                echo "<div style='margin: 0 15px;'> <div> <h4 style='margin-block: 0;'>" . AfficherJoueurId($eval[2])[4] . "</h4>";
+                                echo "<div style='margin: 0 15px;'> <div> <h4 style='margin-block: 0;'>" . AfficherJoueurId($eval[2])[4];
+                                if (AfficherJoueurId($eval[2])[10] == 1) { echo "<span style='color:yellow'> | ADMIN |</span>"; } 
+                                echo "</h4>";
                                 echo "<span>" . $eval[3] . "</span></div>";
                                 echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
                                 if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
