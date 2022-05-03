@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Conception</title>
+    <link rel="stylesheet" href="css/minecraft_elements.css">
+    <link rel="stylesheet" href="css/range.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/item-types_reset.js"></script>
+    <style>
+        body {
+            background: url(images/options_background.png) 0 0 / 10%;
+        }
+
+        progress {
+            border-radius: 0;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: grey;   
+        }
+
+        progress::-webkit-progress-value {
+            background-color: hsl(120, 98%, 36%);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='0.1'
+            type='range' value='4.7'>
+        <label for="eval-etoiles" style="display: unset;">4.7 sur 5</label>
+        <br>
+        <br>
+        <span>69 évaluations parmi le monde minecraftien</span>
+        <br>
+        <br>
+        <div style="display: flex;">
+            <label style="display: unset;" for="5-star">5 étoile(s)&nbsp;&nbsp;</label>
+            <progress id="5-star" value="32" max="100"></progress>
+            <label style="display: unset;" for="5-star">&nbsp;&nbsp;32%</label>
+        </div>
+        <div style="display: flex;">
+            <label style="display: unset;" for="4-star">4 étoile(s)&nbsp;&nbsp;</label>
+            <progress id="4-star" value="32" max="100"></progress>
+            <label style="display: unset;" for="4-star">&nbsp;&nbsp;32%</label>
+        </div>
+        <div style="display: flex;">
+            <label style="display: unset;" for="3-star">3 étoile(s)&nbsp;&nbsp;</label>
+            <progress id="3-star" value="32" max="100"></progress>
+            <label style="display: unset;" for="3-star">&nbsp;&nbsp;32%</label>
+        </div>
+        <div style="display: flex;">
+            <label style="display: unset;" for="2-star">2 étoile(s)&nbsp;&nbsp;</label>
+            <progress id="2-star" value="32" max="100"></progress>
+            <label style="display: unset;" for="2-star">&nbsp;&nbsp;32%</label>
+        </div>
+        <div style="display: flex;">
+            <label style="display: unset;" for="1-star">1 étoile(s)&nbsp;&nbsp;</label>
+            <progress id="1-star" value="32" max="100"></progress>
+            <label style="display: unset;" for="1-star">&nbsp;&nbsp;32%</label>
+        </div>
+    </div>
+</body>
+
+</html>
