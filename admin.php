@@ -104,9 +104,10 @@
                     
                     <input max="600" value="200" name="nbCaps" id="nbItemChoisie" style="width: 120px" aria-label="Alternative" type="number" readonly>
                     <button  type="button" aria-label="Minus" onclick="ModifierNbItemChoisie('reduire')"></button><button type="button" aria-label="Plus" onclick="ModifierNbItemChoisie('augmenter')"></button>                        
-                    <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer de l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
+                    <div onclick="this.parentNode.submit()" style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Envoyer l'argent <img style="width: 20px;" src="../images/emerald.png" alt="caps"></div></div>
                     </form>
-                    <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item </div></div></a>
+                    <br><br>
+                    <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item <img style="width: 20px;" src="../images/bread.png" alt="bread"></div></div></a>
                     </div>                    
                 </div>
             </div>

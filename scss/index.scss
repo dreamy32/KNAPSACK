@@ -261,6 +261,17 @@ $fullSize: 0 0 / 100% 100%; //bg-position: 0 0 / bg-size: 100% 100%
     div {
     }
 }
+.add-container{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    margin: auto;
+    grid-template-areas: "text numbers";
+    height: 80%;
+    width: 93%;
+}
 #items-list {
     grid-area: items-list;
     //Pour les browsers ne supportant pas backdrop-filter (Mozilla)

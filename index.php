@@ -27,6 +27,16 @@ if (!empty($_POST["nbItem"])) {
     echo $successToast;
 }
 
+if (isset($_POST['EvalId']))
+{
+    DeleteEval($_POST['EvalId']);
+    echo "<script>window.location.href='index.php'</script>";
+}
+
+if(isset($_POST['nbEtoile'])){
+    AjouterÉvaluation($_SESSION['idJoueur'],$_COOKIE['itemEval'],$_POST['commentaire'],$_POST['nbEtoile']);
+    echo "<script>window.location.href='index.php'</script>";
+}
 ?>
 <body>
     <div id="minetip-tooltip">
@@ -172,7 +182,7 @@ if (!empty($_POST["nbItem"])) {
             <!-- Commentaire -->
             <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
                 <div id="window-container" style="margin-top: unset;">
-                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
+                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button id='ajoutEvalButton' type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
                     <div class="eval-container" id="evaluations">
                         <?php 
                             if(isset($_COOKIE['itemEval']))
@@ -182,12 +192,17 @@ if (!empty($_POST["nbItem"])) {
                                 echo "<span>" . $eval[3] . "</span></div>";
                                 echo "<input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='1' type='range' value='$eval[4]'></div>";
                                 if(PeutDeleteEvaluation(($eval[2]) && $_SESSION['idJoueur'] == $eval[2]) ||  AfficherInfosJoueur($_SESSION['alias'])[10] == 1)
-                                    echo "<button type='button' aria-label='Minus' onclick='' style='width:50px;'></button>";
+                                    echo "<form method='post'> <input type='hidden' name='EvalId' value='$eval[0]'> <button type='submit' aria-label='Minus' style='width:50px'></button> </form>";
                             }
                         ?>
                         <div class='eval'>
                             <div class='ajoutEval' id="formAjoutEval">
-                                <h1>Allo</h1>
+                                <h2>Ajouter une Évaluation!</h2>
+                                <form method="post">
+                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="300">
+                                    <input class='rating rating--nojs' id='eval-etoiles'  name="nbEtoile" max='5' step='1' type='range' >
+                                    <button aria-label='normal' type='submit'>Commenter!</button>
+                                </form>
                             </div>
                         </div>
                     </div>
