@@ -155,6 +155,18 @@
             -webkit-animation: fadeIn 0.5s;
             animation: fadeIn 0.5s
         }
+        progress {
+            border-radius: 0;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: grey;   
+        }
+
+        progress::-webkit-progress-value {
+            background-color: hsl(120, 98%, 36%);
+        }
+        
     </style>
 </head>
 <?php
