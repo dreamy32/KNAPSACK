@@ -178,7 +178,7 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
     $nbEtoilesWHERE = "";
 
     if ($nbEtoiles != null) {
-        $nbEtoilesWHERE = "AND (SELECT MoyenneEvaluations(IdItems)) = $nbEtoiles";
+        $nbEtoilesWHERE = "AND (SELECT MoyenneEvaluationsCeil(IdItems)) = $nbEtoiles";
     }
 
     $typeWHERE = "";
@@ -914,5 +914,62 @@ function PeutDeleteEvaluation($idJoueur){
         return True;
     }
     return False;
+}
+function MoyenneEvaluations($idItem)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT MoyenneEvaluations(:idItem)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+        $moyenne = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $moyenne = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $moyenne;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+function NombreEvaluations($idItem)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT NombreEvaluations(:idItem)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $stmt->execute();
+        $nbEval = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $nbEval = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $nbEval;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+function PourcentageHistogramme($idItem,$nbEtoile){
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT PourcentageHistogramme(:idItem,:nbEtoile)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $stmt->bindParam(':nbEtoile', $nbEtoile, PDO::PARAM_INT);
+        $stmt->execute();
+        $nbEval = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $nbEval = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $nbEval;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 ?>

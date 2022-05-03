@@ -21,6 +21,12 @@
         //header("Location: login.php");
     }
 
+    if (AfficherInfosJoueur($_SESSION['alias'])[10] != 1) {
+        echo "<script>window.location.href='index.php'</script>";
+        echo "<script>alert('vous etes pas admin');</script>";
+    }
+
+
     if (isset($_POST['nbCaps']) && $_POST['nbCaps'] != 0)
     {
         AjouterArgentToutLeMonde($_POST['nbCaps']);

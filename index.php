@@ -185,6 +185,50 @@ if(isset($_POST['nbEtoile'])){
                     <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button id='ajoutEvalButton' type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
                     <div class="eval-container" id="evaluations">
                         <?php 
+                            $moyenneEval = MoyenneEvaluations($_COOKIE['itemEval']);
+                            $nbEvaluation = NombreEvaluations($_COOKIE['itemEval']);
+                            $nb5etoile = PourcentageHistogramme($_COOKIE['itemEval'],5);
+                            $nb4etoile = PourcentageHistogramme($_COOKIE['itemEval'],4);
+                            $nb3etoile = PourcentageHistogramme($_COOKIE['itemEval'],3);
+                            $nb2etoile = PourcentageHistogramme($_COOKIE['itemEval'],2);
+                            $nb1etoile = PourcentageHistogramme($_COOKIE['itemEval'],1);
+                        ?>
+                        <div>
+                            <input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='0.1'
+                                type='range' value='<?= $moyenneEval ?>'>
+                            <label for="eval-etoiles" style="display: unset;"><?= $moyenneEval ?> sur 5</label>
+                            <br>
+                            <br>
+                            <span><?= $moyenneEval ?> évaluations parmi le monde minecraftien</span>
+                            <br>
+                            <br>
+                            <div style="display: flex;">
+                                <label style="display: unset;" for="5-star">5 étoile(s)&nbsp;&nbsp;</label>
+                                <progress id="5-star" value="<?=$nb5etoile?>" max="100"></progress>
+                                <label style="display: unset;" for="5-star">&nbsp;&nbsp;<?=$nb5etoile?>%</label>
+                            </div>
+                            <div style="display: flex;">
+                                <label style="display: unset;" for="4-star">4 étoile(s)&nbsp;&nbsp;</label>
+                                <progress id="4-star" value="<?=$nb4etoile?>" max="100"></progress>
+                                <label style="display: unset;" for="4-star">&nbsp;&nbsp;<?=$nb4etoile?>%</label>
+                            </div>
+                            <div style="display: flex;">
+                                <label style="display: unset;" for="3-star">3 étoile(s)&nbsp;&nbsp;</label>
+                                <progress id="3-star" value="<?=$nb3etoile?>" max="100"></progress>
+                                <label style="display: unset;" for="3-star">&nbsp;&nbsp;<?=$nb3etoile?>%</label>
+                            </div>
+                            <div style="display: flex;">
+                                <label style="display: unset;" for="2-star">2 étoile(s)&nbsp;&nbsp;</label>
+                                <progress id="2-star" value="<?=$nb2etoile?>" max="100"></progress>
+                                <label style="display: unset;" for="2-star">&nbsp;&nbsp;<?=$nb2etoile?>%</label>
+                            </div>
+                            <div style="display: flex;">
+                                <label style="display: unset;" for="1-star">1 étoile(s)&nbsp;&nbsp;</label>
+                                <progress id="1-star" value="<?=$nb1etoile?>" max="100"></progress>
+                                <label style="display: unset;" for="1-star">&nbsp;&nbsp;<?=$nb1etoile?>%</label>
+                            </div>
+                        </div>
+                        <?php 
                             if(isset($_COOKIE['itemEval']))
                             $TabEvaluations = AfficherEvaluations($_COOKIE['itemEval']);
                             foreach ( $TabEvaluations as $eval){
@@ -216,7 +260,6 @@ if(isset($_POST['nbEtoile'])){
             </section>
             <section>
                 <?php
-
                 if (!empty($_GET["tri"]) || !empty($_GET["nbEtoiles"]) || !empty($_GET["type"])) {
 
                     $listeObjets = AfficherItemsVenteTri($_GET['tri'], $_GET['nbEtoiles'], $_GET['type'], $_GET['ordre']);

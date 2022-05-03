@@ -44,7 +44,12 @@
         header('Location: login.php');
     } 
 
-    if(isset($_POST['nom']))
+    if (AfficherInfosJoueur($_SESSION['alias'])[10] != 1) {
+        echo "<script>window.location.href='index.php'</script>";
+        echo "<script>alert('vous etes pas admin');</script>";
+    }
+
+      if(isset($_POST['nom']))
     {
         $nom = $_POST['nom'];       
         $qte = intval($_POST['quantite']);
