@@ -587,8 +587,20 @@ function AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description)
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR); 
         $stmt->execute();
-        $stmt->closeCursor();
-        
+        //$id = $pdo->lastInsertId(); 
+       echo "lol1";
+        $stmt->closeCursor();    
+        echo "lol2";     
+        //$stmt = $pdo->prepare("SELECT LAST_INSERT_ID()");
+        $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
+        echo "lol3"; 
+        $stmt->execute();
+        echo "lol4"; 
+        $id = $stmt->fetch(PDO::FETCH_NUM);
+        echo "lol5"; 
+       // $id = $stmt->fetchColumn();
+        echo "idpopopopopopopo:" . $id[0];
+        return $id;
         }catch(PDOException $e){
             echo "Erreur:".$e->getMessage();
              $pos = strpos($e->getMessage(),">:");

@@ -1,9 +1,15 @@
 <?php
-    session_start();
     require('DB_Procedure.php');
+    
+    
+    session_start();
+    $infoValid=true;
     $mess = "";
     $messSucces ="";
     $messErreurFichier = "";
+    $messErreurNom="";
+    $messErreurQuantite="";
+    $messErreurPrixUnitaire="";
     $nom = "";
     $qte = 0;
     $type = "";
@@ -11,36 +17,80 @@
     $poids = 0;
     $description = "";
 
+    //Armure
+    $matiere="";
+    $taille = 0;
+
+    //Arme
+    $efficacite=0;
+    $genre=0;
+
+    //Medicament
+    $effet="";
+    $dureeeffet=0;
+
+    //Munition
+    $calibre=0;
+
+    //Nourriture
+    $pointdevie=0;
+
+
+    
+    
+
     if(!isset($_SESSION['alias']))
     {
-        echo "<script>window.location.href='login.php'</script>";
-        //header('Location: login.php');
+        header('Location: login.php');
     } 
 
-      if(isset($_POST['nom']))
+    if(isset($_POST['nom']))
     {
         $nom = $_POST['nom'];       
         $qte = intval($_POST['quantite']);
         $type = $_POST['type'];
+
+        //Armure
+        $matiere=$_POST['matiere'];
+        $taille = intval($_POST['taille']);
+        
+        //Arme
+        $efficacite=intval($_POST['efficacite']);
+        $genre=intval($_POST['genre']);
+
+        //Medicament
+        $effet=$_POST['effet'];
+        $dureeeffet=intval($_POST['dureeeffet']);
+        
+        //Munition
+        $calibre=intval($_POST['calibre']);
+
+        //Nourriture
+        $pointdevie=intval($_POST['pointdevie']);
+
+        
+
         $prixU = floatval($_POST['prixUnitaire']);
         $poids = intval($_POST['poids']);
         $description= $_POST['description'];
         
-        $rep = 'items_images/';
-        $idUnique = rand(0,10000000);
-        $fich = $rep . $pseudo . $idUnique . basename($_FILES['image']['name']);
-        $infoValid=true;
-
-        // enlever les espaces et les "+" dans les url des images
-        // car sinon la page contient des erreurs dans le validateur de pages.
-        $fich = str_replace(" ", "", $fich);
-        $fich = str_replace("+", "", $fich);
 
         if(strlen(trim($nom)) == 0)
         {
-            $messErreurNom ="Le nom de l'objet ne peut être vide.";
+            $messErreurNom ="Le nom de l'item ne peut être vide.";
+            $infoValid=false;
+        }        
+        if($qte <= 0)
+        {
+            $messErreurQuantite ="La quantite doit etre un nombre positif";
             $infoValid=false;
         }
+        if($prixU <= 0)
+        {
+            $messErreurPrixUnitaire ="La prix doit etre positif";
+            $infoValid=false;
+        }
+
         
         if(strlen(trim(basename($_FILES['image']['name']))) == 0)
         {
@@ -48,45 +98,116 @@
             $infoValid=false;
         }
 
-
-        $imgFichType = strtolower(pathinfo($fich, PATHINFO_EXTENSION));
-
-        
+        $imgFichType = strtolower(pathinfo(basename($_FILES['image']['name']), PATHINFO_EXTENSION));
         if($imgFichType != "jpg" && $imgFichType != "png" && $imgFichType != "jpeg" && $imgFichType != "gif")
         {
             $messErreurFichier="Ce type de fichier n'est pas supporté.";
             $infoValid=false;
         }
-        //echo"yo5";
 
-        if ($infoValid  && is_uploaded_file($_FILES['image']['tmp_name'])) 
-        {
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $fich)) 
+
+        if ($infoValid) {    
+            
+            $rep = 'items_images/';
+    
+            
+
+            if ($type=="A") {
+                //$id = AjouterItemArmureMagasin($nom, $qte, $type, $prixU, $poids, $description, $matiere, $taille);
+            
+            } else if ($type=="W") {
+                //$id = AjouterItemArmeMagasin($nom, $qte, $type, $prixU, $poids, $description, $efficacite, $genre);
+            
+            } else if ($type=="D") {
+                //$id = AjouterItemMedicamentMagasin($nom, $qte, $type, $prixU, $poids, $description, $effet, $dureeeffet);
+            
+            } else if ($type=="M") {
+                //$id = AjouterItemMunitionMagasin($nom, $qte, $type, $prixU, $poids, $description, $calibre);
+            
+            } else if ($type=="N") {
+                //$id = AjouterItemNourritureMagasin($nom, $qte, $type, $prixU, $poids, $description, $pointdevie);
+            }
+            
+            
+     
+            $name = basename($_FILES['image']['name']);
+            $pos = strpos($name, ".");
+            $fich = $rep . $id[0] . substr($name, $pos);
+            echo "Fichier:" . $fich;
+
+            
+            //echo"yo5";
+    
+            
+            if ($infoValid  && is_uploaded_file($_FILES['image']['tmp_name'])) 
             {
-                //echo"yo6";
-                AjouterItemMagasin($nom, $qte, $type, $prixU, $poids, $description);
-                $messSucces = "L'item a été ajoute avec succès.";
-                //echo"yo7";
-                /*
-                if($result)
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $fich)) 
                 {
-                    $messSucces = "Le fichier a été téléchargé avec succès.";
-                }
+                    $messSucces = "L'item a été ajoute avec succès.";
+                    
+                    if($result)
+                    {
+                        $messSucces = "Le fichier a été téléchargé avec succès.";
+                    }
+                    else 
+                    {
+                        $mess = "Problème lors de l'ajout de votre image.";            
+                    }
+                    
+                } 
                 else 
                 {
-                    $mess = "Problème lors de l'ajout de votre image.";            
+                    $mess = "Problème lors du téléchargement de votre image.";
                 }
-                */
+                
             } 
-            else 
-            {
-                $mess = "Problème lors du téléchargement de votre image.";
-            }
-        }      
-    } 
-    //require('header.php');
+            $infoValid=true;
+        }
+    }
+
+    require('header.php');
 
 ?>
+
+
+       <SCRIPT type="text/javascript">
+        
+        function changeType(){
+
+            val = document.getElementById("type").value;
+
+            
+            document.getElementById("infoArmure").style.display="none";
+            document.getElementById("infoArme").style.display="none";
+            document.getElementById("infoMedicament").style.display="none";
+            document.getElementById("infoMunition").style.display="none";
+            document.getElementById("infoNourriture").style.display="none";
+
+
+            if (val=="A") { //Armure 
+                document.getElementById("infoArmure").style.display="block";
+
+            } else if (val=="W") { //Arme
+                document.getElementById("infoArme").style.display="block";
+
+            } else if (val=="D") { //Medicament
+                document.getElementById("infoMedicament").style.display="block";
+
+            } else if (val=="M") { //Munition
+                document.getElementById("infoMunition").style.display="block";
+                
+            } else if (val=="N") { //Nourriture
+                document.getElementById("infoNourriture").style.display="block";
+
+            }
+            
+
+        }
+
+        
+    
+
+        </script>
 
        
         <div class="page">
@@ -109,15 +230,18 @@
                 
                     <br>
                     <FORM ACTION='ajouterItem.php' METHOD="POST"  enctype="multipart/form-data" class="formIdentification">
-                        <table class="tabConn">
+                        
+                            
+                        
+                        <table class="tabConn" WIDTH=100%>
                             <tr>
-                                <td>
+                                <td WIDTH=10%>
                                     <label for="nom">Nom de l'item : </label>
                                 </td>
                                 <td>
                                     <input type="text" name="nom" id="nom" minlength="1" maxlength="25" value="<?php echo $nom?>">
                                     <br>
-                                    <span class="messErreur"><?php echo $messErreur?></span>
+                                    <span class="messErreur"><?php echo $messErreurNom?></span>
                                 </td>
                                 
                             </tr>
@@ -126,9 +250,7 @@
                                     <label for="quantite">Quantité : </label>
                                 </td>
                                 <td>
-                                    <input type="number" id="quantite" name="quantite" rows="4" cols="40" maxlength="150">
-                                        <?php echo $quantite?>
-                                    </input>
+                                    <input type="number" id="quantite" name="quantite" value="<?php echo $qte?>">
                                     <br>
                                     <span class="messErreur"> <?php echo $messErreurQuantite?></span>
                                 </td>                             
@@ -139,7 +261,7 @@
                                     <label for="type">Type : </label>
                                 </td>
                                 <td>
-                                    <select id="type" name="type">
+                                    <select id="type" name="type" ONCHANGE="javascript:changeType();">
                                         <option value="A" selected>Armure</option>
                                         <option value="W">Arme</option>
                                         <option value="D">Médicament</option>
@@ -152,15 +274,153 @@
                                     </span>
                                 </td>                              
                             </tr>
+                            </TABLE>
+
+
                             
+                            
+
+                            <div id="infoArmure" style="display:block">
+                                <table  width=100%>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="matiere">Matiere : </label>
+                                        </td>
+                                        <td>
+                                            <input name="matiere" maxlength="30" value="<?php echo $matiere?>"></input>
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurMatiere?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="taille">Taille : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="taille" value="<?php echo $taille?>">
+                                                
+                                            </input>
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurTaille?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                </table> 
+                            </div>
+
+                            
+                            
+                            <div id="infoArme" style="display:none">
+                                <table  width=100%>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="efficacite">Efficacite : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="efficacite" value="<?php echo $efficacite?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurEfficacite?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="genre">Genre : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="genre" value="<?php echo $genre?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurGenre?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                </table> 
+                            </div>
+                            
+                                   
+                             
+
+                            <div id="infoMedicament" style="display:none">
+                                <table  width=100%>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="effet">Effet : </label>
+                                        </td>
+                                        <td>
+                                            <input name="effet" maxlength="150" value="<?php echo $effet?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurEffet?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="dureeeffet">Duree Effet : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="dureeeffet" value="<?php echo $dureeeffet?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurDureeeffet?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                </table>    
+                            </div>
+                                   
+                            <div id="infoMunition" style="display:none">
+                                <table  width=100%>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="calibre">Calibre : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="calibre" value="<?php echo $calibre?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurCalibre?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                </table>    
+                            </div>
+                            
+                             <div id="infoNourriture" style="display:none">
+                                <table  width=100%>
+                                    <tr>
+                                        <td width=10%>
+                                            <label for="pointdevie">Point De Vie : </label>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pointdevie" value="<?php echo $pointdevie?>">
+                                            <br>
+                                            <span class="messErreur">
+                                                <?php echo $messErreurPointdevie?>
+                                            </span>
+                                        </td>                              
+                                    </tr>
+                                </table>    
+                            </div>
+
+                            
+                           
+                            
+                            
+                            
+                            
+                            <TABLE  WIDTH=100%>
                             <tr>
-                                <td>
+                                <td WIDTH=10%>
                                     <label for="prixUnitaire">PrixUnitaire : </label>
                                 </td>
                                 <td>
-                                    <input type="number" name="prixUnitaire" rows="4" cols="40" maxlength="150">
-                                        <?php echo $prixUnitaire?>
-                                    </input>
+                                    <input type="number" name="prixUnitaire" value="<?php echo $prixU?>">
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurPrixUnitaire?>
@@ -173,9 +433,7 @@
                                     <label for="poids">Poids : </label>
                                 </td>
                                 <td>
-                                    <input type="number" id="poids" name="poids" rows="4" cols="40" maxlength="150">
-                                        <?php echo $poids?>
-                                    </input>
+                                    <input type="number" id="poids" name="poids" value="<?php echo $poids?>" maxlength="150">
                                     <br>
                                     <span class="messErreur">
                                         <?php echo $messErreurPoids?>
@@ -218,6 +476,7 @@
                                 </td>                               
                             </tr>
                         </table>                                         
+                        </DIV>
                     </FORM>                 
                 </div>
             </article>  
@@ -225,4 +484,4 @@
         </div>
 
         
-   <?php require "footer.php"; ?>
+ <?php require "footer.php"; ?>
