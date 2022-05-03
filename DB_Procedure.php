@@ -767,4 +767,23 @@ function NombreEvaluations($idItem)
         return $e->getMessage();
     }
 }
+function PourcentageHistogramme($idItem,$nbEtoile){
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT PourcentageHistogramme(:idItem,:nbEtoile)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $stmt->bindParam(':nbEtoile', $nbEtoile, PDO::PARAM_INT);
+        $stmt->execute();
+        $nbEval = 0;
+
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $nbEval = $donnee[0];
+        }
+        $stmt->closeCursor();
+        return $nbEval;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
 ?>

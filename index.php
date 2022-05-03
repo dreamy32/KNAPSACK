@@ -187,11 +187,11 @@ if(isset($_POST['nbEtoile'])){
                         <?php 
                             $moyenneEval = MoyenneEvaluations($_COOKIE['itemEval']);
                             $nbEvaluation = NombreEvaluations($_COOKIE['itemEval']);
-                            $nb5etoile = 
-                            $nb4etoile = 
-                            $nb3etoile = 
-                            $nb2etoile = 
-                            $nb1etoile = 
+                            $nb5etoile = PourcentageHistogramme($_COOKIE['itemEval'],5);
+                            $nb4etoile = PourcentageHistogramme($_COOKIE['itemEval'],4);
+                            $nb3etoile = PourcentageHistogramme($_COOKIE['itemEval'],3);
+                            $nb2etoile = PourcentageHistogramme($_COOKIE['itemEval'],2);
+                            $nb1etoile = PourcentageHistogramme($_COOKIE['itemEval'],1);
                         ?>
                         <div>
                             <input disabled class='rating rating--nojs' id='eval-etoiles' name='eval-etoiles' max='5' step='0.1'
