@@ -71,7 +71,7 @@ if(isset($_POST['nbEtoile'])){
                 </div>
 
                 <?php if (isset($_SESSION['alias'])) { ?>
-                    <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?></span>
+                    <span style="align-self: center; margin-right: 25px;"><?= $_SESSION['alias'] ?> <?php if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "| ADMIN |"; } ?></span>
                     <div style="display: flex;flex-direction: column;align-self: center;">
                         <span style="font-size: small;"><i><?= $solde ?></i> <img src="images/emerald.png" alt="emeraude" style="width: 20px;height:20px;"></span>
                         <span style="font-size: small;"><i><?= $poidJoueur ?>/<?= $poidsMax ?> lb</i></span>
