@@ -71,7 +71,7 @@
         $calibre=intval($_POST['calibre']);
 
         //Nourriture
-        $pointdevie=intval($_POST['pointdevie']);
+        $pointdevie=intval($_POST['pointDeVie']);
 
         
 
@@ -115,22 +115,26 @@
             
             $rep = 'items_images/';
     
-            
+            echo"ajout";
 
             if ($type=="A") {
-                //$id = AjouterItemArmureMagasin($nom, $qte, $type, $prixU, $poids, $description, $matiere, $taille);
+                $id = AjouterArmureMagasin($nom, $qte, $matiere, $taille, $prixU, $poids, $description);
             
             } else if ($type=="W") {
-                //$id = AjouterItemArmeMagasin($nom, $qte, $type, $prixU, $poids, $description, $efficacite, $genre);
+                $id = AjouterArmeMagasin($nom, $qte, $efficacite, $genre, $prixU, $poids, $description, $idMunition);
             
             } else if ($type=="D") {
-                //$id = AjouterItemMedicamentMagasin($nom, $qte, $type, $prixU, $poids, $description, $effet, $dureeeffet);
+                $id = AjouterMedicamentMagasin($nom, $qte, $prixU, $poids, $description, $effet, $dureeEffet);
             
             } else if ($type=="M") {
-                //$id = AjouterItemMunitionMagasin($nom, $qte, $type, $prixU, $poids, $description, $calibre);
+                $id = AjouterMunitionMagasin($nom, $qte, $calibre, $prixU, $poids, $description);
             
             } else if ($type=="N") {
-                //$id = AjouterItemNourritureMagasin($nom, $qte, $type, $prixU, $poids, $description, $pointdevie);
+                
+            echo"ajout22"; 
+                $id = AjouterNourritureMagasin($nom, $qte, $prixU, $poids, $description, $pointdevie);
+                
+            echo"ajout333";
             }
             
             
@@ -170,7 +174,7 @@
         }
     }
 
-    require('header.php');
+   // require('header.php');
 
 ?>
 
