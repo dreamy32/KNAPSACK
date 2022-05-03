@@ -178,7 +178,7 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
     $nbEtoilesWHERE = "";
 
     if ($nbEtoiles != null) {
-        $nbEtoilesWHERE = "AND (SELECT MoyenneEvaluations(IdItems)) = $nbEtoiles";
+        $nbEtoilesWHERE = "AND (SELECT MoyenneEvaluationsCeil(IdItems)) = $nbEtoiles";
     }
 
     $typeWHERE = "";
