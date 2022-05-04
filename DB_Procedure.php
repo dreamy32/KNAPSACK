@@ -619,23 +619,32 @@ function AjouterArmureMagasin($nom, $qte, $matiere, $taille, $prixU, $poids, $de
     Connexion();
     global $pdo;
     $description=trim($description);
+    $estEnVente = 1;
     try {
-        $sqlProcedure = "CALL AjouterArmure(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pMatiere, :pTaille,)";
+        ///echo "test1";
+        $sqlProcedure = "CALL AjouterArmure(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pMatiere, :pTaille)";
         $stmt = $pdo->prepare($sqlProcedure);
+        //echo "test2";
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
         $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
+        //echo "test3";
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', 1, PDO::PARAM_INT); //bit
+        //echo "test4";
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); //bit
         $stmt->bindParam(':pMatiere', $matiere, PDO::PARAM_STR);
+        //echo "test5";
         $stmt->bindParam(':pTaille', $taille, PDO::PARAM_INT); 
+        //echo "test6";
         $stmt->execute();
-        $stmt->closeCursor();   
+        $stmt->closeCursor();  
+        //echo "test7"; 
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
         $stmt->execute(); 
         $id = $stmt->fetch(PDO::FETCH_NUM);
+        //echo "test8";
         return $id;
     }catch(PDOException $e){
         echo "Erreur:".$e->getMessage();
@@ -657,24 +666,38 @@ function AjouterArmeMagasin($nom, $qte, $efficacite, $genre, $prixU, $poids, $de
     Connexion();
     global $pdo;
     $description=trim($description);
+    $estEnVente = 1;
     try {
+        echo "test1";
+        
+        echo "efficacite:". $efficacite;
+        echo "genre:". $genre;
+        echo "idMunition:". $idMunition;
+        //$idMunition=39;
         $sqlProcedure = "CALL AjouterArmes(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pEfficacite, :pGenre, :pIdMunition)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
+        echo "test2";
         $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', 1, PDO::PARAM_INT); //bit
+        echo "test3";
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
+        echo "test4";
         $stmt->bindParam(':pEfficacite', $efficacite, PDO::PARAM_INT); 
+        echo "test5";
         $stmt->bindParam(':pGenre', $genre, PDO::PARAM_STR);
         $stmt->bindParam(':pIdMunition', $idMunition, PDO::PARAM_INT); 
+        echo "test6";
         $stmt->execute();
         $stmt->closeCursor();   
+        echo "test7";
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
         $stmt->execute(); 
         $id = $stmt->fetch(PDO::FETCH_NUM);
+        echo "test8";
         return $id;
     }catch(PDOException $e){
         echo "Erreur:".$e->getMessage();
@@ -693,22 +716,30 @@ function AjouterMunitionMagasin($nom, $qte, $calibre, $prixU, $poids, $descripti
     Connexion();
     global $pdo;
     $description=trim($description);
+    $estEnVente = 1;
     try {
+        //echo "test1";
         $sqlProcedure = "CALL AjouterMunitions(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pCalibre)";
         $stmt = $pdo->prepare($sqlProcedure);
+        //echo "test2";
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
+        //echo "test3";
         $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        //echo "test4";
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', 1, PDO::PARAM_INT); //bit
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
+        //echo "test5";
         $stmt->bindParam(':pCalibre', $calibre, PDO::PARAM_INT); 
         $stmt->execute();
         $stmt->closeCursor();   
+        //echo "test6";
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
         $stmt->execute(); 
         $id = $stmt->fetch(PDO::FETCH_NUM);
+        //echo "test7";
         return $id;
     }catch(PDOException $e){
         echo "Erreur:".$e->getMessage();
@@ -728,6 +759,7 @@ function AjouterMedicamentMagasin($nom, $qte, $prixU, $poids, $description, $eff
     Connexion();
     global $pdo;
     $description=trim($description);
+    $estEnVente = 1;
     try {
         $sqlProcedure = "CALL AjouterMedicament(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pEffet, :pDureeEffet)";
         $stmt = $pdo->prepare($sqlProcedure);
@@ -736,11 +768,11 @@ function AjouterMedicamentMagasin($nom, $qte, $prixU, $poids, $description, $eff
         $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', 1, PDO::PARAM_INT); //bit
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
         $stmt->bindParam(':pEffet', $effet, PDO::PARAM_INT); 
         $stmt->bindParam(':pDureeEffet', $dureeEffet, PDO::PARAM_INT); 
         $stmt->execute();
-        $stmt->closeCursor();   
+        $stmt->closeCursor();  
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
         $stmt->execute(); 
@@ -765,6 +797,8 @@ function AjouterNourritureMagasin($nom, $qte, $prixU, $poids, $description, $poi
     global $pdo;
     $description=trim($description);
     try {
+        $estEnVente = 1;
+        
         $sqlProcedure = "CALL AjouterNourriture(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pPointDeVie)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
@@ -772,11 +806,10 @@ function AjouterNourritureMagasin($nom, $qte, $prixU, $poids, $description, $poi
         $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
         $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', 1, PDO::PARAM_INT); //bit
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); //bit
         $stmt->bindParam(':pPointDeVie', $pointDeVie, PDO::PARAM_INT); 
         $stmt->execute();
         $stmt->closeCursor();   
-
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
         $stmt->execute(); 
         $id = $stmt->fetch(PDO::FETCH_NUM);
@@ -790,6 +823,26 @@ function AjouterNourritureMagasin($nom, $qte, $prixU, $poids, $description, $poi
         }
         echo "<script type='text/javascript'>alert('$message');</script>";       
     }
+}
+
+
+
+function AfficherListeArme(){
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("SELECT IdItems, Nom FROM Items WHERE type='M'", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[0]);
+            array_push($rangee, $donnee[1]);
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
 }
 
 

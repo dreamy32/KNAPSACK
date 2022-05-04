@@ -135,12 +135,12 @@ END $$
 # Procédure qui permet d'ajouter un item de type armure dans le magasin ==============================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterArmure
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), matiere varchar(30), taille int(11))
+(nom VARCHAR(45),quantite int(11), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), matiere varchar(30), taille int(11))
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(matiere) != '' AND taille > 0
+	IF TRIM(nom) != '' AND quantite >= 0 AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(matiere) != '' AND taille > 0
     THEN
 			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			VALUES(nom, quantite, 'A', prixUnitaire,poids, description, estEnVente);
 			SET @IdItems = LAST_INSERT_ID();
 			INSERT INTO Armures(Items_IdItems, taille, matiere)
 			VALUES(@IdItems, taille, matiere);
@@ -158,12 +158,12 @@ END $$
 # Procédure qui permet d'ajouter un item de type médicament dans le magasin ===========================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterMedicament
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), effet varchar(45), dureeEffet float)
+(nom VARCHAR(45),quantite int(11), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), effet varchar(45), dureeEffet float)
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(effet) != '' AND dureeEffet > 0
+	IF TRIM(nom) != '' AND quantite >= 0 AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND TRIM(effet) != '' AND dureeEffet > 0
     THEN
 			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			VALUES(nom, quantite, 'D', prixUnitaire,poids, description, estEnVente);
 			SET @IdItems = LAST_INSERT_ID();
 			INSERT INTO Medicament(Items_IdItems, effet, dureeEffet)
 			VALUES(@IdItems, effet, dureeEffet);
@@ -180,12 +180,12 @@ END $$
 # Procédure qui permet d'ajouter un item de type nourriture dans le magasin ==========================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterNourriture
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), pointDeVie int(11))
+(nom VARCHAR(45),quantite int(11), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), pointDeVie int(11))
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND pointDeVie > 0
+	IF TRIM(nom) != '' AND quantite >= 0 AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND pointDeVie > 0
     THEN
 			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			VALUES(nom, quantite, 'N', prixUnitaire,poids, description, estEnVente);
 			SET @IdItems = LAST_INSERT_ID();
 			INSERT INTO Nourriture(Items_IdItems, pointDeVie)
 			VALUES(@IdItems, pointDeVie);
@@ -202,12 +202,12 @@ END $$
 # Procédure qui permet d'ajouter un item de type munition dans le magasin ============================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterMunitions
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), calibre float)
+(nom VARCHAR(45),quantite int(11), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), calibre float)
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND calibre > 0
+	IF TRIM(nom) != '' AND quantite >= 0 AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND calibre > 0
     THEN
 			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			VALUES(nom, quantite, 'M', prixUnitaire,poids, description, estEnVente);
 			SET @IdItems = LAST_INSERT_ID();
 			INSERT INTO Munitions(Items_IdItems, calibre)
 			VALUES(@IdItems, calibre);
@@ -225,12 +225,12 @@ END $$
 # Procédure qui permet d'ajouter un item de type arme dans le magasin ================================================================
 DELIMITER $$
 CREATE PROCEDURE AjouterArmes
-(nom VARCHAR(45),quantite int(11), type char(1), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), efficacite int(11), genre varchar(45), Munitions_Items_IdItems int(11))
+(nom VARCHAR(45),quantite int(11), prixUnitaire decimal(10,0), poids float, description varchar(120), estEnVente bit(1), efficacite int(11), genre varchar(45), Munitions_Items_IdItems int(11))
 BEGIN
-	IF TRIM(nom) != '' AND quantite >= 0 AND TRIM(type) != '' AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND efficacite > 0 AND TRIM(genre) != '' AND Munitions_Items_IdItems > 0
+	IF TRIM(nom) != '' AND quantite >= 0 AND prixUnitaire > 0 AND poids > 0 AND (estEnVente = 0 OR estEnVente = 1) AND efficacite > 0 AND TRIM(genre) != '' AND Munitions_Items_IdItems > 0
     THEN
 			INSERT INTO Items(nom, quantite, type, prixUnitaire, poids, description, estEnVente)
-			VALUES(nom, quantite, type, prixUnitaire,poids, description, estEnVente);
+			VALUES(nom, quantite, 'W', prixUnitaire,poids, description, estEnVente);
 			SET @IdItems = LAST_INSERT_ID();
 			INSERT INTO Armes(Items_IdItems, efficacite, genre, Munitions_Items_IdItems)
 			VALUES(@IdItems, efficacite, genre, Munitions_Items_IdItems);
@@ -840,6 +840,7 @@ call AjouterMedicament("Potion Poison", 40, "D", 5, 20, "Cette potion vous perme
 call AjouterMedicament("Potion Regeneration", 20, "D", 5, 20,"Cette potion vous permet de regagner vos vie graduellement.", 1, "regeneration", 10.0);
 call AjouterMedicament("Potion Force", 50, "D", 5, 20, "Cette potion vous permet d'être fort pendant 60 secondes.", 1, "Force", 60.0);
 call AjouterMedicament("Potion Lent", 5, "D", 5, 20, "Cette potion vous permet d'être lent pendant 60 secondes.", 1, "lent", 60.0);
+#call AjouterMedicament("Potion Lent", 5, 5, 20, "Cette potion vous permet d'être lent pendant 60 secondes.", 1, "lent", 60.0);
 
 call AjouterNourriture("pomme", 24, "D", 1, 0.5, "Une pomme rouge.", 1, 3);
 call AjouterNourriture("pain", 100, "D", 1, 0.5, "Une pain de blé.", 1, 2);
