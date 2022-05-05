@@ -955,4 +955,17 @@ function AfficherAliasJoueur(){
         $stmt->closeCursor();
         return $info;
 }
+function AjouterArgentJoueur($soldeADonner,$aliasJoueur){
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("UPDATE Joueurs SET Solde = Solde + :pSoldeADonner WHERE alias = :pAliasJoueur", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+        $stmt->bindParam(':pSoldeADonner', $soldeADonner, PDO::FETCH_NUM);
+        $stmt->bindParam(':pAliasJoueur', $aliasJoueur,PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
 ?>
