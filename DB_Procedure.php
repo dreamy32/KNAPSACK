@@ -944,7 +944,7 @@ function AfficherAliasJoueur(){
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
 
-        $stmt = $pdo->prepare("SELECT * FROM Joueurs", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $pdo->prepare("SELECT * FROM Joueurs ORDER BY alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->execute();
         $info = [];
         while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
