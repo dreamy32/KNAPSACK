@@ -291,6 +291,7 @@ require('header.php');
 </script>
 
 <body style="height: 95vh; margin: 3.3vh 5vw; margin-bottom: unset;">
+    <a href="index.php"><img src="images/Knapsack.png"></img></a>
     <div aria-label="Window" style="margin: auto; height: 98%; background: url(../images/Oak_Wood_Planks.png) 0 0/15%;">
         <div id="window-container" style="margin-top: unset;">
             <h1 id="window-title">Ajouter Item</h1>
