@@ -939,4 +939,33 @@ function PourcentageHistogramme($idItem,$nbEtoile){
         return $e->getMessage();
     }
 }
+function AfficherAliasJoueur(){
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+        $stmt = $pdo->prepare("SELECT * FROM Joueurs ORDER BY alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[4]);
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
+}
+function AjouterArgentJoueur($soldeADonner,$aliasJoueur){
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("UPDATE Joueurs SET Solde = Solde + :pSoldeADonner WHERE alias = :pAliasJoueur", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+        $stmt->bindParam(':pSoldeADonner', $soldeADonner, PDO::FETCH_NUM);
+        $stmt->bindParam(':pAliasJoueur', $aliasJoueur,PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
 ?>
