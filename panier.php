@@ -59,7 +59,16 @@
         $qteNum = 0;
         if ($action == 'TRUE') {
             try{
-                PayerPanier($alias);
+                $dexterite = Dexterite($_SESSION['alias']);
+                if($dexterite > 0)
+                {
+                    PayerPanier($alias);
+                }
+                else
+                {
+                    $messageErreur = "Impossible de payer le panier car la dextérité est négative.";
+                }
+                
             } catch (Exception $e) {
                 $messageErreur=$e->getMessage();
             }
