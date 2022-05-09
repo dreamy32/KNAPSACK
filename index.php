@@ -62,7 +62,7 @@ if(isset($_POST['nbEtoile'])){
                             if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
                                 echo '<a href="admin.php" style="text-decoration: none;"><div class="advancedSearch"style="margin:5%"><p>Admin</p></div></a>';
                             }
-                            echo '<a href="enigma" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Enigma <img style="position:relative; bottom:3px; width: 15px;height:15px;" src=images/enigma.png> </p></div></a>';
+                            echo '<a href="Enigma" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Enigma <img style="position:relative; bottom:3px; width: 15px;height:15px;" src=images/enigma.png> </p></div></a>';
                             echo '<a href="index.php?deconnecter=true" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Deconnecter</p></div></a>';
                         } else {
                             echo '<a href="login.php" style="text-decoration: none;"><div class="advancedSearch" style="margin:5%"><p>Se Connecter</p></div></a>';
