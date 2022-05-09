@@ -1,21 +1,16 @@
 <?php 
     $title = "Changer Mot de Passe";
+    session_start();
     require('header.php');
-/*
-        include('DB_Procedure.php');
-        $profile = chercherInfoJoueur()
-        $profile[0] : Alias du joueur
-        $profile[1] : Solder du joueur 
-        $profile[2] : poids du joueur
-        $profile[3] : poidsmax du joueur
-        $profile[4] : Prenom du joueur
-        $profile[5] : Nom du joueur
-    */
+    include('DB_Procedure.php');    
+    $profile = AfficherInfosJoueur($_SESSION['alias']);
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-        /* Valider information formulaire  
-            Si incorect | afficher erreur 
-            Si correct  |Commit changes et header('Location: profile.php');
-        */
+        if(hash("sha512",$_POST['mdpActuel'] == $profile[7])){
+            if($_POST['mdpNouveau'] == $_POST['mdpConfirmation']){
+                ModifierMotPasse($_SESSION['alias'],hash("sha512",$_POST['mdpConfirmation']));
+                echo "<script>window.location.href='profile.php'</script>";
+            }
+        }
     }
 ?>
 <body style="text-align: center;">

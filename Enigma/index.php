@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start(); 
+require("../DB_Procedure.php");
 
+if ($_GET['deconnecter'] == 'true') {
+    session_destroy();
+    session_unset();
+    setcookie("PHPSESSID", null, -1);
+    echo "<script>window.location.href='index.php'</script>";
+    //header('Location: index.php');
+}
+
+
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +42,30 @@
                         En<span>ig</span>Ma
                         <img src="https://www.svgrepo.com/show/98471/question-mark-inside-square.svg"
                             alt="Question Block" style="width: 20px; ">
+                        <?php    
+                        
+                        if (isset($_SESSION['alias']))
+                            echo"<span style='color:Orange'>" . $_SESSION['alias']. "</span>";
+                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> ~ ADMIN ~</span>"; } 
+                              
+                        ?>
                     </div>
                 </div>
                 <div id="links">
-                    <a href="">Se connecter</a>
+                    <?php
+                    
+                        if (isset($_SESSION['alias']))
+                            echo "<a href='index.php?deconnecter=true'>Se déconnecter</a>";
+                        else
+                            echo "<a href='../login.php?from=enigma'>Se connecter</a>";
+
+
+
+                    ?>
                     <!-- <a href="">Choisir une énigme</a>
                     <a href="">Statistiques</a>
                     <a href="">Se déconnecter</a> -->
-                    <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
+                    <a href=".."><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
                 </div>
             </div>
 

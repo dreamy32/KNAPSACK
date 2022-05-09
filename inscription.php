@@ -38,7 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($estValide) {
         try{
             AjouterJoueur($_POST["alias"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"]);
-            echo "<script>window.location.href='login.php'</script>";
+
+            if (isset($_GET['from']) && $_GET['from'] == 'enigma')
+            echo "<script>window.location.href='login.php?from=enigma'</script>";
+            else
+                echo "<script>window.location.href='login.php'</script>";
             //header('Location: login.php');
             $errorToast = "";
         }
