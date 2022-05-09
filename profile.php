@@ -1,7 +1,7 @@
 <?php 
     $title = "Profile";
-    require('header.php');
     session_start();
+    require('header.php');
     include('DB_Procedure.php');    
     $profile = AfficherInfosJoueur($_SESSION['alias']);
     if(array_key_exists('bouttonModifier', $_POST)) {
