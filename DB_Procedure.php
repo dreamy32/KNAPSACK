@@ -972,10 +972,23 @@ function ModifierAliasNomPrenom($aliasCourrant,$alias,$prenom,$nom){
     Connexion();
     global $pdo;
     try {
-        $stmt = $pdo->prepare("UPDATE Joueurs SET nom = :pNom WHERE alias=:pAliasCourant", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+        $stmt = $pdo->prepare("UPDATE Joueurs SET alias = :pAlias, prenom = :pPrenom, nom = :pNom WHERE alias=:pAliasCourant", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
         $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
         $stmt->bindParam(':pPrenom', $prenom, PDO::PARAM_STR);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':pAliasCourant', $aliasCourrant, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+function ModifierMotPasse($aliasCourrant,$motDePasse){
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("UPDATE Joueurs SET motDePasse = :pMotDePasse WHERE alias=:pAliasCourant", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+        $stmt->bindParam(':pMotDePasse', $motDePasse, PDO::PARAM_STR);
         $stmt->bindParam(':pAliasCourant', $aliasCourrant, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->rowCount();

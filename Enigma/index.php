@@ -82,11 +82,10 @@ if ($_GET['deconnecter'] == 'true') {
         </div>
     </header>
     <main>
-        <!-- <div id="captcha">
-            <div id="handle">
-                <span></span>
-            </div>
-        </div> -->
+        <h2 id="title" style="text-align: center; font-family: system-ui;">Bienvenue Vladimoune</h2>
+        <div>
+            <input class="start-button" type="submit" value="Jouer">
+        </div>
     </main>
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
