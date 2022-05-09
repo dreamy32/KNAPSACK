@@ -46,7 +46,7 @@ if ($_GET['deconnecter'] == 'true') {
                         
                         if (isset($_SESSION['alias']))
                             echo"<span style='color:Orange'>" . $_SESSION['alias']. "</span>";
-                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> | ADMIN |</span>"; } 
+                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> ~ ADMIN ~</span>"; } 
                               
                         ?>
                     </div>
