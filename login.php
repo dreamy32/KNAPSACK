@@ -29,13 +29,21 @@
             $_SESSION['mdp'] = $mdp;
             $_SESSION['idJoueur'] = $InfoJoueur[0];
             //header('Location: index.php');
-            echo "<script>window.location.href='index.php'</script>";
+            if (isset($_GET['from']) && $_GET['from'] == 'enigma')
+            echo "<script>window.location.href='Enigma'</script>";
+            else
+                echo "<script>window.location.href='index.php'</script>";
         }
         else
             echo $errorToast;
     }
     else if(array_key_exists('bouttoninscription', $_POST)){
-        echo "<script>window.location.href='inscription.php'</script>";
+
+        if (isset($_GET['from']) && $_GET['from'] == 'enigma')
+            echo "<script>window.location.href='inscription.php?from=enigma'</script>";
+            else
+                echo "<script>window.location.href='inscription.php'</script>";
+        
         //header('Location: inscription.php');
     }
 ?>
