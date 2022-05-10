@@ -36,8 +36,8 @@
         
         echo $messageToastSucces;
     }    
+   
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,16 +129,20 @@
                     </form>
 
 
-                    <div href="voirInventaire.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Voir l'inventaire de : <?php 
+
+                    <form style="display:flex" action="voirInventaire.php" method="post"> <div style="display:inline; text-decoration: none; width:50%;"> Voir l'inventaire de : 
+                    <?php 
+                    
                     $tabJoueurs = AfficherAliasJoueur();  
                     
-                    echo "<select name='ajoutcapsalias' style='background-color: black; width:200px;'> <option value='Tout le monde'>Tout le monde</option>";
+                    echo "<select name='voirinventairealias' style='background-color: black; width:200px;'>";
                     foreach ( $tabJoueurs as $joueur){
                         echo "<option value='$joueur[0]'>$joueur[0]</option>";
                     }
                     echo "</select>";
-                    ?></div></div></a>
-
+                    ?></div>
+                    <div onclick="this.parentNode.submit()" class="advancedSearch" style="margin:5%; width:200px; height:75px">Afficher</div>
+                    </form>
                     <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item <img style="width: 20px;" src="../images/bread.png" alt="bread"></div></div></a>
                     </div>                    
                 </div>

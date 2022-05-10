@@ -165,7 +165,7 @@ function AfficherItemsVente($type = '%')
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
         Des erreurs sont survenus
     </span>
-    <script>Snackbar();</script>";      
+    <script>Snackbar();</script>";
     }
 }
 
@@ -262,7 +262,7 @@ function AfficherItemsVenteTri($tri, $nbEtoiles, $type, $ordre)
         <img src='images/red_exclamation.png' alt='errorToastIcon'> &nbsp;
         Des erreurs sont survenus
     </span>
-    <script>Snackbar();</script>";       
+    <script>Snackbar();</script>";
     }
 }
 
@@ -278,14 +278,14 @@ function AjouterItemPanier($idItem, $nbItem)
         $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
-        }catch(PDOException $e){
-             $pos = strpos($e->getMessage(),">:");
-             $message=$e->getMessage();
-             if ($pos!=-1) {
-                 $message=substr($e->getMessage(),$pos+7);
-            }
-            echo "<script type='text/javascript'>alert('$message');</script>";       
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 }
 
 function ModifierItemPanier($qte, $numItem)
@@ -302,12 +302,12 @@ function ModifierItemPanier($qte, $numItem)
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new Exception($message);        
+        throw new Exception($message);
     }
 }
 
@@ -324,12 +324,12 @@ function SupprimerItemPanier($numItem)
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new Exception($message); 
+        throw new Exception($message);
     }
 }
 
@@ -356,12 +356,12 @@ function AfficherPanier($alias)
         $stmt->closeCursor();
         return $info;
     } catch (PDOException $e) {
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new Exception($message); 
+        throw new Exception($message);
     }
 }
 
@@ -418,24 +418,24 @@ function MontantTotalPanier($idJoueur)
 
 
 
-    function PayerPanier($alias)
-    {
-        Connexion();
-        global $pdo;
-        try{
-            $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
-            $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
-            $stmt->execute();
-            $stmt->closeCursor();
-        }catch(PDOException $e){
-            $pos = strpos($e->getMessage(),">:");
-            $message=$e->getMessage();
-            if ($pos!=-1) {
-                $message=substr($e->getMessage(),$pos+7);
-            }
-            throw new Exception($message); 
+function PayerPanier($alias)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("CALL PayerPanier(:pAlias)");
+        $stmt->bindParam(':pAlias', $alias, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
+        throw new Exception($message);
     }
+}
 
 
 
@@ -546,7 +546,8 @@ function ChercherInfoItemSelonId($idItem)
     }
 }
 
-function AjouterArgentToutLeMonde($soldeADonner){
+function AjouterArgentToutLeMonde($soldeADonner)
+{
     Connexion();
     global $pdo;
     try {
@@ -564,31 +565,31 @@ function AjouterArmureMagasin($nom, $qte, $matiere, $taille, $prixU, $poids, $de
 {
     Connexion();
     global $pdo;
-    $description=trim($description);
+    $description = trim($description);
     $estEnVente = 1;
     try {
         $sqlProcedure = "CALL AjouterArmure(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pMatiere, :pTaille)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
-        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR);
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
         $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); //bit
         $stmt->bindParam(':pMatiere', $matiere, PDO::PARAM_STR);
-        $stmt->bindParam(':pTaille', $taille, PDO::PARAM_INT); 
+        $stmt->bindParam(':pTaille', $taille, PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->closeCursor();  
- 
+        $stmt->closeCursor();
+
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
-        $stmt->execute(); 
+        $stmt->execute();
         $id = $stmt->fetch(PDO::FETCH_NUM);
         return $id;
-    }catch(PDOException $e){
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
         throw new \PDOException($message, (int)$e->getCode());
     }
@@ -602,35 +603,35 @@ function AjouterArmeMagasin($nom, $qte, $efficacite, $genre, $prixU, $poids, $de
 {
     Connexion();
     global $pdo;
-    $description=trim($description);
+    $description = trim($description);
     $estEnVente = 1;
     try {
         $sqlProcedure = "CALL AjouterArmes(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pEfficacite, :pGenre, :pIdMunition)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
-        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR);
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
-        $stmt->bindParam(':pEfficacite', $efficacite, PDO::PARAM_INT); 
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT);
+        $stmt->bindParam(':pEfficacite', $efficacite, PDO::PARAM_INT);
         $stmt->bindParam(':pGenre', $genre, PDO::PARAM_STR);
-        $stmt->bindParam(':pIdMunition', $idMunition, PDO::PARAM_INT); 
+        $stmt->bindParam(':pIdMunition', $idMunition, PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->closeCursor();   
+        $stmt->closeCursor();
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
-        $stmt->execute(); 
+        $stmt->execute();
         $id = $stmt->fetch(PDO::FETCH_NUM);
 
         return $id;
-    }catch(PDOException $e){
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new \PDOException($message, (int)$e->getCode());       
+        throw new \PDOException($message, (int)$e->getCode());
     }
 }
 
@@ -639,30 +640,30 @@ function AjouterMunitionMagasin($nom, $qte, $calibre, $prixU, $poids, $descripti
 {
     Connexion();
     global $pdo;
-    $description=trim($description);
+    $description = trim($description);
     $estEnVente = 1;
     try {
         $sqlProcedure = "CALL AjouterMunitions(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pCalibre)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
-        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR);
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
-        $stmt->bindParam(':pCalibre', $calibre, PDO::PARAM_INT); 
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT);
+        $stmt->bindParam(':pCalibre', $calibre, PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->closeCursor();   
+        $stmt->closeCursor();
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
-        $stmt->execute(); 
+        $stmt->execute();
         $id = $stmt->fetch(PDO::FETCH_NUM);
         return $id;
-    }catch(PDOException $e){
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
         throw new \PDOException($message, (int)$e->getCode());
     }
@@ -674,33 +675,33 @@ function AjouterMedicamentMagasin($nom, $qte, $prixU, $poids, $description, $eff
 {
     Connexion();
     global $pdo;
-    $description=trim($description);
+    $description = trim($description);
     $estEnVente = 1;
     try {
         $sqlProcedure = "CALL AjouterMedicament(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pEffet, :pDureeEffet)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
-        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR);
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); 
-        $stmt->bindParam(':pEffet', $effet, PDO::PARAM_INT); 
-        $stmt->bindParam(':pDureeEffet', $dureeEffet, PDO::PARAM_INT); 
+        $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT);
+        $stmt->bindParam(':pEffet', $effet, PDO::PARAM_INT);
+        $stmt->bindParam(':pDureeEffet', $dureeEffet, PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->closeCursor();  
+        $stmt->closeCursor();
 
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
-        $stmt->execute(); 
+        $stmt->execute();
         $id = $stmt->fetch(PDO::FETCH_NUM);
         return $id;
-    }catch(PDOException $e){
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new \PDOException($message, (int)$e->getCode());       
+        throw new \PDOException($message, (int)$e->getCode());
     }
 }
 
@@ -710,53 +711,54 @@ function AjouterNourritureMagasin($nom, $qte, $prixU, $poids, $description, $poi
 {
     Connexion();
     global $pdo;
-    $description=trim($description);
+    $description = trim($description);
     try {
         $estEnVente = 1;
-        
+
         $sqlProcedure = "CALL AjouterNourriture(:pNom, :pQte, :pPrixU, :pPoids, :pDescription, :pEstEnVente, :pPointDeVie)";
         $stmt = $pdo->prepare($sqlProcedure);
         $stmt->bindParam(':pNom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':pQte', $qte, PDO::PARAM_INT);
-        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR); 
-        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPrixU', $prixU, PDO::PARAM_STR);
+        $stmt->bindParam(':pPoids', $poids, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $description, PDO::PARAM_STR);
         $stmt->bindParam(':pEstEnVente', $estEnVente, PDO::PARAM_INT); //bit
-        $stmt->bindParam(':pPointDeVie', $pointDeVie, PDO::PARAM_INT); 
+        $stmt->bindParam(':pPointDeVie', $pointDeVie, PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->closeCursor();   
+        $stmt->closeCursor();
         $stmt = $pdo->prepare("SELECT IdItems from Items order by IdItems desc limit 1;");
-        $stmt->execute(); 
+        $stmt->execute();
         $id = $stmt->fetch(PDO::FETCH_NUM);
         return $id;
-    }catch(PDOException $e){
-        $pos = strpos($e->getMessage(),">:");
-        $message=$e->getMessage();
-        if ($pos!=-1) {
-            $message=substr($e->getMessage(),$pos+7);
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
-        throw new \PDOException($message, (int)$e->getCode());    
+        throw new \PDOException($message, (int)$e->getCode());
     }
 }
 
 
 
-function AfficherListeArme(){
+function AfficherListeArme()
+{
     Connexion();
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
 
-        $stmt = $pdo->prepare("SELECT IdItems, Nom FROM Items WHERE type='M'", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->execute();
-        $info = [];
-        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            $rangee = [];
-            array_push($rangee, $donnee[0]);
-            array_push($rangee, $donnee[1]);
-            array_push($info, $rangee);
-        }
-        $stmt->closeCursor();
-        return $info;
+    $stmt = $pdo->prepare("SELECT IdItems, Nom FROM Items WHERE type='M'", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]);
+        array_push($rangee, $donnee[1]);
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
 }
 
 
@@ -765,7 +767,8 @@ function AfficherListeArme(){
 
 
 
-function AjouterÉvaluation($idJoueur, $idItem,$commentaire,$nbEtoile){
+function AjouterÉvaluation($idJoueur, $idItem, $commentaire, $nbEtoile)
+{
     Connexion();
     global $pdo;
     try {
@@ -777,14 +780,14 @@ function AjouterÉvaluation($idJoueur, $idItem,$commentaire,$nbEtoile){
         $stmt->bindParam(':pNbEtoile', $nbEtoile, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
-        }catch(PDOException $e){
-            $pos = strpos($e->getMessage(),">:");
-            $message=$e->getMessage();
-            if ($pos!=-1) {
-                $message=substr($e->getMessage(),$pos+7);
-            }
-            echo "<script type='text/javascript'>alert('$message');</script>";       
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 }
 function HasAlreadyBought($id, $item)
 {
@@ -794,70 +797,69 @@ function HasAlreadyBought($id, $item)
     Connexion();
     global $pdo;
 
-        $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
+    $stmt = $pdo->prepare("SELECT EXISTS (SELECT Items_IdItems FROM Inventaire 
         WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':pIdItem', $item, PDO::PARAM_INT);
-        $stmt->bindParam(':pIdJoueur', $id, PDO::PARAM_INT);
-        $stmt->execute();
+    $stmt->bindParam(':pIdItem', $item, PDO::PARAM_INT);
+    $stmt->bindParam(':pIdJoueur', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-        $hasBought = false;
+    $hasBought = false;
 
-        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            $etat = $donnee[0];
-        }
+    if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $etat = $donnee[0];
+    }
 
-        if ($etat == 1){
-            $hasBought = true;
-        }
-        $stmt->closeCursor();
-        return $hasBought;
+    if ($etat == 1) {
+        $hasBought = true;
+    }
+    $stmt->closeCursor();
+    return $hasBought;
 }
 
-function AfficherEvaluations($idItem){
+function AfficherEvaluations($idItem)
+{
     Connexion();
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
 
-        $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem ORDER BY idEvaluations DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
-        $stmt->execute();
-        $info = [];
-        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            $rangee = [];
-            array_push($rangee, $donnee[0]);
-            array_push($rangee, $donnee[1]);
-            array_push($rangee, $donnee[2]);
-            array_push($rangee, $donnee[3]);
-            array_push($rangee, $donnee[4]);
-            array_push($info, $rangee);
-        }
-        $stmt->closeCursor();
-        return $info;
+    $stmt = $pdo->prepare("SELECT * FROM Evaluations WHERE Items_IdItems = :pIdItem ORDER BY idEvaluations DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]);
+        array_push($rangee, $donnee[1]);
+        array_push($rangee, $donnee[2]);
+        array_push($rangee, $donnee[3]);
+        array_push($rangee, $donnee[4]);
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
 }
 
 function SupprimerEvaluation($idItem)
 {
-    try{
-    Connexion();
-    global $pdo;
-    mysqli_set_charset($pdo, "utf8mb4");
+    try {
+        Connexion();
+        global $pdo;
+        mysqli_set_charset($pdo, "utf8mb4");
 
         $stmt = $pdo->prepare("DELETE FROM Evaluations WHERE Items_IdItems = :pIdItem", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':pIdItem', $idItem, PDO::PARAM_INT);
         $stmt->execute();
-
-        
-    }
-    catch(PDOException $e){
-    $pos = strpos($e->getMessage(),">:");
-    $message=$e->getMessage();
-    if ($pos!=-1) {
-        $message=substr($e->getMessage(),$pos+7);
-    }
-    echo "<script type='text/javascript'>alert('$message');</script>";       
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
+        }
+        echo "<script type='text/javascript'>alert('$message');</script>";
     }
 }
-function DeleteEval($idEval){
+function DeleteEval($idEval)
+{
     Connexion();
     global $pdo;
     try {
@@ -866,18 +868,19 @@ function DeleteEval($idEval){
         $stmt->bindParam(':pidEval', $idEval, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
-        }catch(PDOException $e){
-            $pos = strpos($e->getMessage(),">:");
-            $message=$e->getMessage();
-            if ($pos!=-1) {
-                $message=substr($e->getMessage(),$pos+7);
-            }
-            echo "<script type='text/javascript'>alert('$message');</script>";       
+    } catch (PDOException $e) {
+        $pos = strpos($e->getMessage(), ">:");
+        $message = $e->getMessage();
+        if ($pos != -1) {
+            $message = substr($e->getMessage(), $pos + 7);
         }
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 }
-function PeutDeleteEvaluation($idJoueur){
+function PeutDeleteEvaluation($idJoueur)
+{
     $infoJoueur = AfficherInfosJoueur($_SESSION['alias']);
-    if($infoJoueur[0]==$idJoueur or $infoJoueur[10] == 1){
+    if ($infoJoueur[0] == $idJoueur or $infoJoueur[10] == 1) {
         return True;
     }
     return False;
@@ -920,7 +923,8 @@ function NombreEvaluations($idItem)
         return $e->getMessage();
     }
 }
-function PourcentageHistogramme($idItem,$nbEtoile){
+function PourcentageHistogramme($idItem, $nbEtoile)
+{
     Connexion();
     global $pdo;
     try {
@@ -939,36 +943,39 @@ function PourcentageHistogramme($idItem,$nbEtoile){
         return $e->getMessage();
     }
 }
-function AfficherAliasJoueur(){
+function AfficherAliasJoueur()
+{
     Connexion();
     global $pdo;
     mysqli_set_charset($pdo, "utf8mb4");
 
-        $stmt = $pdo->prepare("SELECT * FROM Joueurs ORDER BY alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->execute();
-        $info = [];
-        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            $rangee = [];
-            array_push($rangee, $donnee[4]);
-            array_push($info, $rangee);
-        }
-        $stmt->closeCursor();
-        return $info;
+    $stmt = $pdo->prepare("SELECT * FROM Joueurs ORDER BY alias", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[4]);
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
 }
-function AjouterArgentJoueur($soldeADonner,$aliasJoueur){
+function AjouterArgentJoueur($soldeADonner, $aliasJoueur)
+{
     Connexion();
     global $pdo;
     try {
         $stmt = $pdo->prepare("UPDATE Joueurs SET Solde = Solde + :pSoldeADonner WHERE alias = :pAliasJoueur", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
         $stmt->bindParam(':pSoldeADonner', $soldeADonner, PDO::FETCH_NUM);
-        $stmt->bindParam(':pAliasJoueur', $aliasJoueur,PDO::PARAM_STR);
+        $stmt->bindParam(':pAliasJoueur', $aliasJoueur, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->rowCount();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
 }
-function ModifierAliasNomPrenom($aliasCourrant,$alias,$prenom,$nom){
+function ModifierAliasNomPrenom($aliasCourrant, $alias, $prenom, $nom)
+{
     Connexion();
     global $pdo;
     try {
@@ -983,7 +990,8 @@ function ModifierAliasNomPrenom($aliasCourrant,$alias,$prenom,$nom){
         return $e->getMessage();
     }
 }
-function ModifierMotPasse($aliasCourrant,$motDePasse){
+function ModifierMotPasse($aliasCourrant, $motDePasse)
+{
     Connexion();
     global $pdo;
     try {
@@ -996,4 +1004,47 @@ function ModifierMotPasse($aliasCourrant,$motDePasse){
         return $e->getMessage();
     }
 }
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//         ENIGMA DÉBUT
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+function ChoisirAléatoirementEnigme()
+{
+    Connexion();
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;");
+    $stmt->execute();
+    $count = $stmt->fetch(PDO::FETCH_NUM);
+
+    $idEnigme = rand(1, $count);
+}
+
+function ValiderReponse($idEnigme, $reponse, $idJoueur)
+{
+    Connexion();
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT reponse FROM Enigme WHERE idEnigme = :idEnigmeP;");
+    $stmt->bindParam(':idEnigmeP', $idEnigme, PDO::PARAM_INT);
+    $stmt->execute();
+    $reponseEnigme = $stmt->fetch(PDO::PARAM_STR);
+
+    $stmt = $pdo->prepare("SELECT nbCapsGagne FROM Enigme WHERE idEnigme = :idEnigmeP;");
+    $stmt->bindParam(':idEnigmeP', $idEnigme, PDO::PARAM_INT);
+    $stmt->execute();
+    $nbCaps = $stmt->fetch(PDO::FETCH_NUM);
+
+    if ($reponse == $reponseEnigme)
+    {
+        AjouterArgentJoueur($nbCaps,AfficherInfosJoueur($idJoueur)[0]);
+    }
+
+}
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//         ENIGMA FIN
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ?>
