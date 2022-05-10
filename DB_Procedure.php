@@ -997,6 +997,10 @@ function ModifierMotPasse($aliasCourrant,$motDePasse){
     }
 }
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//         ENIGMA DÉBUT
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 function ChoisirAléatoirementEnigme()
 {
     Connexion();
@@ -1008,4 +1012,9 @@ function ChoisirAléatoirementEnigme()
 
     $idEnigme = rand(1,$count);
 }
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//         ENIGMA FIN
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ?>
