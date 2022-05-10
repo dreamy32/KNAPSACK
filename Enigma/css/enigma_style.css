@@ -121,6 +121,9 @@ a {
     font-size: 2.2rem;
     margin-inline: 10%;
   }
+  #difficulte {
+    font-size: 2rem;
+  }
 }
 
 /* Tablet to Desktop */
@@ -139,6 +142,9 @@ a {
   }
   .question {
     font-size: 3em;
+  }
+  #difficulte {
+    font-size: 3.5rem;
   }
 }
 
