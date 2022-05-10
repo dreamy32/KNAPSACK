@@ -996,4 +996,16 @@ function ModifierMotPasse($aliasCourrant,$motDePasse){
         return $e->getMessage();
     }
 }
+
+function ChoisirAléatoirementEnigme()
+{
+    Connexion();
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;");
+        $stmt->execute(); 
+        $count = $stmt->fetch(PDO::FETCH_NUM);
+
+    $idEnigme = rand(1,$count);
+}
 ?>

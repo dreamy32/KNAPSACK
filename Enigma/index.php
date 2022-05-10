@@ -3,7 +3,7 @@
 <?php 
 session_start(); 
 require("../DB_Procedure.php");
-require("enigma_functions.php");
+
 if ($_GET['deconnecter'] == 'true') {
     session_destroy();
     session_unset();
