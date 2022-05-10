@@ -27,6 +27,15 @@ if ($_GET['deconnecter'] == 'true') {
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>CSS Grid Navigation Bar</title>
+    <script defer>
+    
+    function RemovePlayText()
+    {
+        document.getElementById('play-text').remove();
+    }
+
+
+    </script>
 </head>
 
 <body>
@@ -46,7 +55,7 @@ if ($_GET['deconnecter'] == 'true') {
                         
                         if (isset($_SESSION['alias']))
                             echo"<span style='color:Orange'>" . $_SESSION['alias']. "</span>";
-                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> ~ ADMIN ~</span>"; } 
+                            if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> ~ADMIN~</span>"; } 
                               
                         ?>
                     </div>
@@ -62,9 +71,6 @@ if ($_GET['deconnecter'] == 'true') {
 
 
                     ?>
-                    <!-- <a href="">Choisir une énigme</a>
-                    <a href="">Statistiques</a>
-                    <a href="">Se déconnecter</a> -->
                     <a href=".."><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
                 </div>
             </div>
@@ -75,17 +81,30 @@ if ($_GET['deconnecter'] == 'true') {
             <a style="cursor:pointer;" class="closebtn" onclick="closeNav()">&times;</a>
             <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
             <br>
-            <a href="">Se connecter</a>
-            <!-- <a href="">Choisir une énigme</a>
-            <a href="">Statistiques</a>
-            <a href="">Se déconnecter</a> -->
+            <?php
+                    
+                    if (isset($_SESSION['alias']))
+                        echo "<a href='index.php?deconnecter=true'>Se déconnecter</a>";
+                    else
+                        echo "<a href='../login.php?from=enigma'>Se connecter</a>";
+                ?>
         </div>
     </header>
     <main>
-        <h2 id="title" style="text-align: center; font-family: system-ui;">Bienvenue Vladimoune</h2>
-        <div>
-            <input class="start-button" type="submit" value="Jouer">
-        </div>
+        
+    <div id='play-text'>
+        <?php
+        if (!isset($_SESSION['alias']))
+            echo "Connectez-vous pour jouer";
+        else
+        {
+            echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
+            echo "<div>";
+            echo "<input onclick='RemovePlayText()' class='start-button' type='submit' value='Jouer'></div>";
+        }
+
+        ?>
+    </div>
     </main>
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
