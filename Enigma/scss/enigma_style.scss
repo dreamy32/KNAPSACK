@@ -105,6 +105,10 @@ a {
         height: 100px;
         border-radius: 50px;
     }
+    .question{
+        font-size: 2.2rem;
+        margin-inline: 10%;
+    }
 }
 
 /* Tablet to Desktop */
@@ -120,6 +124,9 @@ a {
     }
     #title{
         font-size: 3rem;
+    }
+    .question{
+        font-size: 3em; 
     }
 }
 //Puzzle
@@ -141,4 +148,41 @@ main {
     &:hover{
         background-color: hsl(210, 90%, 40%);
     }
+    
+}
+.answers{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    button{
+        height: 60px;
+        margin-block: 10px;
+        font-size: 2.2rem;
+        background-color: hsl(210, 90%, 55%);
+        border-radius: 80px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        &:first-child{
+            margin-top: unset;
+        }
+        &:last-child{
+            margin-bottom: unset;
+        }
+        &:hover{
+            background-color: hsl(210, 90%, 40%);
+        }
+        &:focus{
+            background-color: hsl(0, 90%, 40%);
+        }
+    }
+}
+.good{
+    &:focus{
+        background-color: hsl(100, 90%, 40%) !important;
+    }
+}
+.question{
+    font-family: system-ui; 
+    text-align: center; 
 }
