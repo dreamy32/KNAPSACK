@@ -1019,6 +1019,7 @@ function ChoisirAléatoirementEnigme()
     $count = $stmt->fetch(PDO::FETCH_NUM);
 
     $idEnigme = rand(1, $count);
+    return $idEnigme;
 }
 
 function ValiderReponse($idEnigme, $reponse, $idJoueur)
@@ -1043,7 +1044,10 @@ function ValiderReponse($idEnigme, $reponse, $idJoueur)
 
 }
 
-
+function AfficherEnigme()
+{
+    
+}
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //         ENIGMA FIN
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
