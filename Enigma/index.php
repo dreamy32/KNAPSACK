@@ -12,6 +12,12 @@ if ($_GET['deconnecter'] == 'true') {
     //header('Location: index.php');
 }
 
+if (isset($_POST['start']))
+{
+    echo "<script>StartGame();</script>";
+
+    ChoisirAléatoirementEnigme();
+}
 
 
 ?>
@@ -83,21 +89,24 @@ if ($_GET['deconnecter'] == 'true') {
         </div>
     </header>
     <main id="main">
-        
+
     <div id='play-text'>
         <?php
-            if (!isset($_SESSION['alias']))
-                echo "Connectez-vous pour jouer";
-            else
-            {
-                echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
-                echo "<div>";
-                echo "<input onclick='StartGame()' class='start-button' type='submit' value='Jouer'></div>";
-            }
+        if (!isset($_SESSION['alias']))
+            echo "Connectez-vous pour jouer";
+        else
+        {
+            echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
+            echo "<div>";
+            echo "<form method='post'>";
+            echo "<input type='submit' class='start-button' type='submit' name='start' value='Jouer'></div>";
+            echo "</form>";
+        }
+
         ?>
     </div>
 
-    
+
     </main>
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
