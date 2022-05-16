@@ -31,6 +31,7 @@ if ($_GET['deconnecter'] == 'true') {
     
     function RemovePlayText()
     {
+        location.href = "#main";
         document.getElementById('play-text').remove();
     }
 
@@ -90,7 +91,7 @@ if ($_GET['deconnecter'] == 'true') {
                 ?>
         </div>
     </header>
-    <main>
+    <main id="main">
         
     <div id='play-text'>
         <?php
