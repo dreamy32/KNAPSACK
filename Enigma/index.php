@@ -28,15 +28,11 @@ if ($_GET['deconnecter'] == 'true') {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Enigma</title>
     <script defer>
-    
     function StartGame()
     {
         location.href = "#main";
         document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
-
     }
-
-
     </script>
 </head>
 
@@ -58,20 +54,15 @@ if ($_GET['deconnecter'] == 'true') {
                         if (isset($_SESSION['alias']))
                             echo"<span style='color:Orange'>" . $_SESSION['alias']. "</span>";
                             if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) { echo "<span style='color:Orange'> ~ADMIN~</span>"; } 
-                              
                         ?>
                     </div>
                 </div>
                 <div id="links">
                     <?php
-                    
                         if (isset($_SESSION['alias']))
                             echo "<a href='index.php?deconnecter=true'>Se déconnecter</a>";
                         else
                             echo "<a href='../login.php?from=enigma'>Se connecter</a>";
-
-
-
                     ?>
                     <a href=".."><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
                 </div>
@@ -84,27 +75,25 @@ if ($_GET['deconnecter'] == 'true') {
             <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
             <br>
             <?php
-                    
                     if (isset($_SESSION['alias']))
                         echo "<a href='index.php?deconnecter=true'>Se déconnecter</a>";
                     else
                         echo "<a href='../login.php?from=enigma'>Se connecter</a>";
-                ?>
+            ?>
         </div>
     </header>
     <main id="main">
         
     <div id='play-text'>
         <?php
-        if (!isset($_SESSION['alias']))
-            echo "Connectez-vous pour jouer";
-        else
-        {
-            echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
-            echo "<div>";
-            echo "<input onclick='StartGame()' class='start-button' type='submit' value='Jouer'></div>";
-        }
-
+            if (!isset($_SESSION['alias']))
+                echo "Connectez-vous pour jouer";
+            else
+            {
+                echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
+                echo "<div>";
+                echo "<input onclick='StartGame()' class='start-button' type='submit' value='Jouer'></div>";
+            }
         ?>
     </div>
 
