@@ -12,14 +12,6 @@ if ($_GET['deconnecter'] == 'true') {
     //header('Location: index.php');
 }
 
-if (isset($_POST['start']))
-{
-    echo "<script>StartGame();</script>";
-
-    ChoisirAléatoirementEnigme();
-}
-
-
 ?>
 <head>
     <meta charset="UTF-8">
@@ -108,6 +100,16 @@ if (isset($_POST['start']))
 
 
     </main>
+
+    <?php
+        if (isset($_POST['start']))
+        {
+            echo "<script>StartGame();</script>";
+        
+            ChoisirAléatoirementEnigme();
+        }
+    ?>
+
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
         closeNav = () => $("#mySidenav").css("width", 0);
