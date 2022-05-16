@@ -29,7 +29,7 @@ if ($_GET['deconnecter'] == 'true') {
     <title>CSS Grid Navigation Bar</title>
     <script defer>
     
-    function RemovePlayText()
+    function StartGame()
     {
         location.href = "#main";
         document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
@@ -102,7 +102,7 @@ if ($_GET['deconnecter'] == 'true') {
         {
             echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
             echo "<div>";
-            echo "<input onclick='RemovePlayText()' class='start-button' type='submit' value='Jouer'></div>";
+            echo "<input onclick='StartGame()' class='start-button' type='submit' value='Jouer'></div>";
         }
 
         ?>
