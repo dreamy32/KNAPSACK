@@ -11,9 +11,6 @@ if ($_GET['deconnecter'] == 'true') {
     echo "<script>window.location.href='index.php'</script>";
     //header('Location: index.php');
 }
-
-
-
 ?>
 <head>
     <meta charset="UTF-8">
