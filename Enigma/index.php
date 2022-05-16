@@ -32,7 +32,8 @@ if ($_GET['deconnecter'] == 'true') {
     function RemovePlayText()
     {
         location.href = "#main";
-        document.getElementById('play-text').remove();
+        document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
+
     }
 
 
@@ -106,6 +107,8 @@ if ($_GET['deconnecter'] == 'true') {
 
         ?>
     </div>
+
+    
     </main>
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
