@@ -1064,7 +1064,7 @@ function AfficherEnigme($idEnigme)
     $reponse3 = AfficherInfosEnigme($idEnigme)[6];
 
     echo "<p class='question'>" . $question . "</p> 
-    <form action='./index.html' method='POST' style='display: contents;'>
+    <form action='' method='POST' style='display: contents;'>
         <div class='answers'>
             <button class='good' type='submit' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
             <button type='submit' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>
