@@ -80,7 +80,7 @@ if ($_GET['deconnecter'] == 'true') {
                         <a href='index.php?deconnecter=true'>Se déconnecter</a>
                         <a href=>Choisir une énigme</a>
                         <a href=>Statistiques</a>
-                        ";
+                    ";
             else
                 echo "<a href='../login.php?from=enigma'>Se connecter</a>";
             ?>
