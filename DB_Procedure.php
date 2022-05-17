@@ -1059,13 +1059,10 @@ function ValiderReponse($idEnigme, $reponse, $idJoueur)
 function AfficherEnigme($idEnigme)
 {
     
+$question = AfficherInfosEnigme($idEnigme)[1];
 
-
-    echo "<p class='question'>Quelle est la
-    couleur du cheval blanc de Napoléon ?</p>
-    <!--L'action va être une page php, qui vérifiera si la réponse est vraie via un select.
-        Si il a la bonne réponse, on le redirige pour répondre à d'autres énigmes, sinon, on le renvoit à la même énigme-->
-<form action='./index.html' method='POST' style='display: contents;'>
+    echo `<p class="question">$question </p>` .
+"<form action='./index.html' method='POST' style='display: contents;'>
     <div class='answers'>
         <button class='good' type='submit' name='answer-buttons' id='answer-a'>Blanc</button>
         <button type='submit' name='answer-buttons' id='answer-b'>Noir</button>
