@@ -101,7 +101,7 @@ if ($_GET['deconnecter'] == 'true') {
         ?>
     </div>
     <?php
-        if (isset($_POST['start']) || !isset($_POST['answer-buttons']))
+        if (isset($_POST['start']) || isset($_POST['answer-buttons']))
         {
             echo "<script>StartGame();</script>";
             AfficherEnigme(ChoisirAléatoirementEnigme());
