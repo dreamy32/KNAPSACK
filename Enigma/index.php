@@ -85,7 +85,7 @@ if ($_GET['deconnecter'] == 'true') {
     </header>
     <main id="main" style="justify-content: space-evenly;">
 
-    <div id='play-text'>
+    <div id='play-text' style='text-align:center'>
         <?php
         if (!isset($_SESSION['alias']))
             echo "Connectez-vous pour jouer";
@@ -105,6 +105,9 @@ if ($_GET['deconnecter'] == 'true') {
         {
             echo "<script>StartGame();</script>";
             AfficherEnigme(ChoisirAléatoirementEnigme());
+
+            echo "<br><br>";
+            echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
         }
     ?>
 
