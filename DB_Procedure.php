@@ -1127,7 +1127,7 @@ function AfficherReponsesHasard($idEnigme)
     
    
     
-    $newOrdreRep = rand(1, $count[0]);
+   // $newOrdreRep = rand(0, 3);
 
     return $idEnigme;
 }
