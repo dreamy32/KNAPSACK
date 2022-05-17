@@ -602,7 +602,6 @@ delete from Items where nom='cookie';
 
 
 
-
 /*
 +---+------------+---+
 | | | Fonctions  | | |
@@ -861,7 +860,51 @@ ALTER TABLE Joueurs ADD CONSTRAINT alias_u UNIQUE (alias);
 # ========================================================================
 
 
+# Insertions questions enigma ==========================================================================
+# Questions faciles
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans le film Avatar, quelle est la couleur de peau des Na'vis ?", "Bleu", "Vert", "Violet", "Gris", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Quel est le nom du chat de Gargamel dans Schtroumpfs ?", "Azraël", "Israel", "Goulou", "Baklava", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("De quelle couleur est le ruban représentant la lutte contre le cancer du sein ?", "Rose", "Bleu", "Vert", "Rouge", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Quelle chorégraphie fut inventée par Los Del Río et devint rapidement un succès planétaire ? ", "La Macarena", "Le Macaroni", "Le Merinda", "La Machacha","F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES (" Dans quel musée peut-on voir La Joconde ?", "Au Louvre", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien d'étoiles ornent le drapeau chinois ?", "5", "10", "20", "24", "F");
 
+
+# Questions moyennes
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de fuseaux horaires traversent le Canada ?", "6", "2", "10", "0", "M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans quel pays se trouve le plus haut sommet d'Afrique ?", "En Tanzanie", "Kenya", "Nigeria", "Maroc","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans quel pays se trouve le plus vieil arbre connu ?", "En Suède", "Mexique", "Roumanie", "Espagne","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("De quel pays est originaire le premier fils adoptif d'Angelina Jolie, Maddox ? ", "Le Cambodge", "Le Sénégal", "La France", "La Suisse","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("De quelle marque est la voiture transformée en machine à remonter le temps dans Retour vers le futur ?", "DeLorean", "BMW", "Ferrari", "Cadillac","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Quel est le prénom de la grande couturière Coco Chanel ? ", "Gabrielle", "Chanelle", "Coralie", "Chanel","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Laquelle de ces planètes n'a pas de lune ?", "Vénus", "Mars", "Jupiter", "Mercure","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","M");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","M");
+
+
+
+# Questions difficiles
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans quel jardin se trouve le plus vieux zoo de Paris ?", "Le jardin des Plantes", "Le jardin des Fleurs", "Le jardin des Tuileries", "Le jardin du Palais-Royal","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Quel conflit européen dura 116 ans ?", "La guerre de Cent Ans", "La guerre froide", "La deuxième guerre mondiale", "La première guerre mondiale","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans quelle aventure Tintin fait-il du yoga ?", "Tintin et les Picaros", "Tintin et les Picachu", "Tintin et le lapin", "Tintin et le capitaine","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Qu'est-ce que la pupaphobie ? ", "La peur des marionnettes", "La peur des pulpes", "La peurs des hauteurs", "La peur des géants","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien y a-t-il de chromosomes dans une cellule humaine normale ?", "46", "20", "23", "60","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Dans quelle partie du corps se trouve la patella ? ", "Le genou", "Le dos", "Le bras", "Le pied","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Laquelle de ces créatures n'a pas de cerveau ?", "L'étoile de mer", "Le ver de terre", "La loutre", "Le papillon","D");
+
+
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","D");
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","D");
+
+# ======================================================================================================
 
 
 /* AUTRES TESTS */
@@ -903,3 +946,4 @@ SELECT MontantTotalPanier('23');
 SELECT PoidsSac(2);
 call AjouterItemPanier("madzcandy", 2, 52);
 
+INSERT INTO Enigme (question, reponse, autreRep1, autreRep2, autreRep3, difficulte) VALUES ("Combien de pays ont une frontière commune avec la France ?", "8", "2", "10", "0","M";
