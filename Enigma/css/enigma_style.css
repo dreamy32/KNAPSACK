@@ -224,4 +224,12 @@ main {
   font-family: system-ui;
   text-align: center;
 }
+
+#vert{
+  background-color: #47c20a;
+}
+
+#rouge{
+  background-color: red;
+}
 /*# sourceMappingURL=enigma_style.css.map */
