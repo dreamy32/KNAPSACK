@@ -33,7 +33,6 @@ if ($_GET['deconnecter'] == 'true') {
     {
         location.href = "#main";
         document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
-
     }
 
 
