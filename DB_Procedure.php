@@ -1099,6 +1099,40 @@ function AfficherInfosEnigme($idEnigme)
         return $e->getMessage();
     }
 }
+
+
+function AfficherReponsesHasard($idEnigme)
+{
+    Connexion();
+    global $pdo;
+
+    try
+    {
+        $stmt = $pdo->prepare("SELECT reponse, autreRep1, autreRep2, autreRep3 FROM Enigme where idEnigme = :idEnigme;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idEnigme', $idEnigme, PDO::PARAM_STR);
+        $stmt->execute();
+        $reponses = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            array_push($reponses, $donnee[0]);/* Id*/
+            array_push($reponses, $donnee[1]);
+            array_push($reponses, $donnee[2]);
+            array_push($reponses, $donnee[3]);
+            array_push($reponses, $reponses);
+        }
+        $stmt->closeCursor();
+        return $reponses;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    
+   
+    
+   // $newOrdreRep = rand(0, 3);
+
+    return $idEnigme;
+}
+
+
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //         ENIGMA FIN
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
