@@ -89,7 +89,7 @@ if ($_GET['deconnecter'] == 'true') {
         <?php
         if (!isset($_SESSION['alias']))
             echo "Connectez-vous pour jouer";
-        else
+        else if (!isset($_POST['answer-buttons']))
         {
             echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
             echo "<div>";
@@ -101,7 +101,7 @@ if ($_GET['deconnecter'] == 'true') {
         ?>
     </div>
     <?php
-        if (isset($_POST['start']))
+        if (isset($_POST['start']) || !isset($_POST['answer-buttons']))
         {
             echo "<script>StartGame();</script>";
             AfficherEnigme(ChoisirAléatoirementEnigme());
