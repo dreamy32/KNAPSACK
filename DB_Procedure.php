@@ -1014,10 +1014,19 @@ function ChoisirAléatoirementEnigme()
     Connexion();
     global $pdo;
 
-    $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;");
+    try
+    {
+    $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->execute();
     $count = $stmt->fetch(PDO::FETCH_NUM);
+    $stmt->closeCursor();
 
+    }
+    catch (PDOException $e)
+    {
+            echo $e->getMessage();   
+    }
+    echo $count[0];
     $idEnigme = rand(1, $count);
     return $idEnigme;
 }
@@ -1044,9 +1053,51 @@ function ValiderReponse($idEnigme, $reponse, $idJoueur)
 
 }
 
-function AfficherEnigme()
+
+
+function AfficherEnigme($idEnigme)
 {
     
+
+
+    echo "<p class='question'>Quelle est la
+    couleur du cheval blanc de Napoléon ?</p>
+    <!--L'action va être une page php, qui vérifiera si la réponse est vraie via un select.
+        Si il a la bonne réponse, on le redirige pour répondre à d'autres énigmes, sinon, on le renvoit à la même énigme-->
+<form action='./index.html' method='POST' style='display: contents;'>
+    <div class='answers'>
+        <button class='good' type='submit' name='answer-buttons' id='answer-a'>Blanc</button>
+        <button type='submit' name='answer-buttons' id='answer-b'>Noir</button>
+        <button type='submit' name='answer-buttons' id='answer-c'>Rouge</button>
+        <button type='submit' name='answer-buttons' id='answer-d'>Vert</button>
+    </div>
+</form>";
+}
+
+function AfficherInfosEnigme($idEnigme)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM Enigme WHERE idEnigme = :idEnigme", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idEnigme', $idEnigme, PDO::PARAM_STR);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            array_push($info, $donnee[0]);/* Id*/
+            array_push($info, $donnee[1]);
+            array_push($info, $donnee[2]);
+            array_push($info, $donnee[3]);
+            array_push($info, $donnee[4]);
+            array_push($info, $donnee[5]);
+            array_push($info, $donnee[6]);
+            array_push($info, $info);
+        }
+        $stmt->closeCursor();
+        return $info;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //         ENIGMA FIN

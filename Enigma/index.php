@@ -24,7 +24,7 @@ if ($_GET['deconnecter'] == 'true') {
     <script defer>
         function StartGame() {
             location.href = "#main";
-            document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
+            document.getElementById('play-text').innerHTML = "";
         }
     </script>
 </head>
@@ -82,7 +82,7 @@ if ($_GET['deconnecter'] == 'true') {
             ?>
         </div>
     </header>
-    <main id="main">
+    <main id="main" style="justify-content: space-evenly;">
 
     <div id='play-text'>
         <?php
@@ -99,20 +99,16 @@ if ($_GET['deconnecter'] == 'true') {
 
         ?>
     </div>
-
-
-    </main>
-
     <?php
         if (isset($_POST['start']))
         {
             echo "<script>StartGame();</script>";
-        
-            $idEnigme = ChoisirAléatoirementEnigme();
-
-
+            echo ChoisirAléatoirementEnigme();
+            AfficherEnigme(ChoisirAléatoirementEnigme());
         }
     ?>
+
+    </main>
 
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
