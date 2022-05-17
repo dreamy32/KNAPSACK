@@ -1026,8 +1026,9 @@ function ChoisirAléatoirementEnigme()
     {
             echo $e->getMessage();   
     }
-    echo $count[0];
-    $idEnigme = rand(1, $count);
+    
+    $idEnigme = rand(1, $count[0]);
+
     return $idEnigme;
 }
 

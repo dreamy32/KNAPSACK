@@ -103,7 +103,6 @@ if ($_GET['deconnecter'] == 'true') {
         if (isset($_POST['start']))
         {
             echo "<script>StartGame();</script>";
-            echo ChoisirAléatoirementEnigme();
             AfficherEnigme(ChoisirAléatoirementEnigme());
         }
     ?>
