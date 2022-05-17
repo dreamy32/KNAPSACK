@@ -104,7 +104,10 @@ if ($_GET['deconnecter'] == 'true') {
         {
             echo "<script>StartGame();</script>";
             echo ChoisirAléatoirementEnigme();
-            AfficherEnigme(ChoisirAléatoirementEnigme());
+            //AfficherEnigme(ChoisirAléatoirementEnigme());
+            //$idEnigme = ChoisirAléatoirementEnigme();
+           // echo "idEnigme" . $idEnigme;
+            AfficherEnigme(10);
         }
     ?>
 
