@@ -1014,11 +1014,21 @@ function ChoisirAléatoirementEnigme()
     Connexion();
     global $pdo;
 
-    $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;");
-    $stmt->execute();
-    $count = $stmt->fetch(PDO::FETCH_NUM);
+    try
+    {
+        $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $count = $stmt->fetch(PDO::FETCH_NUM);
+        $stmt->closeCursor();
+    }
+    catch (PDOException $e)
+    {
+        echo $e->getMessage();   
+    }
+    
+    $idEnigme = rand(1, $count[0]);
 
-    $idEnigme = rand(1, $count);
+    return $idEnigme;
 }
 
 function ValiderReponse($idEnigme, $reponse, $idJoueur)
@@ -1041,6 +1051,85 @@ function ValiderReponse($idEnigme, $reponse, $idJoueur)
         AjouterArgentJoueur($nbCaps,AfficherInfosJoueur($idJoueur)[0]);
     }
 
+}
+
+
+
+function AfficherEnigme($idEnigme)
+{
+    $question = AfficherInfosEnigme($idEnigme)[1];
+    $bonneReponse = AfficherInfosEnigme($idEnigme)[2];
+    $reponse1 = AfficherInfosEnigme($idEnigme)[4];
+    $reponse2 = AfficherInfosEnigme($idEnigme)[5];
+    $reponse3 = AfficherInfosEnigme($idEnigme)[6];
+
+    echo "<p class='question'>" . $question . "</p> 
+    <form id='answer' action='' method='POST' style='display: contents;'>
+        <div class='answers'>
+            <button class='good' type='submit' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
+            <button type='submit' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>
+            <button type='submit' name='answer-buttons' id='answer-c'>" . $reponse2 . "</button>
+            <button type='submit' name='answer-buttons' id='answer-d'>" . $reponse3 . "</button>
+        </div>
+    </form>";
+}
+
+function AfficherInfosEnigme($idEnigme)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM Enigme WHERE idEnigme = :idEnigme", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idEnigme', $idEnigme, PDO::PARAM_STR);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            array_push($info, $donnee[0]);/* Id*/
+            array_push($info, $donnee[1]);
+            array_push($info, $donnee[2]);
+            array_push($info, $donnee[3]);
+            array_push($info, $donnee[4]);
+            array_push($info, $donnee[5]);
+            array_push($info, $donnee[6]);
+            array_push($info, $info);
+        }
+        $stmt->closeCursor();
+        return $info;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+
+function AfficherReponsesHasard($idEnigme)
+{
+    Connexion();
+    global $pdo;
+
+    try
+    {
+        $stmt = $pdo->prepare("SELECT reponse, autreRep1, autreRep2, autreRep3 FROM Enigme where idEnigme = :idEnigme;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idEnigme', $idEnigme, PDO::PARAM_STR);
+        $stmt->execute();
+        $reponses = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            array_push($reponses, $donnee[0]);/* Id*/
+            array_push($reponses, $donnee[1]);
+            array_push($reponses, $donnee[2]);
+            array_push($reponses, $donnee[3]);
+            array_push($reponses, $reponses);
+        }
+        $stmt->closeCursor();
+        return $reponses;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    
+   
+    
+   // $newOrdreRep = rand(0, 3);
+
+    return $idEnigme;
 }
 
 

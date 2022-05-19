@@ -44,6 +44,7 @@ if(isset($_POST['nbEtoile'])){
     </div>
     <div class="container">
         <header class="header">
+        <link rel="stylesheet" href="Enigma/css/enigma_style.css">
             <div class="profileInfo fullWidth">
                 <div class="menu" onclick="afficherMenu()">
                     <button aria-label="Profil"></button>

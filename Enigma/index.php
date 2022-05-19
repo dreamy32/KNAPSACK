@@ -18,13 +18,15 @@ if ($_GET['deconnecter'] == 'true') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/enigma_style.css">
+    <script src="./js/trivia.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Enigma</title>
     <script defer>
         function StartGame() {
             location.href = "#main";
-            document.getElementById('play-text').innerHTML = "le jeu de bobux commence...";
+            document.getElementById('play-text').innerHTML = "";
         }
     </script>
 </head>
@@ -76,19 +78,19 @@ if ($_GET['deconnecter'] == 'true') {
                         <a href='index.php?deconnecter=true'>Se déconnecter</a>
                         <a href=>Choisir une énigme</a>
                         <a href=>Statistiques</a>
-                        ";
+                    ";
             else
                 echo "<a href='../login.php?from=enigma'>Se connecter</a>";
             ?>
         </div>
     </header>
-    <main id="main">
+    <main id="main" style="justify-content: space-evenly;">
 
-    <div id='play-text'>
+    <div id='play-text' style='text-align:center'>
         <?php
         if (!isset($_SESSION['alias']))
             echo "Connectez-vous pour jouer";
-        else
+        else if (!isset($_POST['answer-buttons']))
         {
             echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
             echo "<div>";
@@ -99,18 +101,18 @@ if ($_GET['deconnecter'] == 'true') {
 
         ?>
     </div>
-
-
-    </main>
-
     <?php
-        if (isset($_POST['start']))
+        if (isset($_POST['start']) || isset($_POST['answer-buttons']))
         {
             echo "<script>StartGame();</script>";
-        
-            ChoisirAléatoirementEnigme();
+            AfficherEnigme(ChoisirAléatoirementEnigme());
+
+            echo "<br><br>";
+            echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
         }
     ?>
+
+    </main>
 
     <script defer>
         openNav = () => $("#mySidenav").css("width", 250);
