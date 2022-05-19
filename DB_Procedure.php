@@ -1164,19 +1164,14 @@ function AfficherReponsesHasard($idEnigme)
         if($idHasard1 == $idHasard2 )
         {
             $idHasard2 = range(0, 3);
-            if()
+            if($idHasard1 == $idHasard3)
             {
-
+                $idHasard1 == range(0, 3);
             }
         }
 
     }while($idHasard1 == $idHasard2 || $idHasard1 == $idHasard3 || $idHasard2 == $idHasard3);
     
-
-
-
-
-
 
     /*
     shuffle($reponses);
