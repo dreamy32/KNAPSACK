@@ -250,7 +250,7 @@ if(isset($_POST['nbEtoile'])){
                             <div class='ajoutEval' id="formAjoutEval">
                                 <h2>Ajouter une Évaluation!</h2>
                                 <form method="post">
-                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="300">
+                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="150">
                                     <input class='rating rating--nojs' id='eval-etoiles'  name="nbEtoile" max='5' step='1' type='range' >
                                     <button aria-label='normal' type='submit'>Commenter!</button>
                                 </form>

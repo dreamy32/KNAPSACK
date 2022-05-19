@@ -337,6 +337,7 @@ require('header.php');
                                 </td>
                             </tr>
                             <tr>      
+                                <td>Format D'image png:</td>
                                 <td colspan="2">                  
                                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
                                     <input name="image" size="35" type="file" aria-label="Alternative" style="font-family: Minecraft; font-size: 15px;">
