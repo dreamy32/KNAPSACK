@@ -11,6 +11,25 @@ if ($_GET['deconnecter'] == 'true') {
     echo "<script>window.location.href='index.php'</script>";
     //header('Location: index.php');
 }
+
+if (isset($_POST['answer-buttons']) && $_POST['answer-buttons'] == 'good')
+{
+    $nbCaps;
+
+    switch(AfficherInfosEnigme($_POST['idEnigme'])[3]) {
+        case 'F': $nbCaps = 600;
+        break;
+        case 'M': $nbCaps = 800;
+        break;
+        case 'D': $nbCaps = 1000;
+        break;
+    }
+
+    if ($nbCaps != null)
+        AjouterArgentJoueur($nbCaps, $_SESSION['alias']);
+        $_SESSION['bypass'] = true;
+}
+
 ?>
 
 <head>
@@ -48,6 +67,8 @@ if ($_GET['deconnecter'] == 'true') {
                         if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
                             echo "<span style='color:Orange'> ~ADMIN~</span>";
                         }
+
+                        echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span>";
                         ?>
                     </div>
                 </div>
@@ -90,8 +111,9 @@ if ($_GET['deconnecter'] == 'true') {
         <?php
         if (!isset($_SESSION['alias']))
             echo "Connectez-vous pour jouer";
-        else if (!isset($_POST['answer-buttons']))
+        else if (!isset($_POST['answer-buttons']) && !$_SESSION['bypass'])
         {
+            $_SESSION['bypass'] = false;
             echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
             echo "<div>";
             echo "<form method='post'>";
@@ -113,6 +135,7 @@ if ($_GET['deconnecter'] == 'true') {
             echo "<br><br>";
             echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
         }
+
     ?>
 
     </main>

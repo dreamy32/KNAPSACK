@@ -1092,10 +1092,11 @@ function AfficherEnigme($idEnigme)
     echo "<p class='question'>" . $question . "</p> 
     <form id='answer' action='' method='POST' style='display: contents;'>
         <div class='answers'>
-            <button class='good' type='submit' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
-            <button type='submit' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>
-            <button type='submit' name='answer-buttons' id='answer-c'>" . $reponse2 . "</button>
-            <button type='submit' name='answer-buttons' id='answer-d'>" . $reponse3 . "</button>
+            <button class='good' type='submit' value='good' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
+            <button type='submit' value='bad' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>
+            <button type='submit' value='bad' name='answer-buttons' id='answer-c'>" . $reponse2 . "</button>
+            <button type='submit' value='bad' name='answer-buttons' id='answer-d'>" . $reponse3 . "</button>
+            <input type='hidden' name='idEnigme' value=" . $idEnigme . ">
         </div>
     </form>";
 }
