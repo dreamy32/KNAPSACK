@@ -383,7 +383,7 @@ require('header.php');
                                     <label for="nom">Desc : </label>
                                 </td>
                                 <td>
-                                    <textarea style="resize:none" name="description" id="description" cols="37" rows="3" placeholder="Description"><?php echo $description?></textarea>
+                                    <textarea maxlength="150" style="resize:none" name="description" id="description" cols="37" rows="3" placeholder="Description"><?php echo $description?></textarea>
                                     <br>
                                 </td>
                             </tr>
