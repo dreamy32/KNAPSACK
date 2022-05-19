@@ -1004,6 +1004,32 @@ function ModifierMotPasse($aliasCourrant, $motDePasse)
         return $e->getMessage();
     }
 }
+function HasAlreadyCommented($id, $item)
+{
+    // 0 -> false
+    // 1 -> true
+
+    Connexion();
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT EXISTS (SELECT idEvaluations FROM Evaluations 
+        WHERE Items_IdItems = :pIdItem and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pIdItem', $item, PDO::PARAM_INT);
+    $stmt->bindParam(':pIdJoueur', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $hasCommented = false;
+
+    if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $etat = $donnee[0];
+    }
+
+    if ($etat == 1) {
+        $hasCommented = true;
+    }
+    $stmt->closeCursor();
+    return $hasCommented;
+}
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //         ENIGMA DÉBUT
@@ -1064,7 +1090,7 @@ function AfficherEnigme($idEnigme)
     $reponse3 = AfficherInfosEnigme($idEnigme)[6];
 
     echo "<p class='question'>" . $question . "</p> 
-    <form action='' method='POST' style='display: contents;'>
+    <form id='answer' action='' method='POST' style='display: contents;'>
         <div class='answers'>
             <button class='good' type='submit' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
             <button type='submit' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>

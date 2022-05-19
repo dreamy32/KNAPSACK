@@ -337,6 +337,7 @@ require('header.php');
                                 </td>
                             </tr>
                             <tr>      
+                                <td>Format D'image png:</td>
                                 <td colspan="2">                  
                                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
                                     <input name="image" size="35" type="file" aria-label="Alternative" style="font-family: Minecraft; font-size: 15px;">
@@ -383,7 +384,7 @@ require('header.php');
                                     <label for="nom">Desc : </label>
                                 </td>
                                 <td>
-                                    <textarea style="resize:none" name="description" id="description" cols="37" rows="3" placeholder="Description"><?php echo $description?></textarea>
+                                    <textarea maxlength="150" style="resize:none" name="description" id="description" cols="37" rows="3" placeholder="Description"><?php echo $description?></textarea>
                                     <br>
                                 </td>
                             </tr>

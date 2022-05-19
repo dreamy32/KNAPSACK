@@ -185,7 +185,7 @@ if(isset($_POST['nbEtoile'])){
             <!-- Commentaire -->
             <div id="evaluations" aria-label="Window" style="overflow: auto;height:50%;width:100%;">
                 <div id="window-container" style="margin-top: unset;">
-                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval'])) echo "<button id='ajoutEvalButton' type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
+                    <h1 id="window-title">Évaluations <?php if(HasAlreadyBought($_SESSION['idJoueur'],$_COOKIE['itemEval']) && !(HasAlreadyCommented($_SESSION['idJoueur'],$_COOKIE['itemEval']))) echo "<button id='ajoutEvalButton' type='button' aria-label='Plus' onclick='afficherFormCommentaire()' style='float:right; margin-right:4%;'></button>";?></h1>
                     <div class="eval-container" id="evaluations">
                     <?php 
                             if(isset($_COOKIE['itemEval'])){
@@ -250,7 +250,7 @@ if(isset($_POST['nbEtoile'])){
                             <div class='ajoutEval' id="formAjoutEval">
                                 <h2>Ajouter une Évaluation!</h2>
                                 <form method="post">
-                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="300">
+                                    <input type="text-area" placeholder="Votre commentaire" name="commentaire" style="width: 90%;" maxlength="150">
                                     <input class='rating rating--nojs' id='eval-etoiles'  name="nbEtoile" max='5' step='1' type='range' >
                                     <button aria-label='normal' type='submit'>Commenter!</button>
                                 </form>
