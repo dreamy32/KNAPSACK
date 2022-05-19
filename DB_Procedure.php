@@ -1103,6 +1103,7 @@ function AfficherInfosEnigme($idEnigme)
 
 function AfficherReponsesHasard($idEnigme)
 {
+   // echo "yoman";
     Connexion();
     global $pdo;
 
@@ -1113,24 +1114,68 @@ function AfficherReponsesHasard($idEnigme)
         $stmt->execute();
         $reponses = [];
         while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-            array_push($reponses, $donnee[0]);/* Id*/
+            array_push($reponses, $donnee[0]);/* Bonne reponse*/
             array_push($reponses, $donnee[1]);
             array_push($reponses, $donnee[2]);
             array_push($reponses, $donnee[3]);
             array_push($reponses, $reponses);
         }
         $stmt->closeCursor();
-        return $reponses;
+        //return $reponses;
     } catch (PDOException $e) {
         return $e->getMessage();
     }
     
-   
-    
-   // $newOrdreRep = rand(0, 3);
 
-    return $idEnigme;
+
+    $idHasard1 = range(0, 3);
+    $idHasard2 = range(0, 3);
+    $idHasard3 = range(0, 3);
+
+    $rep1 = $reponses[$idHasard1];
+
+    do{
+        if($idHasard1 == $idHasard2 )
+        {
+            $idHasard2 = range(0, 3);
+            if()
+            {
+
+            }
+        }
+
+    }while($idHasard1 == $idHasard2 || $idHasard1 == $idHasard3 || $idHasard2 == $idHasard3);
+    
+
+
+
+
+
+
+    /*
+    shuffle($reponses);
+    foreach ($reponses as $rep) {
+        $newReponses[$rep] = $reponses[$rep];
+        echo "new rep ==" . $newReponses;
+    }
+    */
+
+echo "
+    <form action='' method='POST' style='display: contents;'>
+        <div class='answers'>
+            <button class='good' type='submit' name='answer-buttons' id='answer-a'>" .  $reponses[0] . "</button>
+            <button type='submit' name='answer-buttons' id='answer-b'>" . $reponses[1] . "</button>
+            <button type='submit' name='answer-buttons' id='answer-c'>" . $reponses[2] . "</button>
+            <button type='submit' name='answer-buttons' id='answer-d'>" . $reponses[3] . "</button>
+        </div>
+    </form>";
+
+
+    return $reponses;
+
 }
+
+
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

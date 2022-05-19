@@ -104,7 +104,10 @@ if ($_GET['deconnecter'] == 'true') {
         if (isset($_POST['start']) || isset($_POST['answer-buttons']))
         {
             echo "<script>StartGame();</script>";
-            AfficherEnigme(ChoisirAléatoirementEnigme());
+            $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
+            AfficherEnigme($idEnigmeAleatoire);
+           // echo "koko";
+            AfficherReponsesHasard($idEnigmeAleatoire);
 
             echo "<br><br>";
             echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
