@@ -140,8 +140,8 @@
                         echo "<option value='$joueur[0]'>$joueur[0]</option>";
                     }
                     echo "</select>";
-                    ?></div>
-                    <div onclick="this.parentNode.submit()" class="advancedSearch" style="margin:5%; width:200px; height:75px">Afficher</div>
+                    ?>
+                    <div onclick="this.parentNode.submit()" class="advancedSearch" style="margin:5%; height:75px">Afficher</div></div>
                     </form>
                     <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item <img style="width: 20px;" src="../images/bread.png" alt="bread"></div></div></a>
                     </div>                    
