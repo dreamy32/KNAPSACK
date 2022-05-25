@@ -1089,13 +1089,20 @@ function AfficherEnigme($idEnigme)
     $reponse2 = AfficherInfosEnigme($idEnigme)[5];
     $reponse3 = AfficherInfosEnigme($idEnigme)[6];
 
+
+    $bouttonReponsse[0] = "<button class='good' type='submit' value='good' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>";
+    $bouttonReponsse[1] = "<button type='submit' value='bad' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>";
+    $bouttonReponsse[2] = "<button type='submit' value='bad' name='answer-buttons' id='answer-b'>" . $reponse2 . "</button>";
+    $bouttonReponsse[3] = "<button type='submit' value='bad' name='answer-buttons' id='answer-b'>" . $reponse3 . "</button>";
+
+    shuffle($bouttonReponsse);
     echo "<p class='question'>" . $question . "</p> 
     <form id='answer' action='' method='POST' style='display: contents;'>
         <div class='answers'>
-            <button class='good' type='submit' value='good' name='answer-buttons' id='answer-a'>" .  $bonneReponse . "</button>
-            <button type='submit' value='bad' name='answer-buttons' id='answer-b'>" . $reponse1 . "</button>
-            <button type='submit' value='bad' name='answer-buttons' id='answer-c'>" . $reponse2 . "</button>
-            <button type='submit' value='bad' name='answer-buttons' id='answer-d'>" . $reponse3 . "</button>
+            $bouttonReponsse[0]
+            $bouttonReponsse[1]
+            $bouttonReponsse[2]
+            $bouttonReponsse[3]
             <input type='hidden' name='idEnigme' value=" . $idEnigme . ">
         </div>
     </form>";
