@@ -107,35 +107,30 @@ if (isset($_POST['answer-buttons']) && $_POST['answer-buttons'] == 'good')
     </header>
     <main id="main" style="justify-content: space-evenly;">
 
-    <div id='play-text' style='text-align:center'>
-        <?php
-        if (!isset($_SESSION['alias']))
-            echo "Connectez-vous pour jouer";
-        else if (!isset($_POST['answer-buttons']) && !$_SESSION['bypass'])
-        {
-            $_SESSION['bypass'] = false;
-            echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
-            echo "<div>";
-            echo "<form method='post'>";
-            echo "<input type='submit' class='start-button' type='submit' name='start' value='Jouer'></div>";
-            echo "</form>";
-        }
+        <div id='play-text'>
+            <?php
+            if (!isset($_SESSION['alias']))
+                echo "Connectez-vous pour jouer";
+            else {
+                echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
+                echo "<div>";
+                echo "<form method='post'>";
+                echo "<input type='submit' class='start-button' type='submit' name='start' value='Jouer'></div>";
+                echo "</form>";
+            }
 
-        ?>
-    </div>
+            ?>
+        </div>
+
+
+    </main>
+
     <?php
-        if (isset($_POST['start']) || isset($_POST['answer-buttons']))
-        {
-            echo "<script>StartGame();</script>";
-            $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
-            AfficherEnigme($idEnigmeAleatoire);
-           // echo "koko";
-            AfficherReponsesHasard($idEnigmeAleatoire);
+    if (isset($_POST['start'])) {
+        echo "<script>StartGame();</script>";
 
-            echo "<br><br>";
-            echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
-        }
-
+        ChoisirAléatoirementEnigme();
+    }
     ?>
 
     </main>

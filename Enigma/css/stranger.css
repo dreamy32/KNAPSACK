@@ -1,0 +1,211 @@
+/*
+	STRUCTURE:
+	0. At-rules
+	1. Global custom properties
+	2. Global and inherited styles
+	3. Layout primitives
+	4. Standard Utility classes
+	5. Design Tokens Utility classes
+	6. Blocks
+	7. Exceptions
+*/
+
+/* ============ 0. AT-RULES ============ */
+
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
+
+/* ============ 1. GLOBAL CUSTOM PROPERTIES ============ */
+
+:root {
+    --color-scheme: light dark;
+
+    /* Font Family */
+    /* stylelint-disable-next-line max-line-length */
+    --ff-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji";
+    --ff-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace;
+
+    /* Font Weight */
+    --fw-700: 700;
+    --fw-600: 600;
+    --fw-500: 500;
+    --fw-400: 400;
+
+    /* Base Size */
+    --base-size: 1rem;
+
+    /* Scale Ratio */
+    --ratio: 1.5;
+
+    /* Size Scale */
+    --s-900: calc(
+        var(--base-size) * var(--ratio) * var(--ratio) * var(--ratio) *
+            var(--ratio) * var(--ratio)
+    );
+    --s-800: calc(
+        var(--base-size) * var(--ratio) * var(--ratio) * var(--ratio) *
+            var(--ratio)
+    );
+    --s-700: calc(
+        var(--base-size) * var(--ratio) * var(--ratio) * var(--ratio)
+    );
+    --s-600: calc(var(--base-size) * var(--ratio) * var(--ratio));
+    --s-500: calc(var(--base-size) * var(--ratio));
+    --s-400: var(--base-size);
+    --s-300: calc(var(--base-size) / var(--ratio));
+    --s-200: calc(var(--base-size) / var(--ratio) / var(--ratio));
+    --s-100: calc(
+        var(--base-size) / var(--ratio) / var(--ratio) / var(--ratio)
+    );
+
+    /* Line Height */
+    --lh-large: 1.5;
+    --lh-small: 1.25;
+
+    /* Inline size */
+    --page-max-inline-size: 50rem;
+
+    /* Padding */
+    --padding-xxxl: 2em;
+    --padding-xxl: 1.75em;
+    --padding-xl: 1.5em;
+    --padding-lg: 1.25em;
+    --padding-md: 1em;
+    --padding-sm: 0.75em;
+    --padding-xs: 0.5em;
+    --padding-xxs: 0.25em;
+    --padding-xxxs: 0.125em;
+
+    /* Colors */
+    /* Light theme */
+    --c-tx-1: hsl(212deg 40% 10%);
+    --c-tx-2: hsl(212deg 20% 40%);
+    --c-bg-1: hsl(212deg 25% 100%);
+    --c-bg-2: hsl(212deg 25% 97%);
+    --c-bg-3: hsl(212deg 25% 95%);
+    --c-bg-a: hsl(212deg 25% 80% / 33.33%);
+    --c-bd-1: hsl(212deg 25% 85%);
+    --c-lk-1: hsl(212deg 92% 42%);
+    --c-lk-2: hsl(212deg 100% 32%);
+    --c-lk-tx: hsl(212deg 0% 100%);
+    --c-ac-1: hsl(167deg 100% 45%);
+    --c-ac-2: hsl(167deg 100% 75%);
+    --c-ac-tx: hsl(167deg 10% 10%);
+    --c-highlight: hsla(55deg 100% 50% / 25%);
+    --c-warning-tx: hsl(50deg 45% 25%);
+    --c-warning-bg: hsl(50deg 90% 85%);
+
+    /* Border With */
+    --bw-1: 0.0625rem;
+    --bw-2: 0.125rem;
+    --bw-3: 0.1875rem;
+    --bw-4: 0.25rem;
+
+    /* Border Radius */
+    --border-radius: 0.25rem;
+    
+    /* Transitions */
+    --tr-duration: 0.1s;
+    --tr-timing-function: ease-in;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* Colors */
+        /* Dark theme */
+        --c-tx-1: hsl(212deg 25% 95%);
+        --c-tx-2: hsl(212deg 15% 65%);
+        --c-bg-1: hsl(212deg 15% 10%);
+        --c-bg-2: hsl(212deg 15% 15%);
+        --c-bg-3: hsl(212deg 15% 20%);
+        --c-bg-a: hsl(212deg 15% 40% / 33.33%);
+        --c-bd-1: hsl(212deg 10% 30%);
+        --c-lk-1: hsl(212deg 97% 70%);
+        --c-lk-2: hsl(212deg 100% 80%);
+        --c-lk-tx: hsl(212deg 15% 10%);
+        --c-ac-1: hsl(167deg 100% 75%);
+        --c-ac-2: hsl(167deg 100% 45%);
+        --c-ac-tx: hsl(167deg 10% 10%);
+        --c-highlight: hsla(55deg 100% 50% / 25%);
+        --c-warning-tx: hsl(38deg 43% 74%);
+        --c-warning-bg: hsl(41deg 45% 22%);
+    }
+}
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--fw-700);
+    line-height: var(--lh-small);
+    color: var(--c-tx-1);
+}
+
+h1 {
+    font-size: calc(var(--base-size) * 3);
+}
+
+h2 {
+    font-size: calc(var(--base-size) * 2.25);
+}
+
+h3 {
+    font-size: calc(var(--base-size) * 1.75);
+}
+
+h4 {
+    font-size: calc(var(--base-size) * 1.25);
+}
+
+h5 {
+    font-size: calc(var(--base-size) * 1.125);
+}
+
+h6 {
+    font-size: calc(var(--base-size) * 1);
+}
+
+
+b,
+strong {
+    font-weight: var(--fw-700);
+}
+
+/* Tabular data
+   ======================================== */
+
+th,
+td {
+    padding-block: var(--padding-xs);
+    padding-inline: var(--padding-sm);
+    border: var(--bw-1) solid var(--c-bd-1);
+}
+
+th,
+thead,
+tfoot {
+    font-weight: var(--fw-600);
+}
+
+th,
+thead :is(tr, td),
+tfoot tr {
+    background-color: var(--c-bg-2);
+}
+
+@supports (td: has(+ th)) {
+    td:has(+ th) {
+        background-color: var(--c-bg-2);
+    }
+}
+
+caption {
+    padding-block: var(--padding-xxs);
+    font-weight: var(--fw-600);
+}
