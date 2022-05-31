@@ -117,7 +117,7 @@ else{
             <?php
             if (!isset($_SESSION['alias']))
                 echo "Connectez-vous pour jouer";
-            else {
+            else if (!isset($_POST['answer-buttons'])){
                 echo "<h2 id='title' style='text-align: center; font-family: system-ui;'>Bienvenue $_SESSION[alias] </h2>";
                 echo "<div>";
                 echo "<form method='post'>";
@@ -128,10 +128,12 @@ else{
             ?>
         </div>
     <?php
-        if (isset($_POST['start'])) {
+        if (isset($_POST['start']) || isset($_POST['answer-buttons'])) {
             echo "<script>StartGame();</script>";
             $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
             AfficherEnigme($idEnigmeAleatoire);
+            echo "<br><br>";
+            echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
         }
     ?>
 
