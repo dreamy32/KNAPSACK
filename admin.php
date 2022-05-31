@@ -130,18 +130,19 @@
 
 
 
-                    <form style="display:flex" action="voirInventaire.php" method="post"> <div style="display:inline; text-decoration: none; width:50%;"> Voir l'inventaire de : 
+                    <form style="display:flex" action="voirInventaire.php" method="post"> 
+                    <p>Voir l'inventaire de : </p>
                     <?php 
-                    
-                    $tabJoueurs = AfficherAliasJoueur();  
-                    
-                    echo "<select name='voirinventairealias' style='background-color: black; width:200px;'>";
-                    foreach ( $tabJoueurs as $joueur){
-                        echo "<option value='$joueur[0]'>$joueur[0]</option>";
-                    }
-                    echo "</select>";
+                        $tabJoueurs = AfficherAliasJoueur();  
+                        
+                        echo "<select name='voirinventairealias' style='background-color: black; width:200px;height:50px>";
+                        foreach ( $tabJoueurs as $joueur){
+                            echo "<option value='$joueur[0]'>$joueur[0]</option>";
+                        }
+                        echo "</select>";
                     ?>
-                    <div onclick="this.parentNode.submit()" class="advancedSearch" style="margin:5%; height:75px">Afficher</div></div>
+                    <br><br>
+                    <div onclick="this.parentNode.submit()" class="advancedSearch" style="margin:5%; height:75px;">Afficher</div>
                     </form>
                     <a href="ajouterItem.php"> <div style="text-decoration: none; width:50%;"><div class="advancedSearch" style="margin:5%; height:75px"> Ajout d'item <img style="width: 20px;" src="../images/bread.png" alt="bread"></div></div></a>
                     </div>                    
