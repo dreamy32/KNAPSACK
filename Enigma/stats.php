@@ -93,17 +93,17 @@ if ($_GET['deconnecter'] == 'true') {
             <tfoot>
                 <tr>
                     <td>Total</td>
-                    <td><?= $nbReponsseTotal ?></td>
+                    <td><?= $nbReponsseTotal[0] ?></td>
                 </tr>
             </tfoot>
             <tbody>
                 <tr>
                     <th scope="row">Bonne</th>
-                    <td><?= $nbReponsseBonne ?></td>
+                    <td><?= $nbReponsseBonne[0] ?></td>
                 </tr>
                 <tr>
                     <th scope="row">Mauvaise</th>
-                    <td><?= $nbReponsseMauvaise ?></td>
+                    <td><?= $nbReponsseMauvaise[0] ?></td>
                 </tr>
             </tbody>
         </table>
