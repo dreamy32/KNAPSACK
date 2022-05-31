@@ -83,7 +83,7 @@ else{
                     if (isset($_SESSION['alias'])) {
                         echo "
                             <a href=>Choisir une énigme</a>
-                            <a href=>Statistiques</a>
+                            <a href='stats.php'>Statistiques</a>
                             <a href='index.php?deconnecter=true'>Se déconnecter</a>
                             ";
                     } else
@@ -104,7 +104,7 @@ else{
                 echo "
                         <a href='index.php?deconnecter=true'>Se déconnecter</a>
                         <a href=>Choisir une énigme</a>
-                        <a href=>Statistiques</a>
+                        <a href='stats.php'>Statistiques</a>
                     ";
             else
                 echo "<a href='../login.php?from=enigma'>Se connecter</a>";
@@ -132,7 +132,7 @@ else{
             echo "<script>StartGame();</script>";
             do{
                 $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
-            }while(EnigmeDejaRepondue($idEnigmeAleatoire,$_SESSION['idJoueur']) || (NombreEnigmeBD() > NombreEnigmeRepondu($_SESSION['idJoueur'])));
+            }while(EnigmeDejaRepondue($idEnigmeAleatoire,$_SESSION['idJoueur']) && (NombreEnigmeBD() > NombreEnigmeRepondu($_SESSION['idJoueur'])));
             AfficherEnigme($idEnigmeAleatoire);
             echo "<br><br>";
             echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
