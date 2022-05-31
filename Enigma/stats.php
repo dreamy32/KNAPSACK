@@ -64,10 +64,16 @@ if ($_GET['deconnecter'] == 'true') {
             <a style="cursor:pointer;" class="closebtn" onclick="closeNav()">&times;</a>
             <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
             <br>
-            <a href="">Se connecter</a>
-            <!-- <a href="">Choisir une énigme</a>
-            <a href="">Statistiques</a>
-            <a href="">Se déconnecter</a> -->
+            <?php
+            if (isset($_SESSION['alias']))
+                echo "
+                        <a href='index.php?deconnecter=true'>Se déconnecter</a>
+                        <a href='index.php' >Choisir une énigme</a>
+                        <a href='stats.php'>Statistiques</a>
+                    ";
+            else
+                echo "<a href='../login.php?from=enigma'>Se connecter</a>";
+            ?>
         </div>
     </header>
     <main id="main" style="justify-content: space-evenly;">
