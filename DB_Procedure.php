@@ -1220,7 +1220,31 @@ function AjouterHistorique($reussi,$idJoueur,$idEnigme)
     }
     
 }
+function EnigmeDejaRepondue($idEnigme,$idJoueur){
+     // 0 -> false
+    // 1 -> true
 
+    Connexion();
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT EXISTS (SELECT Enigme_idEnigme FROM HistoriqueEnigme 
+        WHERE Enigme_idEnigme = :pIdEnigme and Joueurs_IdJoueur = :pIdJoueur);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pIdEnigme', $idEnigme, PDO::PARAM_INT);
+    $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $hasRepondue = false;
+
+    if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $etat = $donnee[0];
+    }
+
+    if ($etat == 1) {
+        $hasRepondue = true;
+    }
+    $stmt->closeCursor();
+    return $hasRepondue;
+}
 
 
 

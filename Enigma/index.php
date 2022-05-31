@@ -130,7 +130,9 @@ else{
     <?php
         if (isset($_POST['start'])) {
             echo "<script>StartGame();</script>";
-            $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
+            do{
+                $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
+            }while(EnigmeDejaRepondue($idEnigmeAleatoire,$_SESSION['idJoueur']));
             AfficherEnigme($idEnigmeAleatoire);
         }
     ?>
