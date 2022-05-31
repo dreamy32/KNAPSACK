@@ -25,9 +25,16 @@ if (isset($_POST['answer-buttons']) && $_POST['answer-buttons'] == 'good')
         break;
     }
 
-    if ($nbCaps != null)
+    if ($nbCaps != null){
         AjouterArgentJoueur($nbCaps, $_SESSION['alias']);
         $_SESSION['bypass'] = true;
+    }
+    AjouterHistorique(1,$_SESSION['idJoueur'],$_POST['idEnigme']);
+}
+else{
+    if (isset($_POST['answer-buttons']) && $_POST['answer-buttons'] == 'bad'){
+        AjouterHistorique(0,$_SESSION['idJoueur'],$_POST['idEnigme']);
+    }
 }
 
 ?>

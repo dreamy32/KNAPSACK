@@ -1203,14 +1203,23 @@ echo "
     return $reponses;
 
 }
-
-function AjouterHistorique($idEnigme)
+/*
+function AjouterHistorique($reussi,$idJoueur,$idEnigme)
 {
     Connexion();
     global $pdo;
-
+    try {
+        $stmt = $pdo->prepare("INSERT INTO HistoriqueEnigme VALUES(:pReussi,:pIdJoueur,:pIdEnigme)", array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+        $stmt->bindParam(':pReussi', $reussi, PDO::PARAM_BOOL);
+        $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdEnigme', $idEnigme, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
     
-}
+}*/
 
 
 
