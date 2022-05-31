@@ -1137,8 +1137,8 @@ function AfficherInfosEnigme($idEnigme)
 
 function AfficherReponsesHasard($idEnigme)
 {
-   // echo "yoman";
     Connexion();
+    
     global $pdo;
 
     try
@@ -1202,6 +1202,14 @@ echo "
 
     return $reponses;
 
+}
+
+function AjouterHistorique($idEnigme)
+{
+    Connexion();
+    global $pdo;
+
+    
 }
 
 
