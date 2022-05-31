@@ -73,8 +73,8 @@ else{
                         if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
                             echo "<span style='color:Orange'> ~ADMIN~</span>";
                         }
-
-                        echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span>";
+                        if (isset($_SESSION['alias']))
+                            echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span>";
                         ?>
                     </div>
                 </div>

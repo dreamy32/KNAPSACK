@@ -1,3 +1,15 @@
+<?php 
+session_start();
+require("../DB_Procedure.php");
+
+if ($_GET['deconnecter'] == 'true') {
+    session_destroy();
+    session_unset();
+    setcookie("PHPSESSID", null, -1);
+    echo "<script>window.location.href='index.php'</script>";
+    //header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,42 +71,33 @@
         </div>
     </header>
     <main id="main" style="justify-content: space-evenly;">
+    <?php 
+        $nbReponsseBonne = NombreEnigmeReussi($_SESSION['idJoueur']);
+        $nbReponsseMauvaise =NombreEnigmeEchoués($_SESSION['idJoueur']);
+        $nbReponsseTotal =NombreEnigmeRepondu($_SESSION['idJoueur']);
+    ?>
         <table>
             <caption>Statistiques</caption>
             <thead>
                 <tr>
-                    <th scope="col">Difficulté</th>
-                    <th scope="col">Restantes</th>
-                    <th scope="col">Résolues</th>
-                    <th scope="col">Caps gagnées</th>
+                    <th scope="col">Questions</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <td>Total</td>
-                    <td>70</td>
-                    <td>60</td>
-                    <td>118</td>
+                    <td><?= $nbReponsseTotal ?></td>
                 </tr>
             </tfoot>
             <tbody>
                 <tr>
-                    <th scope="row">Facile</th>
-                    <td>10</td>
-                    <td>20</td>
-                    <td>30</td>
+                    <th scope="row">Bonne</th>
+                    <td><?= $nbReponsseBonne ?></td>
                 </tr>
                 <tr>
-                    <th scope="row">Moyen</th>
-                    <td>60</td>
-                    <td>30</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <th scope="row">Difficile</th>
-                    <td>90</td>
-                    <td>11</td>
-                    <td>20</td>
+                    <th scope="row">Mauvaise</th>
+                    <td><?= $nbReponsseMauvaise ?></td>
                 </tr>
             </tbody>
         </table>
