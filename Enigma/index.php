@@ -132,7 +132,7 @@ else{
             echo "<script>StartGame();</script>";
             do{
                 $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
-            }while(EnigmeDejaRepondue($idEnigmeAleatoire,$_SESSION['idJoueur']));
+            }while(!EnigmeDejaRepondue($idEnigmeAleatoire,$_SESSION['idJoueur']));
             AfficherEnigme($idEnigmeAleatoire);
             echo "<br><br>";
             echo "<a href='index.php'>Abandonner l'énigme en cours</a>";
