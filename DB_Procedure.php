@@ -1,5 +1,5 @@
-<!-- Fichier Php de tout ce qui concerne la BD -->
 <?php
+//Fichier Php de tout ce qui concerne la BD 
 /* Fonction de connexion */
 /* Doit être appeler en premier dans chaque fonction suivis de global $pdo;*/
 function Connexion()
@@ -1203,7 +1203,7 @@ echo "
     return $reponses;
 
 }
-/*
+
 function AjouterHistorique($reussi,$idJoueur,$idEnigme)
 {
     Connexion();
@@ -1219,7 +1219,7 @@ function AjouterHistorique($reussi,$idJoueur,$idEnigme)
         return $e->getMessage();
     }
     
-}*/
+}
 
 
 

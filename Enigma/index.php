@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();
 require("../DB_Procedure.php");
@@ -38,7 +36,8 @@ else{
 }
 
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -128,16 +127,12 @@ else{
 
             ?>
         </div>
-
-
-    </main>
-
     <?php
-    if (isset($_POST['start'])) {
-        echo "<script>StartGame();</script>";
-
-        ChoisirAléatoirementEnigme();
-    }
+        if (isset($_POST['start'])) {
+            echo "<script>StartGame();</script>";
+            $idEnigmeAleatoire = ChoisirAléatoirementEnigme();
+            AfficherEnigme($idEnigmeAleatoire);
+        }
     ?>
 
     </main>
