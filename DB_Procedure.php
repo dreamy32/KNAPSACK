@@ -1269,7 +1269,7 @@ function NombreEnigmeRepondu($idJoueur){
 
     try
     {
-        $stmt = $pdo->prepare("SELECT COUNT(Enigme_idEnigme) FROM HistoriqueEnigme WHERE Joueurs_IdJoueur = :pIdJoueur;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $pdo->prepare("SELECT COUNT(Joueurs_IdJoueur) FROM HistoriqueEnigme WHERE Joueurs_IdJoueur = :pIdJoueur;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
         $stmt->execute();
         $count = $stmt->fetch(PDO::FETCH_NUM);
