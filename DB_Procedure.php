@@ -1246,7 +1246,41 @@ function EnigmeDejaRepondue($idEnigme,$idJoueur){
     return $hasRepondue;
 }
 
+function NombreEnigmeBD(){  
+    Connexion();
+    global $pdo;
 
+    try
+    {
+        $stmt = $pdo->prepare("SELECT COUNT(idEnigme) FROM Enigme;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->execute();
+        $count = $stmt->fetch(PDO::FETCH_NUM);
+        $stmt->closeCursor();
+    }
+    catch (PDOException $e)
+    {
+        echo $e->getMessage();   
+    }
+    return $count;
+}
+function NombreEnigmeRepondu($idJoueur){  
+    Connexion();
+    global $pdo;
+
+    try
+    {
+        $stmt = $pdo->prepare("SELECT COUNT(Enigme_idEnigme) FROM HistoriqueEnigme WHERE Joueurs_IdJoueur = :pIdJoueur;", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdJoueur', $idJoueur, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->fetch(PDO::FETCH_NUM);
+        $stmt->closeCursor();
+    }
+    catch (PDOException $e)
+    {
+        echo $e->getMessage();   
+    }
+    return $count;
+}
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //         ENIGMA FIN
