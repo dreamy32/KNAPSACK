@@ -9,6 +9,11 @@ if ($_GET['deconnecter'] == 'true') {
     echo "<script>window.location.href='index.php'</script>";
     //header('Location: index.php');
 }
+
+if (!isset($_SESSION['alias']))
+{
+    echo "<script>window.location.href='index.php'</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,14 +52,32 @@ if ($_GET['deconnecter'] == 'true') {
                         En<span>ig</span>Ma
                         <img src="https://www.svgrepo.com/show/98471/question-mark-inside-square.svg"
                             alt="Question Block" style="width: 20px; ">
+
+                            <?php
+
+                        if (isset($_SESSION['alias']))
+                            echo "<span style='color:Orange'>" . $_SESSION['alias'] . "</span>";
+                        if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
+                            echo "<span style='color:Orange'> ~ADMIN~</span>";
+                        }
+                        if (isset($_SESSION['alias']))
+                            echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span>";
+                        ?>
                     </div>
+                    
                 </div>
                 <div id="links">
-                    <a href="">Se connecter</a>
-                    <!-- <a href="">Choisir une énigme</a>
-                    <a href="">Statistiques</a>
-                    <a href="">Se déconnecter</a> -->
-                    <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
+                    <?php
+                    if (isset($_SESSION['alias'])) {
+                        echo "
+                            <a href='index.php' >Choisir une énigme</a>
+                            <a href='stats.php'>Statistiques</a>
+                            <a href='index.php?deconnecter=true'>Se déconnecter</a>
+                            ";
+                    } else
+                        echo "<a href='../login.php?from=enigma'>Se connecter</a>";
+                    ?>
+                    <a href=".."><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
                 </div>
             </div>
 
