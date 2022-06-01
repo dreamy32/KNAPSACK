@@ -67,14 +67,15 @@ else{
                         En<span>ig</span>Ma
                         <img src="https://www.svgrepo.com/show/98471/question-mark-inside-square.svg" alt="Question Block" style="width: 20px; ">
                         <?php
-
+                        echo "<div style='font-size: 50%; '>";
                         if (isset($_SESSION['alias']))
                             echo "<span style='color:Orange'>" . $_SESSION['alias'] . "</span>";
                         if (AfficherInfosJoueur($_SESSION['alias'])[10] == 1) {
                             echo "<span style='color:Orange'> ~ADMIN~</span>";
                         }
                         if (isset($_SESSION['alias']))
-                            echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span>";
+                            echo "<span style='margin-left: 5px'>" . AfficherInfosJoueur($_SESSION['alias'])[1] . " caps </span></div>";
+
                         ?>
                     </div>
                 </div>
@@ -97,7 +98,7 @@ else{
         <!-- Mobile Menu -->
         <div id="mySidenav" class="sidenav">
             <a style="cursor:pointer;" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href=""><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
+            <a href=".."><i class="fa-solid fa-angle-right"></i>&nbsp;KNAPSACK</a>
             <br>
             <?php
             if (isset($_SESSION['alias']))
